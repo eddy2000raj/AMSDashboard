@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="en" ng-app="plunker">
+<head>
+     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+     <meta http-equiv="Pragma" content="no-cache" />
+     <meta http-equiv="Expires" content="0" />
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>SAP Ariba AMS Dashboard</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- The SAP Ariba AMS Dashboard has been modified from the Paper Dashboard template that has been so generously open sourced by Creative Tim!    -->
+<!--
+                                                   
+            88                                    
+            88                                    
+            88                                    
+ ,adPPYYba, 88,dPPYba,     
+""     `Y8  88P'    "8a  
+8PP"""""""  88       d8    
+,adPPPPP88  88b,   ,a8"     
+`"8bbdP"Y8  8Y"Ybbd8"'        
+                                               
+                                         
+Dashboard Template by Ashok Tekkam 
+Programming by Abhinav Mohan
+Credits : Stefan Ruska.
+
+-->
+	
+	   <meta charset="utf-8" />
+    <!-- Bootstrap datepicker CSS     -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="assets/css/animate.min.css" rel="stylesheet" />
+
+    <!--  Paper Dashboard core CSS    -->
+    <link href="assets/css/paper-dashboard.css" rel="stylesheet" />
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css?_=1231233243" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
+    
+    
+    
+
+    <!--  Fonts and icons     -->
+   <!-- <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/themify-icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- [ Start: Select2 support ] ---------------------------------- -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130170778-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130170778-1');
+</script>
+
+<style >
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  /*position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  position the autocomplete items to be the same width as the container:
+  top: 100%;
+  left: 0;
+  right: 0;*/
+  position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+  
+    z-index: 99;
+    top: 87%;
+    left: 15px;
+    right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+  .datepicker {
+      z-index: 1600 !important; /* has to be larger than 1050 */
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /*.datetimepicker{
+      opacity: 1 ;
+      visibility: visible;
+    }*/
+
+    .modalText{
+
+        text-align: right;
+        text-align: -webkit-right;    
+        /*padding-top: 10px;*/
+
+    }
+
+    
+
+    .form-group {
+        margin-bottom: 6px;
+    }
+    .modal-header {
+    
+    min-height: 16.43px;
+    padding: 5px;
+    border-bottom: 0; 
+    }
+
+    hr{
+        padding:0;
+        margin: 0;
+    }
+
+    #invoiceTable_wrapper .dataTables_info{
+          /*  margin: 0 80px; */
+    }
+
+    #myModal .form-control border-input{
+        /* border: 1px solid #EEE; */
+    }
+
+    @media (min-width: 768px){
+
+               #myModal .modal-dialog {
+                    width: 80%;
+                   
+                }
+
+    }
+
+    .select2-hidden-accessible{
+        opacity: 0;
+        width:1% !important;
+    }
+    .select2-container .select2-selection--single{
+      height: 34px;
+      padding-top: 2px;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+      border: 1px solid #ccc;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+      top: 4px;
+    }
+</style>
+
+</head>
+<body>
+
+
+
+<div class="wrapper">
+    <div class="main-panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SAP Ariba AMS Dashboard</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                            <li>
+                            <a href="team.html">
+                                <i class="ti-user"></i>
+								<p>Team</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-href="https://github.wdf.sap.corp/SAPAribaGDS/AMSDashboard/issues" target="_blank">
+                                <i class="ti-user"></i>
+    <p>Report a <span style="color:red;">Bug</span> or <span style="color:#008000;">Enhancement</span ></p>
+                            </a>
+                        </li>
+						<!--  <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-book"></i>
+                                    <p>Contact Us</p>
+                                    <b class="caret"></b>
+                              </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="https://github.wdf.sap.corp/SAPAribaGDS/AMSDashboard/issues" target="_blank" style="color: rgb(0,0,138)" >Click to Report a Bug or Enhancement</a>
+                                </li>
+                               <li>
+                               
+                                    <a href="#" class="popover__wrapper" >
+                                         Contact
+                                          <div>
+                                             <div class="popover__content">
+                                               <img src="./assets/img/contact.png" class="popoverImage">
+                                             </div>
+                                         </div>
+                                      </a>
+                                </li>
+                            </ul>
+                        </li> -->
+					
+						
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-book"></i>
+									<p>Resources</p>
+									<b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="https://jam4.sapjam.com/c/jamatsap.com/wiki/show/BGj22agSAwIRN9u6lbnmuf">Feature Exploration Program</a></li>
+                                <li><a href="http://uk-lonams1.ariba.com:93/Sourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetCSVData?query=SELECT%0D%0A%27%27%27%27+%7C%7C+t.AMVisSRNumber+AS+%22SR+Number%22%2C%0D%0At.AMVisDescription+AS+%22Description%22%2C%0D%0Aacc.AMVisShortName+AS+%22Customer%22%2C%0D%0Aacc.AMVisRegion+AS+%22Customer+Region%22%2C%0D%0At.AMVisContactName+AS+%22Reported+By%22%2C%0D%0At.AMVisStatus+AS+%22Status%22%2C%0D%0At.AMVisSubStatus+AS+%22SubStatus%22%2C%0D%0At.AMVisPriority+AS+%22Priority%22%2C%0D%0At.AMVisSeverity+AS+%22Severity%22%2C%0D%0Au.Name.PrimaryString+AS+%22Assigned+To%22%2C%0D%0Amanager.Name.PrimaryString+AS+%22Assigned+To+Manager%22%2C%0D%0At.AMVisQueue+AS+%22Queue%22%2C%0D%0At.AMVisAssignedTeam+%22Team%22%2C%0D%0AROUND%28t.AMVisTimeOnAriba+%2F+60%29+AS+%22On+Ariba+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnCustomerUpdate+%2F+60%29+AS+%22On+Ariba+Customer+Update+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnCustomer+%2F+60%29+AS+%22On+Customer+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnTSS+%2F+60%29+AS+%22On+TSS+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeToSLA+%2F+60%29+AS+%22Time+To+SLA+%28h%29%22%2C%0D%0ACASE+SIGN%28t.AMVisTimeToSLA%29+WHEN+-1+THEN+FALSE+ELSE+TRUE+END+AS+%22In+SLA%22%2C%0D%0At.AMVisDateCreated+AS+%22Date+Created%22%2C%0D%0At.AMVisDateClosed+AS+%22Date+Closed%22%0D%0AFROM+%0D%0AAMVisTicket+t%0D%0ALEFT+OUTER+JOIN+config.amvis.core.AMVisAccount+acc+USING+t.AMVisAccount%0D%0ALEFT+OUTER+JOIN+ariba.user.core.User+u+USING+t.AMVisAssignedTo%0D%0ALEFT+OUTER+JOIN+ariba.user.core.User+manager+USING+u.Supervisor%0D%0AWHERE%0D%0At.AMVisSRNumber+LIKE+%2700%25%27+AND+%28t.AMVisQueue+IN+%28%27APP_MGMT%27%2C%27APP_MAINT_L3I%27%2C%27APP_MAINT_L3P%27%2C%27APP_MAINT_L2I%27%2C%27APP_MAINT_L2P%27%2C%27APP_MAINT_DEPLOY%27%29++OR+u.Name.PrimaryString+IS+NOT+NULL%29">Tickets.csv</a></li>
+                                
+                                
+                              </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="ti-settings"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+
+                        
+                        
+						
+                       
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="card"  ng-controller="accountTable">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS Customer List</span></h4>
+                                <div>
+                                
+                                <span class="pull-right" style="margin:5px 5px;"><button  class="btn btn-info btn-fill btn-wd"   ng-click="showForm()">Add Customer</button></span>
+                                </div>
+                            </div>
+                             <div class="content table-responsive table-full-width">
+                             <table id="example2" class="table table-responsive table-striped" style="width:100%">
+                             <thead>
+                              <tr>
+                              <th>Customer</th>
+                               <th>Name</th>
+                              
+                               <th>Region</th>
+                               </tr>
+                               </thead>
+                               
+                                </table>
+                                   </div>
+                            
+
+                            </div>
+                        
+                    </div>
+                        <!-- <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned Tickets CategoryWise</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="UTB" class="table table-striped" style="width:100%">
+                                    <thead>
+                                         <th>Customer</th>
+                                        <th>P1</th>
+                                        <th>P2</th>
+                                        <th>P3</th>
+                                        <th>P4</th>                                     
+                                        <th>App Mgmt</th>
+                                        <th>L3I</th>
+                                        <th>L2P</th>
+                                        <th>L3P</th>
+                                        <th>Total</th>
+                                      </thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div> -->
+                    </div>                  
+                </div>
+                <!-- <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-danger text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers text-left">
+                                            <p>Priority 1</p>
+											<span id="P1Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats"">
+                                        <i class="ti-timer"></i> <span id="P1Tile24"> </span> new SR's in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-warning text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Priority 2</p>
+                                            <span id="P2Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> <span id="P2Tile24"> </span> new in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-success text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Priority 3</p>
+                                            <span id="P3Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> <span id="P3Tile24"> </span> new in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-info text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Priority 4</p>
+                                            <span id="P4Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> <span id="P4Tile24"> </span> new in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS SR Count</span></h4>
+                                <p class="category"><span class="text-danger">Customer Region Wise Live</span></p>                              
+                            </div>
+                            <div ng-controller="MainCtrl">
+    
+                           <nvd3 options="options" data="data"></nvd3>
+                         </div>
+                        </div>
+                    </div>
+                </div> -->
+               
+				<!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title"><span class="text-primary">SR Backlog Data</span></h4>
+                                    <p class="category"><span class="text-danger">Last 10 Weeks</span></p>
+
+                                </div>
+                                <div ng-controller="backlog">
+
+                                    <nvd3 options="options" data="data"></nvd3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+               <!--  <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">SR Distribution by Priority</span></h4>
+                                <p class="category"><span class="text-danger">28 Unique Customers</span></p>
+                            </div>
+                            <div class="content">
+                                 <div ng-controller="MainCtrl2">
+    
+                           <nvd3 options="options" data="data"></nvd3>
+                         </div>
+								
+								
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-P1"></i> P1
+                                        <i class="fa fa-circle text-P2"></i> P2
+                                        <i class="fa fa-circle text-P3"></i> P3
+										<i class="fa fa-circle text-P4"></i> P4
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS Customer List</span></h4>
+                                
+                            </div>
+							 <div class="content table-responsive table-full-width">
+							 <table id="example2" class="table table-responsive table-striped" style="width:100%">
+                             <thead>
+                              <tr>
+							  <th>Customer</th>
+                               <th>Name</th>
+                              
+                               <th>Region</th>
+                               </tr>
+                               </thead>
+                               
+                                </table>
+				                   </div>
+                            
+
+                            </div>
+                        </div>
+                    </div> -->					
+                </div>
+               <!--  <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Open Tickets</span></h4>
+                                
+                            </div>
+							<div class="content table-responsive table-full-width">
+                           <table id="example" class="table table-striped" style="width:100%">
+                           <thead>
+                           <tr>
+                            <th>SR Number</th>
+                            <th>Account</th>
+                            <th>Description</th>
+				            <th>Priority</th>
+				            <th>SubStatus</th>
+				            <th>LastActivity</th>
+				            <th>TicketCreateDate</th>
+							<th>NoOfEmails</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                            </table>
+                           </div>
+                            </div>
+                        </div>
+                    </div> -->					
+                </div>				
+              <!--   <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Tickets with no Traction for more than 20 days</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="example4" class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Customer</th>
+                                    	<th>Assigned To</th>
+										
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div> -->
+				
+				<!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Tickets in Customer Update Status</span></h4>
+								<p class="category"><span class="text-danger">More than 4 days</span></p>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="CustomerUpdateTable" class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Customer</th>
+                                    	<th>Assigned To</th>
+										<th>Team Location</th>
+                                    	<th>Description</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div> -->
+				
+				<!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned Tickets By Customer</span></h4>
+								<p class="category"><span class="text-danger"></span></p>
+								<p class="category"><span class="text-danger">P2 > 2 days,P3 > 5 days,P4 > 7 days</span></p>
+							
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="UTBC" class="table table-striped" style="width:100%">
+                                    <thead>
+                                         <th>SR#</th>
+                                    	<th>Customer</th>
+                                    	<th>Queue</th>
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>										
+                                    	<th>Pending # Days</th>                                    	
+									  </thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div> -->
+				<!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned Tickets CategoryWise</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="UTB" class="table table-striped" style="width:100%">
+                                    <thead>
+                                         <th>Customer</th>
+                                    	<th>P1</th>
+                                    	<th>P2</th>
+                                    	<th>P3</th>
+                                    	<th>P4</th>										
+                                    	<th>App Mgmt</th>
+                                    	<th>L3I</th>
+										<th>L2P</th>
+										<th>L3P</th>
+										<th>Total</th>
+									  </thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div> -->
+				<!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS Ticket Closure Stats 2019</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="CTS" class="table table-striped" style="width:100%">
+                                     <thead class="text-center">
+                                        <th>Customer Name</th>									
+                                    	<th>Jan</th>
+										<th>Feb</th>
+										<th>Mar</th>
+										<th>Apr</th>
+										<th>May</th>
+										<th>Jun</th>
+										<th>Jul</th>
+										<th>Aug</th>
+										<th>Sep</th>
+										<th>Oct</th>
+										<th>Nov</th>
+										<th>Dec</th>
+										<th>Q1</th>
+										<th>Q2</th>
+										<th>Q3</th>
+										<th>Q4</th>
+										<th>Total</th>
+									</thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div> -->
+				
+				<!-- <div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="header">
+								<h4 class="title"><span class="text-primary">NPS Scores</span></h4>
+								<p class="category"><span class="text-danger">Sent out twice a year</span></p>
+							</div>
+							<div class="content table-responsive table-full-width">
+								<table class="table table-striped">
+									<thead class="text-center">
+										<th>Year</th>
+										<th>Period</th>
+										<th>AMS</th>
+										<th>Non AMS</th>
+									
+									</thead>
+									<tbody>
+										<tr class="text-center">
+											<td>2017</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>										
+										</tr>
+										<tr class="text-center">
+											<td>2016</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>	
+										</tr>
+										<tr class="text-center">
+											<td>2016</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>	
+										</tr>
+										<tr class="text-center">
+											<td>2016</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>	
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned SRs </span></h4>
+                                <p class="category"><span class="text-danger">Distributed in various Queues</span></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="Poss" class="table table-striped">
+                                    <thead class="text-center">
+                                        <th>Category</th>
+                                    	<th>App Mgmt</th>
+                                    	<th>L2P</th>
+                                    	<th>L3P</th>
+                                    	<th>L3I</th>      								
+                                    </thead>
+                                    <tbody>									
+                                    </tbody>
+                                </table>
+								
+                            </div>
+                        </div>
+                    </div>						
+				</div>					
+            </div>
+        </div>
+ -->
+		
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+
+                        <li>
+                            <a href="http://www.ariba.com">
+                                SAP Ariba
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.ariba.com/solutions/innovations">
+                               Innovations
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.ariba.com/about/procure-with-purpose">
+                                Procurement With Purpose
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+				<div class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by the SAP Ariba AMS Team
+                </div>
+            </div>
+        </footer>
+
+
+    </div>
+</div>
+
+<!------modal code here--->
+   
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" ng-controller="saveCustomerController">
+      <form name="customerInfoForm" id="customerInfoForm" novalidate>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel" style="text-align: center;">Customer Information</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+             <div class="col-md-3 modalText"><strong>Unique Name</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <input  name="AMVisUniqueName" type="text" class="form-control border-input"  
+                    ng-pattern="/[1-9]{1}[0-9]{9}/" required></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>Name</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisName" type="text" class="form-control border-input " ></div>
+              </div>
+          
+              <div class="col-md-3 modalText"><strong>Short Name</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input  name="AMVisShortName" type="text" class="form-control border-input " ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>Region</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisRegion" type="text" class="form-control border-input " ></div>
+              </div>
+          
+              <div class="col-md-3 modalText"><strong>Sales Order</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisSalesOrders" type="text" class="form-control border-input " ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>CRM ID</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisCRMID" type="text" class="form-control border-input " ></div>
+              </div>
+          
+              <div class="col-md-3 modalText"><strong>Customer Category</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisCustomerCategory" type="text" class="form-control border-input border-input" ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>PM</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <!-- <input id="AMVisPM" name="AMVisPM" type="text" class="form-control border-input" > -->
+                    <select class="form-control border-input" id="AMVisPM" name="AMVisPM[]" multiple="multiple"  >
+                    </select>
+                </div>
+              </div>
+          
+              <div class="col-md-3 modalText"><strong>SO ProjectId</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <input name="AMVisSOProjectId" type="text" class="form-control border-input " ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>PME</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><!-- <input id="AMVisPME" name="AMVisPME" type="text" class="form-control border-input" > -->
+                    <select class="form-control border-input" id="AMVisPME" name="AMVisPME[]" multiple="multiple"  >
+                    </select>
+                </div>
+              </div>
+          
+              <div class="col-md-3 modalText"><strong>TCV</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisTCV" type="text" class="form-control border-input" ></div>
+              </div>
+
+               
+              <div class="col-md-3 modalText"><strong>Start Date</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input id="AMVisStartDate" name="AMVisStartDate" type="text" class="form-control border-input" ></div>
+              </div>
+
+               <div class="col-md-3 modalText"><strong>NPS Survey</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisNPSSurvey" type="text" class="form-control border-input" ></div>
+              </div>
+
+               <div class="col-md-3 modalText"><strong>VOC Survey</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisVOCSurvey" type="text" class="form-control border-input" ></div>
+              </div>
+
+               <div class="col-md-3 modalText"><strong>Weekly Call</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisWeeklyCall" type="text" class="form-control border-input" ></div>
+              </div>
+
+               <div class="col-md-3 modalText"><strong>Report Generated</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisReportGenerated" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>SR UpdateNeedBy</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisSRUpdateNeedBy" type="text" class="form-control border-input" ></div>
+              </div>
+
+
+              <div class="col-md-3 modalText"><strong>Net NPS</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input value="0.00" name="AMVisNetNPS" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Net VOC</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input value="0.00" name="AMVisNetVOC" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Active AMS</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    
+                    <label class="radio" >Yes
+                      <input type="radio" name="AMVisActiveAMS" value="true">
+                    </label>
+                    <label class="radio checked">No
+                      <input type="radio" name="AMVisActiveAMS" value="false">
+                    </label>
+                </div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Full AMS</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    
+                     <label class="radio" >Yes
+                      <input type="radio" name="AMVisFullAMS" value="true">
+                    </label>
+                    <label class="radio checked">No
+                      <input type="radio" name="AMVisFullAMS" value="false">
+                    </label>
+
+                </div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Active Contract</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    
+                    <label class="radio" >Yes
+                      <input type="radio" name="AMVisActiveContract" value="true">
+                    </label>
+                    <label class="radio checked">No
+                      <input type="radio" name="AMVisActiveContract" value="false">
+                    </label>
+                </div>
+              </div>
+              <div class="col-md-3 modalText"><strong>InPipeline</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                 
+                    <label class="radio" >Yes
+                      <input type="radio" name="AMVisInPipeline" value="true">
+                    </label>
+                    <label class="radio checked">No
+                      <input type="radio" name="AMVisInPipeline" value="false">
+                    </label>
+                </div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Survey Period</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisSurveyPeriod" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Instance Type</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisInstanceType" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Modules</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisModules" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Customer Notes</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisCustomerNotes" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>Category</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisCategory" type="text" class="form-control border-input" ></div>
+              </div>
+              <div class="col-md-3 modalText"><strong>AMS SupportStarted</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisAMSSupportStarted" type="text" class="form-control border-input" ></div>
+              </div>
+
+              
+              <div class="col-md-3 modalText"><strong>Customer StartDate</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input id="AMVisCustomerStartDate"  name="AMVisCustomerStartDate" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>Customer AMS Terminated Date</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input  id="AMVisCustomerAMSTerminatedDate" name="AMVisCustomerAMSTerminatedDate" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>Termination Reason</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisTerminationReason" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>Customer ActiveOrInActive</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                   
+                     <label class="radio" >Yes
+                      <input type="radio" name="AMVisCustomerActiveOrInActive" value="true">
+                    </label>
+                    <label class="radio checked">No
+                      <input type="radio" name="AMVisCustomerActiveOrInActive" value="false">
+                    </label>
+                </div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>OnPOrOnD</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisOnPOrOnD" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <div class="col-md-3 modalText"><strong>Customer Type</strong></div>
+              <div class="col-md-3">
+                <div class="form-group"><input name="AMVisCustomerType" type="text" class="form-control border-input" ></div>
+              </div>
+
+
+          
+              <div class="col-md-3 modalText"><strong>BCP ID</strong></div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <input name="bpcid" type="text" class="form-control border-input" >
+                </div>
+              </div>
+         
+            
+               <div class="col-md-3 modalText"><strong>Contract Length</strong></div>
+               <div class="col-md-3">
+                 <div class="form-group"><input  name="contractlength" type="text"  class="form-control border-input" /></div>
+               </div>
+        
+            <div class="col-md-3 modalText"><strong>AMS Customer Support Tier Level</strong></div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <select class="form-control border-input" name="AMVisCustomerSupportTierLevel">
+                      <option value="basic">Basic</option>
+                      <option value="enhanced">Enhanced</option>
+                      <option value="enterprise">Enterprise</option>
+                      
+                    </select>
+                </div>
+            </div> 
+            <div class="col-md-3 modalText">
+                <strong>CEX</strong>
+            </div>
+         
+            <div class="col-md-3">
+               <div class="form-group">
+                <input type="text" class="form-control border-input" name="AMVisCEX">
+               </div>
+            </div>
+          
+            <div class="col-md-3 modalText"><strong>Preferred Care Contact (if applicable)</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisPreferredCareContact">
+            </div></div>
+
+            <div class="col-md-3 modalText"><strong>Scope of Preferred Care</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisPreferredCareScope">
+            </div></div>
+
+            <div class="col-md-3 modalText"><strong>Solutions In-Scope</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisSolutionsInScope">
+            </div></div>
+
+            <div class="col-md-3 modalText"><strong>ERP</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisERP">
+            </div></div>
+
+            <div class="col-md-3 modalText"><strong>FPC</strong></div>
+            <div class="col-md-3">
+                <!-- <div class="form-group"><input type="text" class="form-control border-input" name="AMVisFPC">
+                </div> -->
+                <div class="form-group">
+                   
+                     <label class="radio" >Yes
+                      <input type="radio" name="AMVisFPC" value="true">
+                    </label>
+                    <label class="radio checked">No
+                      <input type="radio" name="AMVisFPC" value="false">
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-3 modalText"><strong>Data Center</strong></div>
+            <div class="col-md-3">
+               <div class="form-group">
+                    <select class="form-control border-input" name="AMVisDataCenter">
+                       <option value="US">US</option>
+                       <option value="EU">EU</option>
+                       <option value="RU">RU</option>
+                       <option value="CN">CN</option>
+                       <option value="UAE">UAE</option>
+                       <option value="KSA">KSA</option>
+                       <option value="Prod3">Prod3</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-md-3 modalText"><strong>Realm Name(s)</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisRealmName">
+            </div></div>
+            
+            <div class="col-md-3 modalText"><strong>Customer specific processes, documentation</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisCustomerspecificProcess">
+            </div></div>
+
+            <div class="col-md-3 modalText"><strong>Customer DSC’s</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisCustomerDSC">
+            </div></div>
+            
+            <!-- <div class="col-md-3 modalText"><strong>AMS Project Manager</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="annualContractValue">
+            </div></div>
+            
+            <div class="col-md-3 modalText"><strong>AMS PM (Backup)</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="annualContractValue">
+            </div></div> -->
+            
+            <div class="col-md-3 modalText"><strong>Weekly meeting date/time</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" id="AMVisWeeklyMeetingDayAndTime" name="AMVisWeeklyMeetingDayAndTime" ng-click="showTimer()">
+            </div></div>
+           
+           <div class="col-md-3 modalText"><strong>AMS Customer Shared Mailbox</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisAMSSharedMailBox">
+            </div></div>
+
+            <div class="col-md-3 modalText"><strong>Key AMS experts with customer-specific knowledge</strong></div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <!-- <input type="text" class="form-control border-input" name="AMVisKeyAMSExperts"> -->
+                    <select class="form-control border-input" id="AMVisKeyAMSExperts" name="AMVisKeyAMSExperts[]" multiple="multiple"  >
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-md-3 modalText"><strong>AMS monitoring</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisAMSMonitoring">
+            </div></div>
+            
+             <div class="col-md-3 modalText"><strong> Deployment JAM Page (if applicable)</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisDeploymentJamPage">
+            </div></div>
+            
+            <div class="col-md-3 modalText"><strong> Additional Customer Contacts</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisAdditionalCustomerContact">
+            </div></div>
+           
+           <div class="col-md-3 modalText"><strong> Comments / Notes</strong></div>
+            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisCommentsOrNotes">
+            </div></div>    
+            
+          </div>
+        </div>
+    </div>
+  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info btn-fill" 
+        ng-disabled="customerInfoForm.$dirty && customerInfoForm.$invalid" ng-click="submit($event)">Save</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- Trigger the modal with a button -->
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+<!-- Modal -->
+<div id="successPage" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <p>Customer Saved Successfully</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+
+   <!--   Core JS Files   -->
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<!--  Charts Plugin -->
+<script src="assets/js/chartist.min.js"></script>
+
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="assets/js/paper-dashboard.js"></script>
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/js/demo.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
+
+	<script src="assets/js/finance.js"></script>
+	
+
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+
+            $.notify({
+                icon: 'ti-gift',
+                message: "Welcome to the <b>AMS Dashboard</b>! Designed to make managing AMS projects simple and easy!"
+
+            },{
+                type: 'success',
+                timer: 4000
+            });
+    	});
+	</script>	
+</html>
