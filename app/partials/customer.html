@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Amgen, Inc</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- The SAP Ariba AMS Dashboard has been modified from the Paper Dashboard template that has been so generously open sourced by Creative Tim!    -->
+	<!-- https://www.creative-tim.com/product/paper-dashboard  -->	
+	
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Paper Dashboard core CSS    -->
+    <link href="assets/css/paper-dashboard.css" rel="stylesheet"/>
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+    <!--  Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">	
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/themify-icons.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="main-panel">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="customer.html">Amgen, Inc</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="main-switchboard.html">
+                                <i class="ti-panel"></i>
+								<p>AMS Switchboard</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="user-dashboard.html">
+                                <i class="ti-user"></i>
+								<p>Team Dashboard</p>
+                            </a>
+                        </li>						
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-bell"></i>
+                                    <p class="notification">5</p>
+									<p>Notifications</p>
+									<b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">5 SR's need customer update today</a></li>
+                                <li><a href="#">Received Update from TSS for SR 10298393</a></li>
+                                <li><a href="#">Amgen HF Go-live this weekend</a></li>
+                                <li><a href="#">3 SR's pending with TSS for over 8 days</a></li>
+                                <li><a href="#">Abhinav - awesome job deploying this template!</a></li>
+                              </ul>
+                        </li>
+						<li>
+                            <a href="#">
+								<i class="ti-settings"></i>
+								<p>Settings</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="main-switchboard.html">
+                                <i class="ti-panel"></i>
+                                <div class="popover__wrapper">
+                                  <a href="#">
+                                    <h2 class="popover__title">Hover:me</h2>
+                                  </a>
+                                  <div class="popover__content">
+                                    <p class="popover__message">Ahmed M Shahabaz</p>
+                                    <p class="popover__message">Ahmed M Shahabaz </p>
+                                    
+                                  </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+						<h2 class="text-danger text-center">Amgen, Inc</h2>
+					</div>
+				</div>	
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="header">
+								<div class="row">
+								  <div class="col-md-4">								
+									<h4 class="title"><span class="text-primary">Project Manager: </span></h4>
+								  </div>
+								  <div class="col-md-8">	
+									<h4 class="title"><span class="text-danger" id="pmName"></span></h4>
+								  </div>	
+								</div>
+                            </div>
+                            <div class="content">
+								<div class="row">
+								  <div class="col-md-4">								
+									<h5 class="title"><span class="text-primary">Weekly Calls: </span></h5>					
+								  </div>
+								  <div class="col-md-8">	
+									<h5 class="title"><span class="text-danger">Thursdays, 10 AM EST</span></h5>
+								  </div>	
+								</div>							
+								<div class="row">
+								  <div class="col-md-4">								
+									<h5 class="title"><span class="text-primary">Report Generated: </span></h5>					
+								  </div>
+								  <div class="col-md-8">	
+									<h5 class="title"><span class="text-danger">Wednesdays, 6 PM EST</span></h5>
+								  </div>	
+								</div>
+								<div class="row">
+								  <div class="col-md-4">								
+									<h5 class="title"><span class="text-primary">SR Updates Needed by: </span></h5>
+								  </div>
+								  <div class="col-md-8">	
+									<h5 class="title"><span class="text-danger">Wednesdays, 5 PM EST</span></h5>
+								  </div>	
+								</div>									
+								<div class="row">
+								  <div class="col-md-4">								
+									<h5 class="title"><span class="text-primary">VOC YTD Score: </span></h5>
+								  </div>
+								  <div class="col-md-8">	
+									<h5 class="title"><span class="text-danger">9.2</span></h5>
+								  </div>	
+								</div>									
+								<div class="row">
+								  <div class="col-md-4">								
+									<h5 class="title"><span class="text-primary">NPS YTD Score: </span></h5>
+								  </div>
+								  <div class="col-md-8">	
+									<h5 class="title"><span class="text-danger">8</span></h5>
+								  </div>	
+								</div>
+								<div class="row">
+								  <div class="col-md-4">								
+									<h5 class="title"><span class="text-primary">SAP CRM Vendor Id: </span></h5>
+								  </div>
+								  <div class="col-md-8">	
+									<h5 class="title"><span class="text-danger">8558258</span></h5>
+								  </div>	
+								</div>								
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-5">
+                        <div class="card">
+                            <div class="header">
+								<div class="row">
+								  <div class="col-md-9">
+									<div class="progress">
+									  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0"
+									  aria-valuemin="0" aria-valuemax="100" style="width:0%">
+										P1
+									  </div>
+									</div>
+								  </div>
+								  <div class="col-md-3">
+									<p><strong><span id="p1-count">0</span>&nbsp; P1</strong></p>
+								  </div>
+								</div>
+								<div class="row">
+								  <div class="col-md-9">
+									<div class="progress">
+									  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="30"
+									  aria-valuemin="0" aria-valuemax="100" style="width:30%">	
+										30
+									  </div>
+									</div>
+								  </div>
+								  <div class="col-md-3">
+									<p><strong><span id="p2-count">30</span>&nbsp; P2</strong></p>
+								  </div>
+								</div>	
+								<div class="row">
+								  <div class="col-md-9">
+									<div class="progress">
+									  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80"
+									  aria-valuemin="0" aria-valuemax="100" style="width:80%">	
+										80
+									  </div>
+									</div>
+								  </div>
+								  <div class="col-md-3">
+									<p><strong><span id="p3-count">30</span>&nbsp; P3</strong></p>
+								  </div>
+								</div>									
+								<div class="row">
+								  <div class="col-md-9">
+									<div class="progress">
+									  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
+									  aria-valuemin="0" aria-valuemax="100" style="width:80%">	
+										80
+									  </div>
+									</div>
+								  </div>
+								  <div class="col-md-3">
+									<p><strong><span id="p4-count">30</span>&nbsp; P4</strong></p>
+								  </div>
+								</div>								
+                            </div>
+                            <div class="content">
+                                <div class="footer">
+                                    <hr />
+									<h5 class="title text-right">Total: <span id="sr-count">89</span> SR's Open</h5>
+                                </div>								
+							</div>
+						</div>
+					</div>
+                </div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="card">
+							<div class="header">
+								<h1 class="title text-center">163</h1>
+							</div>
+							<div class="content table-responsive table-full-width">
+								<p class="lead text-center text-success"> Total SR's - 12 Months</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="header">
+								<h1 class="title text-center">24</h1>
+							</div>
+							<div class="content table-responsive table-full-width">
+								<p class="lead text-center text-success"> Total Open Last 30 days</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="header">
+								<h1 class="title text-center">63</h1>
+							</div>
+							<div class="content table-responsive table-full-width">
+								<p class="lead text-center text-success"> Total SR's Closed Last 30 Days</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="header">
+								<h1 class="title text-center">76</h1>
+							</div>
+							<div class="content table-responsive table-full-width">
+								<p class="lead text-center text-danger"> SR's Pending AMS Action</p>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">SR Backlog Data</span></h4>
+                                <p class="category"><span class="text-danger">24 Hours performance</span></p>								
+                            </div>
+                            <div class="content">
+                                <div id="chartActivity" class="ct-chart"></div>
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Priority 1
+                                        <i class="fa fa-circle text-danger"></i> Priority 2
+                                        <i class="fa fa-circle text-warning"></i> Priority 3
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>		
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">SLA Compliance</span></h4>
+                                <p class="category"><span class="text-danger">Last 30 Days</span></p>								
+                            </div>
+                            <div class="content">
+                                <div id="chartSLACompliance" class="ct-chart"></div>
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Priority 1
+                                        <i class="fa fa-circle text-danger"></i> Priority 2
+                                        <i class="fa fa-circle text-warning"></i> Priority 3
+                                        <i class="fa fa-circle text-primary"></i> Priority 4										
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Weekly Trend Analysis</span></h4>
+                                <p class="category"><span class="text-danger">Last 30 Days</span></p>								
+                            </div>
+                            <div class="content">
+                                <div id="chartWeeklyTrendAnalysis" class="ct-chart chartWeeklyTrendAnalysis"></div>
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Priority 1
+                                        <i class="fa fa-circle text-danger"></i> Priority 2
+                                        <i class="fa fa-circle text-warning"></i> Priority 3
+                                        <i class="fa fa-circle text-primary"></i> Priority 4										
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">SLA Compliance</span></h4>
+                                <p class="category"><span class="text-danger">Last 30 Days</span></p>								
+                            </div>
+                            <div class="content">
+                                <div id="chartWeeklyTrendAnalysisx2" class="ct-chart chartWeeklyTrendAnalysis"></div>
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Priority 1
+                                        <i class="fa fa-circle text-danger"></i> Priority 2
+                                        <i class="fa fa-circle text-warning"></i> Priority 3
+                                        <i class="fa fa-circle text-primary"></i> Priority 4										
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Average SR Close time</span></h4>
+                                <p class="category"><span class="text-danger">Last 30 Days</span></p>								
+                            </div>
+                            <div class="content">
+                                <div id="chartWeeklyTrendAnalysisx1" class="ct-chart chartWeeklyTrendAnalysis"></div>
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Priority 1
+                                        <i class="fa fa-circle text-danger"></i> Priority 2
+                                        <i class="fa fa-circle text-warning"></i> Priority 3
+                                        <i class="fa fa-circle text-primary"></i> Priority 4										
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>					
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Tickets with AMS</span></h4>
+                                <p class="category"><span class="text-danger">Total Count: 15</span></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-striped table-filter">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Assigned To</th>
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+										<th>Status</th>										
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Samir Sato</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>		
+											<td>Research</td>												
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Samir Sato</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>	
+											<td>Research</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Samir Sato</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>	
+											<td>Research</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Samir Sato</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>	
+											<td>Research</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Samir Sato</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>	
+											<td>Research</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Samir Sato</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>	
+											<td>Research</td>											
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>	                
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Tickets with Commerce Support/TSS</span></h4>
+                                <p class="category"><span class="text-danger">Total Count: 39</span></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-striped table-filter">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Assigned To</th>
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Nathaniel Morrison</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Nathaniel Morrison</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Nathaniel Morrison</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Nathaniel Morrison</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Nathaniel Morrison</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Nathaniel Morrison</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Inactive AMS Tickets</span></h4>
+                                <p class="category"><span class="text-danger">Total Count: 39</span></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-striped table-filter">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Customer</th>
+                                    	<th>Assigned To</th>
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Amgen, Inc</td>
+                                        	<td>Stefan Ruska</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Amgen, Inc</td>
+                                        	<td>Stefan Ruska</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Amgen, Inc</td>
+                                        	<td>Stefan Ruska</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Amgen, Inc</td>
+                                        	<td>Stefan Ruska</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Amgen, Inc</td>
+                                        	<td>Stefan Ruska</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                        <tr>
+                                        	<td><a href="#">189022822852</a></td>
+                                        	<td>Amgen, Inc</td>
+                                        	<td>Stefan Ruska</td>
+                                        	<td>Pending Customer Input</td>
+                                        	<td>Priority 1</td>
+                                        	<td>42</td>											
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>				
+			</div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+
+                        <li>
+                            <a href="http://www.ariba.com">
+                                SAP Ariba
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.ariba.com/solutions/innovations">
+                               Innovations
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.ariba.com/about/procure-with-purpose">
+                                Procurement With Purpose
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+				<div class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by the SAP Ariba AMS Team
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+	
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>	
+
+	<!--  Charts Plugin -->
+	<script src="assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+	<script src="assets/js/paper-dashboard.js"></script>
+
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+        	demo.initChartist();
+			$(".table-filter").dataTable();
+    	});
+	</script>		
+
+</html>

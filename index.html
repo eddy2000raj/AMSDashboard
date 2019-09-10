@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en" ng-app="plunker">
+<head>
+     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+     <meta http-equiv="Pragma" content="no-cache" />
+     <meta http-equiv="Expires" content="0" />
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>SAP Ariba AMS Dashboard</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- The SAP Ariba AMS Dashboard has been modified from the Paper Dashboard template that has been so generously open sourced by Creative Tim!    -->
+<!--
+                                                   
+            88                                    
+            88                                    
+            88                                    
+ ,adPPYYba, 88,dPPYba,     
+""     `Y8  88P'    "8a  
+8PP"""""""  88       d8    
+,adPPPPP88  88b,   ,a8"     
+`"8bbdP"Y8  8Y"Ybbd8"'        
+                                               
+                                         
+Dashboard Template by Ashok Tekkam 
+Programming by Abhinav Mohan
+Credits : Stefan Ruska.
+
+-->
+	
+	   <meta charset="utf-8" />
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"/>    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Paper Dashboard core CSS    -->
+    <link href="assets/css/paper-dashboard.css" rel="stylesheet"/>
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css?_=1231" rel="stylesheet" />
+
+    <!--  Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+	
+	<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/themify-icons.css" rel="stylesheet">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130170778-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130170778-1');
+</script>
+
+</head>
+<body>
+
+
+
+<div class="wrapper">
+    <div class="main-panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SAP Ariba AMS Dashboard</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                            <li>
+                            <a href="team.html">
+                                <i class="ti-user"></i>
+								<p>Team</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-href="https://github.wdf.sap.corp/SAPAribaGDS/AMSDashboard/issues" target="_blank">
+                                <i class="ti-user"></i>
+    <p>Report a <span style="color:red;">Bug</span> or <span style="color:#008000;">Enhancement</span ></p>
+                            </a>
+                        </li>
+						<!--  <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-book"></i>
+                                    <p>Contact Us</p>
+                                    <b class="caret"></b>
+                              </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="https://github.wdf.sap.corp/SAPAribaGDS/AMSDashboard/issues" target="_blank" style="color: rgb(0,0,138)" >Click to Report a Bug or Enhancement</a>
+                                </li>
+                               <li>
+                               
+                                    <a href="#" class="popover__wrapper" >
+                                         Contact
+                                          <div>
+                                             <div class="popover__content">
+                                               <img src="./assets/img/contact.png" class="popoverImage">
+                                             </div>
+                                         </div>
+                                      </a>
+                                </li>
+                            </ul>
+                        </li> -->
+					
+						
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-book"></i>
+									<p>Resources</p>
+									<b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="https://jam4.sapjam.com/c/jamatsap.com/wiki/show/BGj22agSAwIRN9u6lbnmuf">Feature Exploration Program</a></li>
+                                <li><a href="http://uk-lonams1.ariba.com:93/Sourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetCSVData?query=SELECT%0D%0A%27%27%27%27+%7C%7C+t.AMVisSRNumber+AS+%22SR+Number%22%2C%0D%0At.AMVisDescription+AS+%22Description%22%2C%0D%0Aacc.AMVisShortName+AS+%22Customer%22%2C%0D%0Aacc.AMVisRegion+AS+%22Customer+Region%22%2C%0D%0At.AMVisContactName+AS+%22Reported+By%22%2C%0D%0At.AMVisStatus+AS+%22Status%22%2C%0D%0At.AMVisSubStatus+AS+%22SubStatus%22%2C%0D%0At.AMVisPriority+AS+%22Priority%22%2C%0D%0At.AMVisSeverity+AS+%22Severity%22%2C%0D%0Au.Name.PrimaryString+AS+%22Assigned+To%22%2C%0D%0Amanager.Name.PrimaryString+AS+%22Assigned+To+Manager%22%2C%0D%0At.AMVisQueue+AS+%22Queue%22%2C%0D%0At.AMVisAssignedTeam+%22Team%22%2C%0D%0AROUND%28t.AMVisTimeOnAriba+%2F+60%29+AS+%22On+Ariba+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnCustomerUpdate+%2F+60%29+AS+%22On+Ariba+Customer+Update+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnCustomer+%2F+60%29+AS+%22On+Customer+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnTSS+%2F+60%29+AS+%22On+TSS+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeToSLA+%2F+60%29+AS+%22Time+To+SLA+%28h%29%22%2C%0D%0ACASE+SIGN%28t.AMVisTimeToSLA%29+WHEN+-1+THEN+FALSE+ELSE+TRUE+END+AS+%22In+SLA%22%2C%0D%0At.AMVisDateCreated+AS+%22Date+Created%22%2C%0D%0At.AMVisDateClosed+AS+%22Date+Closed%22%0D%0AFROM+%0D%0AAMVisTicket+t%0D%0ALEFT+OUTER+JOIN+config.amvis.core.AMVisAccount+acc+USING+t.AMVisAccount%0D%0ALEFT+OUTER+JOIN+ariba.user.core.User+u+USING+t.AMVisAssignedTo%0D%0ALEFT+OUTER+JOIN+ariba.user.core.User+manager+USING+u.Supervisor%0D%0AWHERE%0D%0At.AMVisSRNumber+LIKE+%2700%25%27+AND+%28t.AMVisQueue+IN+%28%27APP_MGMT%27%2C%27APP_MAINT_L3I%27%2C%27APP_MAINT_L3P%27%2C%27APP_MAINT_L2I%27%2C%27APP_MAINT_L2P%27%2C%27APP_MAINT_DEPLOY%27%29++OR+u.Name.PrimaryString+IS+NOT+NULL%29">Tickets.csv</a></li>
+                                
+                                
+                              </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="ti-settings"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+
+                        
+                        
+						
+                       
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-danger text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers text-left">
+                                            <p>Priority 1</p>
+											<span id="P1Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats"">
+                                        <i class="ti-timer"></i> <span id="P1Tile24"> </span> new SR's in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-warning text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Priority 2</p>
+                                            <span id="P2Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> <span id="P2Tile24"> </span> new in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-success text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Priority 3</p>
+                                            <span id="P3Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> <span id="P3Tile24"> </span> new in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-info text-center">
+                                            <i class="ti-ticket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Priority 4</p>
+                                            <span id="P4Tile"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> <span id="P4Tile24"> </span> new in the last 24 hours
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS SR Count</span></h4>
+                                <p class="category"><span class="text-danger">Customer Region Wise Live</span></p>                              
+                            </div>
+                            <div ng-controller="MainCtrl">
+    
+                           <nvd3 options="options" data="data"></nvd3>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+               
+				<div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title"><span class="text-primary">SR Backlog Data</span></h4>
+                                    <p class="category"><span class="text-danger">Last 10 Weeks</span></p>
+
+                                </div>
+                                <div ng-controller="backlog">
+
+                                    <nvd3 options="options" data="data"></nvd3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">SR Distribution by Priority</span></h4>
+                                <!--<p class="category"><span class="text-danger">28 Unique Customers</span></p>-->
+                            </div>
+                            <div class="content">
+                                 <div ng-controller="MainCtrl2">
+    
+                           <nvd3 options="options" data="data"></nvd3>
+                         </div>
+								
+								
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-P1"></i> P1
+                                        <i class="fa fa-circle text-P2"></i> P2
+                                        <i class="fa fa-circle text-P3"></i> P3
+										<i class="fa fa-circle text-P4"></i> P4
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS Customer List</span></h4>
+                                
+                            </div>
+							 <div class="content table-responsive table-full-width">
+							 <table id="example2" class="table table-responsive table-striped" style="width:100%">
+                             <thead>
+                              <tr>
+							  <th>Customer</th>
+                               <th>Name</th>
+                              
+                               <th>Region</th>
+                               </tr>
+                               </thead>
+                               
+                                </table>
+				                   </div>
+                            
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Open Tickets</span></h4>
+                                
+                            </div>
+							<div class="content table-responsive table-full-width">
+                           <table id="example" class="table table-striped" style="width:100%">
+                           <thead>
+                           <tr>
+                            <th>SR Number</th>
+                            <th>Account</th>
+                            <th>Description</th>
+				            <th>Priority</th>
+				            <th>SubStatus</th>
+				            <th>LastActivity</th>
+				            <th>TicketCreateDate</th>
+							<th>NoOfEmails</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                            </table>
+                           </div>
+                            </div>
+                        </div>
+                    </div>					
+                </div>				
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Tickets with no Traction for more than 20 days</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="example4" class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Customer</th>
+                                    	<th>Assigned To</th>
+										
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+				
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Tickets in Customer Update Status</span></h4>
+								<p class="category"><span class="text-danger">More than 4 days</span></p>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="CustomerUpdateTable" class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <th>SR #</th>
+                                    	<th>Customer</th>
+                                    	<th>Assigned To</th>
+										<th>Team Location</th>
+                                    	<th>Description</th>
+                                    	<th>SR Priority</th>
+                                    	<th>Pending # Days</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+				
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned Tickets By Customer</span></h4>
+								<p class="category"><span class="text-danger"></span></p>
+								<p class="category"><span class="text-danger">P2 > 2 days,P3 > 5 days,P4 > 7 days</span></p>
+							
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="UTBC" class="table table-striped" style="width:100%">
+                                    <thead>
+                                         <th>SR#</th>
+                                    	<th>Customer</th>
+                                    	<th>Queue</th>
+                                    	<th>SR Status</th>
+                                    	<th>SR Priority</th>										
+                                    	<th>Pending # Days</th>                                    	
+									  </thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned Tickets CategoryWise</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="UTB" class="table table-striped" style="width:100%">
+                                    <thead>
+                                         <th>Customer</th>
+                                    	<th>P1</th>
+                                    	<th>P2</th>
+                                    	<th>P3</th>
+                                    	<th>P4</th>										
+                                    	<th>App Mgmt</th>
+                                    	<th>L3I</th>
+										<th>L2P</th>
+										<th>L3P</th>
+										<th>Total</th>
+									  </thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">AMS Ticket Closure Stats 2019</span></h4>
+                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="CTS" class="table table-striped" style="width:100%">
+                                     <thead class="text-center">
+                                        <th>Customer Name</th>									
+                                    	<th>Jan</th>
+										<th>Feb</th>
+										<th>Mar</th>
+										<th>Apr</th>
+										<th>May</th>
+										<th>Jun</th>
+										<th>Jul</th>
+										<th>Aug</th>
+										<th>Sep</th>
+										<th>Oct</th>
+										<th>Nov</th>
+										<th>Dec</th>
+										<th>Q1</th>
+										<th>Q2</th>
+										<th>Q3</th>
+										<th>Q4</th>
+										<th>Total</th>
+									</thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="header">
+								<h4 class="title"><span class="text-primary">NPS Scores</span></h4>
+								<p class="category"><span class="text-danger">Sent out twice a year</span></p>
+							</div>
+							<div class="content table-responsive table-full-width">
+								<table class="table table-striped">
+									<thead class="text-center">
+										<th>Year</th>
+										<th>Period</th>
+										<th>AMS</th>
+										<th>Non AMS</th>
+									
+									</thead>
+									<tbody>
+										<tr class="text-center">
+											<td>2017</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>										
+										</tr>
+										<tr class="text-center">
+											<td>2016</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>	
+										</tr>
+										<tr class="text-center">
+											<td>2016</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>	
+										</tr>
+										<tr class="text-center">
+											<td>2016</td>
+											<td>H1</td>
+											<td>6.8</td>
+											<td>5.4</td>	
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><span class="text-primary">Unassigned SRs </span></h4>
+                                <p class="category"><span class="text-danger">Distributed in various Queues</span></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table id="Poss" class="table table-striped">
+                                    <thead class="text-center">
+                                        <th>Category</th>
+                                    	<th>App Mgmt</th>
+                                    	<th>L2P</th>
+                                    	<th>L3P</th>
+                                    	<th>L3I</th>      								
+                                    </thead>
+                                    <tbody>									
+                                    </tbody>
+                                </table>
+								
+                            </div>
+                        </div>
+                    </div>						
+				</div>					
+            </div>
+        </div>
+
+		
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+
+                        <li>
+                            <a href="http://www.ariba.com">
+                                SAP Ariba
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.ariba.com/solutions/innovations">
+                               Innovations
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.ariba.com/about/procure-with-purpose">
+                                Procurement With Purpose
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+				<div class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by the SAP Ariba AMS Team
+                </div>
+            </div>
+        </footer>
+
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<!--  Checkbox, Radio & Switch Plugins -->
+	<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
+    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+	<script src="assets/js/paper-dashboard.js"></script>
+
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
+	<script src="assets/js/MainPage.js"></script>
+	
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
+<script src='http://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js'></script> 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js'></script>
+<script src='https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js'></script>
+<script src='https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js'></script>
+<script src='https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js'></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<script src='https://cdn.datatables.net/buttons/1.2.2/js/buttons.bootstrap.min.js'></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.18/pdfmake.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.18/vfs_fonts.js'></script>
+	
+	
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+
+        	demo.initChartist();
+
+        	$.notify({
+            	icon: 'ti-gift',
+            	message: "Welcome to the <b>AMS Dashboard</b>! Designed to make managing AMS projects simple and easy!"
+
+            },{
+                type: 'success',
+                timer: 4000
+            });
+			$(".table-filter").dataTable();
+    	});
+	</script>	
+</html>
