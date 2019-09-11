@@ -1,4 +1,4 @@
-var app = angular.module('plunker', ['nvd3']);
+var app = angular.module('plunker', []);
 
 /*app.directive("serializer", function(){
   return {
@@ -40,7 +40,7 @@ app.controller("accountTable",function($scope,$http){
 					return str.join("&");
 				},
 				data: {
-						"query":"SELECT us_1.ROOTID as id, ISNULL(us_2.val, us_1.mls_PrimaryString) as text FROM us_UserTab us_1 LEFT OUTER JOIN us_ApproverStringTab us_2 ON (us_1.mls_Translations=us_2.lvId AND us_1.rootId=us_2.rootId AND us_2.lvIndex = 7) WHERE (us_1.cus_Active = 1) AND (us_1.cus_PurgeState = 0) ORDER BY 2 ASC",
+						"query":"SELECT us_1.CUS_UNIQUENAME as id, ISNULL(us_2.val, us_1.mls_PrimaryString) as text FROM us_UserTab us_1 LEFT OUTER JOIN us_ApproverStringTab us_2 ON (us_1.mls_Translations=us_2.lvId AND us_1.rootId=us_2.rootId AND us_2.lvIndex = 7) WHERE (us_1.cus_Active = 1) AND (us_1.cus_PurgeState = 0) ORDER BY 2 ASC",
 						"useSQL":"true",
 						"type":"json"
 					}
@@ -78,20 +78,27 @@ app.controller("accountTable",function($scope,$http){
 
 	
 	$scope.showForm=function(){
-		$("#myModal").modal();
-		//var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
-		autocomplete(document.getElementById("AMVisPM"), $scope.allUsers);
-		//autocomplete(document.getElementById("AMVisPME"), $scope.allUsers);
 
-		$("#AMVisPM").css('width', '100%'); // make it responsive
-		$("#AMVisPM").select2({data:$scope.allUsers}); 
+		$("#myModal").modal("show");
 
-		$("#AMVisPME").css('width', '100%'); // make it responsive
-		$("#AMVisPME").select2({data:$scope.allUsers}); 
+		setTimout(()=>{
 
-		  
-		$("#AMVisKeyAMSExperts").css('width', '100%'); // make it responsive
-		$("#AMVisKeyAMSExperts").select2({data:$scope.allUsers}); 
+				//var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+				autocomplete(document.getElementById("AMVisPM"), $scope.allUsers);
+				//autocomplete(document.getElementById("AMVisPME"), $scope.allUsers);
+
+				$("#AMVisPM").css('width', '100%'); // make it responsive
+				$("#AMVisPM").select2({data:$scope.allUsers}); 
+
+				$("#AMVisPME").css('width', '100%'); // make it responsive
+				$("#AMVisPME").select2({data:$scope.allUsers}); 
+
+				  
+				$("#AMVisKeyAMSExperts").css('width', '100%'); // make it responsive
+				$("#AMVisKeyAMSExperts").select2({data:$scope.allUsers});
+
+		},100);
+		 
 		
 	}
 });
@@ -171,9 +178,12 @@ app.controller("saveCustomerController",function($scope,$http){
         }
     	});*/
 
+
+    	values["AMVisPM"]=$("#AMVisPM").val();
+    	values["AMVisPME"]=$("#AMVisPME").val();
+
 		console.log(values);
 
-		
 		$http({
 				method : "POST",
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -191,6 +201,7 @@ app.controller("saveCustomerController",function($scope,$http){
 					//$scope.data = response.data;	
 					//console.log("account saved");
 					$("#myModal").modal("hide");
+					$("#myModal").on('hidden.bs.modal');
 					 $.notify({
                 				icon: 'ti-gift',
                 				message: "Account Saved Successfully"
@@ -205,6 +216,7 @@ app.controller("saveCustomerController",function($scope,$http){
 					//$scope.data = response.statusText;
 					//console.log("failed");
 					$("#myModal").modal("hide");
+					$("#myModal").on('hidden.bs.modal');
 					//$("#successPage").modal();
 
 					$.notify({
