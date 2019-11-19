@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" ng-app="plunker">
 <head>
-     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-     <meta http-equiv="Pragma" content="no-cache" />
-     <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
@@ -13,33 +13,15 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
-    <!-- The SAP Ariba AMS Dashboard has been modified from the Paper Dashboard template that has been so generously open sourced by Creative Tim!    -->
-<!--
-                                                   
-            88                                    
-            88                                    
-            88                                    
- ,adPPYYba, 88,dPPYba,     
-""     `Y8  88P'    "8a  
-8PP"""""""  88       d8    
-,adPPPPP88  88b,   ,a8"     
-`"8bbdP"Y8  8Y"Ybbd8"'        
-                                               
-                                         
-Dashboard Template by Ashok Tekkam 
-Programming by Abhinav Mohan
-Credits : Stefan Ruska.
-
--->
-	
-	   <meta charset="utf-8" />
+    <meta charset="utf-8" />
     <!-- Bootstrap datepicker CSS     -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-
     <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet" /> -->
+    
+  <!--   <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
     <!-- Animation library for notifications   -->
     <link href="assets/css/animate.min.css" rel="stylesheet" />
 
@@ -47,32 +29,26 @@ Credits : Stefan Ruska.
     <link href="assets/css/paper-dashboard.css" rel="stylesheet" />
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css?_=1231233243" rel="stylesheet" />
+    <!-- <link href="assets/css/demo.css?_=1231233243" rel="stylesheet" /> -->
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />-->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script> -->
-    
-    
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>  
 
     <!--  Fonts and icons     -->
-   <!-- <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
-    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    
 
     <!-- [ Start: Select2 support ] ---------------------------------- -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
 
+<!-- Theme included stylesheets -->
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130170778-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130170778-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -82,6 +58,10 @@ Credits : Stefan Ruska.
 </script>
 
 <style >
+
+  .bootstrap-timepicker-widget.dropdown-menu {
+    z-index: 99999!important;
+}
 
 .autocomplete {
   /*the container must be positioned relative:*/
@@ -158,7 +138,7 @@ input[type=submit] {
     
 
     .form-group {
-        margin-bottom: 6px;
+     /*   margin-bottom: 6px;*/
     }
     .modal-header {
     
@@ -202,12 +182,65 @@ input[type=submit] {
     .select2-container--default .select2-selection--single .select2-selection__arrow{
       top: 4px;
     }
+
+    .select2{
+      width:100% !important;
+    }
+
+    .select2-search__field{
+      padding-left: 0px !important;
+      padding-top: 0px !important;
+    }
+
+    .ql-formats{
+      margin-right: 0 !important;
+    }
+
+   #customerInfoForm .dropdown-menu{
+    visibility: unset;
+    z-index: 9999;
+    opacity: 1;
+    }
+
+#divLoading
+{
+    display : none;
+}
+
+#divLoading
+{
+    //display : block;
+    position : fixed;
+    z-index: 9999999;
+    background-image : url('http://loadinggif.com/images/image-selection/3.gif');
+    background-color:#666;
+    opacity : 0.4;
+    background-repeat : no-repeat;
+    background-position : center;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    top : 0;
+}
+#loadinggif
+{
+    left : 50%;
+    top : 50%;
+    position : absolute;
+    z-index : 101;
+    width : 32px;
+    height : 32px;
+    margin-left : -16px;
+    margin-top : -16px;
+}
+
+textarea.form-control{
+  resize: vertical !important;
+}
 </style>
 
 </head>
 <body>
-
-
 
 <div class="wrapper">
     <div class="main-panel">
@@ -236,30 +269,6 @@ input[type=submit] {
     <p>Report a <span style="color:red;">Bug</span> or <span style="color:#008000;">Enhancement</span ></p>
                             </a>
                         </li>
-						<!--  <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-book"></i>
-                                    <p>Contact Us</p>
-                                    <b class="caret"></b>
-                              </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="https://github.wdf.sap.corp/SAPAribaGDS/AMSDashboard/issues" target="_blank" style="color: rgb(0,0,138)" >Click to Report a Bug or Enhancement</a>
-                                </li>
-                               <li>
-                               
-                                    <a href="#" class="popover__wrapper" >
-                                         Contact
-                                          <div>
-                                             <div class="popover__content">
-                                               <img src="./assets/img/contact.png" class="popoverImage">
-                                             </div>
-                                         </div>
-                                      </a>
-                                </li>
-                            </ul>
-                        </li> -->
-					
 						
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -282,11 +291,7 @@ input[type=submit] {
                             </a>
                         </li>
 
-                        
-                        
-						
-                       
-
+                    
                 </div>
             </div>
         </nav>
@@ -312,8 +317,8 @@ input[type=submit] {
                               <tr>
                               <th>Customer</th>
                                <th>Name</th>
-                              
                                <th>Region</th>
+                               <th></th>
                                </tr>
                                </thead>
                                
@@ -323,474 +328,14 @@ input[type=submit] {
 
                             </div>
                         
-                    </div>
-                        <!-- <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Unassigned Tickets CategoryWise</span></h4>
-                                
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="UTB" class="table table-striped" style="width:100%">
-                                    <thead>
-                                         <th>Customer</th>
-                                        <th>P1</th>
-                                        <th>P2</th>
-                                        <th>P3</th>
-                                        <th>P4</th>                                     
-                                        <th>App Mgmt</th>
-                                        <th>L3I</th>
-                                        <th>L2P</th>
-                                        <th>L3P</th>
-                                        <th>Total</th>
-                                      </thead>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div> -->
+                        </div>
                     </div>                  
                 </div>
-                <!-- <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-danger text-center">
-                                            <i class="ti-ticket"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers text-left">
-                                            <p>Priority 1</p>
-											<span id="P1Tile"> </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats"">
-                                        <i class="ti-timer"></i> <span id="P1Tile24"> </span> new SR's in the last 24 hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-warning text-center">
-                                            <i class="ti-ticket"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Priority 2</p>
-                                            <span id="P2Tile"> </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> <span id="P2Tile24"> </span> new in the last 24 hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-success text-center">
-                                            <i class="ti-ticket"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Priority 3</p>
-                                            <span id="P3Tile"> </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> <span id="P3Tile24"> </span> new in the last 24 hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-info text-center">
-                                            <i class="ti-ticket"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Priority 4</p>
-                                            <span id="P4Tile"> </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> <span id="P4Tile24"> </span> new in the last 24 hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">AMS SR Count</span></h4>
-                                <p class="category"><span class="text-danger">Customer Region Wise Live</span></p>                              
-                            </div>
-                            <div ng-controller="MainCtrl">
-    
-                           <nvd3 options="options" data="data"></nvd3>
-                         </div>
-                        </div>
-                    </div>
-                </div> -->
-               
-				<!-- <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title"><span class="text-primary">SR Backlog Data</span></h4>
-                                    <p class="category"><span class="text-danger">Last 10 Weeks</span></p>
-
-                                </div>
-                                <div ng-controller="backlog">
-
-                                    <nvd3 options="options" data="data"></nvd3>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-               <!--  <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">SR Distribution by Priority</span></h4>
-                                <p class="category"><span class="text-danger">28 Unique Customers</span></p>
-                            </div>
-                            <div class="content">
-                                 <div ng-controller="MainCtrl2">
-    
-                           <nvd3 options="options" data="data"></nvd3>
-                         </div>
-								
-								
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-P1"></i> P1
-                                        <i class="fa fa-circle text-P2"></i> P2
-                                        <i class="fa fa-circle text-P3"></i> P3
-										<i class="fa fa-circle text-P4"></i> P4
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">AMS Customer List</span></h4>
-                                
-                            </div>
-							 <div class="content table-responsive table-full-width">
-							 <table id="example2" class="table table-responsive table-striped" style="width:100%">
-                             <thead>
-                              <tr>
-							  <th>Customer</th>
-                               <th>Name</th>
-                              
-                               <th>Region</th>
-                               </tr>
-                               </thead>
-                               
-                                </table>
-				                   </div>
-                            
-
-                            </div>
-                        </div>
-                    </div> -->					
+                				
                 </div>
-               <!--  <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Open Tickets</span></h4>
-                                
-                            </div>
-							<div class="content table-responsive table-full-width">
-                           <table id="example" class="table table-striped" style="width:100%">
-                           <thead>
-                           <tr>
-                            <th>SR Number</th>
-                            <th>Account</th>
-                            <th>Description</th>
-				            <th>Priority</th>
-				            <th>SubStatus</th>
-				            <th>LastActivity</th>
-				            <th>TicketCreateDate</th>
-							<th>NoOfEmails</th>
-                           </tr>
-                           </thead>
-                           <tbody>
-                           </tbody>
-                            </table>
-                           </div>
-                            </div>
-                        </div>
-                    </div> -->					
+            				
                 </div>				
-              <!--   <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Tickets with no Traction for more than 20 days</span></h4>
-                                
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="example4" class="table table-striped" style="width:100%">
-                                    <thead>
-                                        <th>SR #</th>
-                                    	<th>Customer</th>
-                                    	<th>Assigned To</th>
-										
-                                    	<th>SR Status</th>
-                                    	<th>SR Priority</th>
-                                    	<th>Pending # Days</th>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>					
-                </div> -->
-				
-				<!-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Tickets in Customer Update Status</span></h4>
-								<p class="category"><span class="text-danger">More than 4 days</span></p>
-                                
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="CustomerUpdateTable" class="table table-striped" style="width:100%">
-                                    <thead>
-                                        <th>SR #</th>
-                                    	<th>Customer</th>
-                                    	<th>Assigned To</th>
-										<th>Team Location</th>
-                                    	<th>Description</th>
-                                    	<th>SR Priority</th>
-                                    	<th>Pending # Days</th>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>					
-                </div> -->
-				
-				<!-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Unassigned Tickets By Customer</span></h4>
-								<p class="category"><span class="text-danger"></span></p>
-								<p class="category"><span class="text-danger">P2 > 2 days,P3 > 5 days,P4 > 7 days</span></p>
-							
-                                
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="UTBC" class="table table-striped" style="width:100%">
-                                    <thead>
-                                         <th>SR#</th>
-                                    	<th>Customer</th>
-                                    	<th>Queue</th>
-                                    	<th>SR Status</th>
-                                    	<th>SR Priority</th>										
-                                    	<th>Pending # Days</th>                                    	
-									  </thead>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>					
-                </div> -->
-				<!-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Unassigned Tickets CategoryWise</span></h4>
-                                
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="UTB" class="table table-striped" style="width:100%">
-                                    <thead>
-                                         <th>Customer</th>
-                                    	<th>P1</th>
-                                    	<th>P2</th>
-                                    	<th>P3</th>
-                                    	<th>P4</th>										
-                                    	<th>App Mgmt</th>
-                                    	<th>L3I</th>
-										<th>L2P</th>
-										<th>L3P</th>
-										<th>Total</th>
-									  </thead>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>					
-                </div> -->
-				<!-- <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">AMS Ticket Closure Stats 2019</span></h4>
-                                
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="CTS" class="table table-striped" style="width:100%">
-                                     <thead class="text-center">
-                                        <th>Customer Name</th>									
-                                    	<th>Jan</th>
-										<th>Feb</th>
-										<th>Mar</th>
-										<th>Apr</th>
-										<th>May</th>
-										<th>Jun</th>
-										<th>Jul</th>
-										<th>Aug</th>
-										<th>Sep</th>
-										<th>Oct</th>
-										<th>Nov</th>
-										<th>Dec</th>
-										<th>Q1</th>
-										<th>Q2</th>
-										<th>Q3</th>
-										<th>Q4</th>
-										<th>Total</th>
-									</thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>					
-                </div> -->
-				
-				<!-- <div class="row">
-					<div class="col-md-6">
-						<div class="card">
-							<div class="header">
-								<h4 class="title"><span class="text-primary">NPS Scores</span></h4>
-								<p class="category"><span class="text-danger">Sent out twice a year</span></p>
-							</div>
-							<div class="content table-responsive table-full-width">
-								<table class="table table-striped">
-									<thead class="text-center">
-										<th>Year</th>
-										<th>Period</th>
-										<th>AMS</th>
-										<th>Non AMS</th>
-									
-									</thead>
-									<tbody>
-										<tr class="text-center">
-											<td>2017</td>
-											<td>H1</td>
-											<td>6.8</td>
-											<td>5.4</td>										
-										</tr>
-										<tr class="text-center">
-											<td>2016</td>
-											<td>H1</td>
-											<td>6.8</td>
-											<td>5.4</td>	
-										</tr>
-										<tr class="text-center">
-											<td>2016</td>
-											<td>H1</td>
-											<td>6.8</td>
-											<td>5.4</td>	
-										</tr>
-										<tr class="text-center">
-											<td>2016</td>
-											<td>H1</td>
-											<td>6.8</td>
-											<td>5.4</td>	
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><span class="text-primary">Unassigned SRs </span></h4>
-                                <p class="category"><span class="text-danger">Distributed in various Queues</span></p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table id="Poss" class="table table-striped">
-                                    <thead class="text-center">
-                                        <th>Category</th>
-                                    	<th>App Mgmt</th>
-                                    	<th>L2P</th>
-                                    	<th>L3P</th>
-                                    	<th>L3I</th>      								
-                                    </thead>
-                                    <tbody>									
-                                    </tbody>
-                                </table>
-								
-                            </div>
-                        </div>
-                    </div>						
-				</div>					
-            </div>
-        </div>
- -->
-		
+            
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
@@ -828,251 +373,249 @@ input[type=submit] {
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content" ng-controller="saveCustomerController">
-      <form name="customerInfoForm" id="customerInfoForm" novalidate>
+      <form name="customerInfoForm" id="customerInfoForm" novalidate >
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="gridSystemModalLabel" style="text-align: center;">Customer Information</h4>
       </div>
-      <div class="modal-body">
-        <div class="row">
+      <div class="modal-body"> 
+
+         <div class="row">
           <div class="col-md-12">
-             <div class="col-md-3 modalText"><strong>Unique Name</strong></div>
-              <div class="col-md-3">
+             <!-- <div class="col-md-3 modalText"><strong>CRM ID<span >*</span></strong></div> -->
+              <div class="col-md-6">
                 <div class="form-group">
-                    <input  name="AMVisUniqueName" type="text" class="form-control border-input"  
-                    ng-pattern="/[1-9]{1}[0-9]{9}/" required></div>
+                    <label for="AMVisUniqueName"><strong>CRM ID<span >*</span></strong></label>
+                    <input  name="AMVisUniqueName" type="text" class="form-control border-input">
+                </div>
               </div>
-
-              <div class="col-md-3 modalText"><strong>Name</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisName" type="text" class="form-control border-input " ></div>
-              </div>
-          
-              <div class="col-md-3 modalText"><strong>Short Name</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input  name="AMVisShortName" type="text" class="form-control border-input " ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>Region</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisRegion" type="text" class="form-control border-input " ></div>
-              </div>
-          
-              <div class="col-md-3 modalText"><strong>Sales Order</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisSalesOrders" type="text" class="form-control border-input " ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>CRM ID</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisCRMID" type="text" class="form-control border-input " ></div>
-              </div>
-          
-              <div class="col-md-3 modalText"><strong>Customer Category</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisCustomerCategory" type="text" class="form-control border-input border-input" ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>PM</strong></div>
-              <div class="col-md-3">
+              <!-- <div class="col-md-3 modalText"><strong>Name<span >*</span></strong></div> -->
+              <div class="col-md-6">
                 <div class="form-group">
-                    <!-- <input id="AMVisPM" name="AMVisPM" type="text" class="form-control border-input" > -->
-                    <select class="form-control border-input" id="AMVisPM" name="AMVisPM[]" multiple="multiple"  >
+                  <label for="AMVisName"><strong>Name</strong></label>
+                  <input name="AMVisName" type="text" class="form-control border-input"  ></div>
+              </div>
+              <!-- <div class="col-md-3 modalText"><strong>Short Name</strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                   <label for="AMVisShortName"><strong>Short Name</strong></label>
+                  <input  name="AMVisShortName" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <!-- <div class="col-md-3 modalText"><strong>Region</strong></div> -->
+              
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label for="AMVisRegion"><strong>Region</strong></label>
+                    <select class="form-control border-input" name="AMVisRegion">
+                      <option value="na">Please Select Region</option>
+                      <option value="emea">EMEA</option>
+                      <option value="apj">APJ</option>
+                      <option value="americas">Americas</option>             
+                    </select>
+                </div>
+               </div>
+          
+              <!-- <div class="col-md-3 modalText"><strong>Customer Category</strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label for="AMVisCustomerCategory"><strong>Customer Category</strong></label>
+                    <select class="form-control border-input" name="AMVisCustomerCategory">
+                      <option value="na">Please Select Customer Category</option>
+                      <option value="nurture">Nurture</option>
+                      <option value="digital">Digital</option>
+                      <option value="protect">Protect</option>  
+                      <option value="enterprise">Enterprise</option>              
+                    </select>
+                </div>
+               </div>
+
+              <!-- <div class="col-md-3 modalText"><strong>TCV</strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                   <label for="AMVisTCV"><strong>TCV</strong></label>
+                  <input value="0.0" name="AMVisTCV" type="text" class="form-control border-input" readonly></div>
+              </div>
+
+             <!--  <div class="col-md-3 modalText"><strong>PM</strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label for="AMVisPM"><strong>PM(s)</strong></label>
+                    <select class="form-control border-input" id="AMVisPM" name="AMVisPM" multiple="multiple" >
                     </select>
                 </div>
               </div>
           
-              <div class="col-md-3 modalText"><strong>SO ProjectId</strong></div>
-              <div class="col-md-3">
+              <!-- <div class="col-md-3 modalText"><strong>PME</strong></div> -->
+              <div class="col-md-6">
                 <div class="form-group">
-                    <input name="AMVisSOProjectId" type="text" class="form-control border-input " ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>PME</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><!-- <input id="AMVisPME" name="AMVisPME" type="text" class="form-control border-input" > -->
-                    <select class="form-control border-input" id="AMVisPME" name="AMVisPME[]" multiple="multiple"  >
+                    <label for="AMVisPME"><strong>PME(s)</strong></label>
+                    <select class="form-control border-input" id="AMVisPME" name="AMVisPME" multiple="multiple"  >
                     </select>
                 </div>
               </div>
           
-              <div class="col-md-3 modalText"><strong>TCV</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisTCV" type="text" class="form-control border-input" ></div>
-              </div>
+              
 
                
-              <div class="col-md-3 modalText"><strong>Start Date</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input id="AMVisStartDate" name="AMVisStartDate" type="text" class="form-control border-input" ></div>
+              <!-- <div class="col-md-3 modalText"><strong>Start Date<span >*</span></strong></div> -->
+              
+              <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="AMVisStartDate"><strong>Start Date</strong></label>
+                        <input id="AMVisStartDate" name="AMVisStartDate" type="text" class="form-control border-input" >
+                     </div>
               </div>
+               
 
-               <div class="col-md-3 modalText"><strong>NPS Survey</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisNPSSurvey" type="text" class="form-control border-input" ></div>
-              </div>
+             <!--  <div class="col-md-3 modalText"><strong>Survey Period</strong></div> -->
+             
+              <div class="col-md-6">
+                <div class="form-group">
+                     <label for="AMVisSurveyPeriod"><strong>Survey Period</strong></label>
+                    <select class="form-control border-input" name="AMVisSurveyPeriod">
+                      <option value="na">Please Select Survey Period</option>
+                      <option value="Q1">Q1</option>
+                      <option value="Q2">Q2</option>
+                      <option value="Q3">Q3</option>  
+                      <option value="Q4">Q4</option>              
+                    </select>
+                </div>
+               </div>
 
-               <div class="col-md-3 modalText"><strong>VOC Survey</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisVOCSurvey" type="text" class="form-control border-input" ></div>
-              </div>
+              
+              
 
-               <div class="col-md-3 modalText"><strong>Weekly Call</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisWeeklyCall" type="text" class="form-control border-input" ></div>
-              </div>
-
-               <div class="col-md-3 modalText"><strong>Report Generated</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisReportGenerated" type="text" class="form-control border-input" ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>SR UpdateNeedBy</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisSRUpdateNeedBy" type="text" class="form-control border-input" ></div>
-              </div>
-
-
-              <div class="col-md-3 modalText"><strong>Net NPS</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input value="0.00" name="AMVisNetNPS" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>Net VOC</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input value="0.00" name="AMVisNetVOC" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>Active AMS</strong></div>
+              <div class="col-md-3" style="padding-top: 10px;"><strong>Is Active ?</strong></div>
               <div class="col-md-3">
                 <div class="form-group">
-                    
+                   <!--  <label for="AMVisStartDate"><strong>Active AMS</strong></label> -->
                     <label class="radio" >Yes
-                      <input type="radio" name="AMVisActiveAMS" value="true">
+                      <input type="radio" name="AMVisActiveAMS" value="true" class="form-control">
                     </label>
                     <label class="radio checked">No
-                      <input type="radio" name="AMVisActiveAMS" value="false">
+                      <input type="radio" name="AMVisActiveAMS" value="false" class="form-control">
                     </label>
                 </div>
               </div>
-              <div class="col-md-3 modalText"><strong>Full AMS</strong></div>
+
+              <div class="col-md-3" style="padding-top: 10px;"><strong>Full AMS</strong></div>
               <div class="col-md-3">
                 <div class="form-group">
                     
                      <label class="radio" >Yes
-                      <input type="radio" name="AMVisFullAMS" value="true">
+                      <input type="radio" name="AMVisFullAMS" value="true" class="form-control">
                     </label>
                     <label class="radio checked">No
-                      <input type="radio" name="AMVisFullAMS" value="false">
+                      <input type="radio" name="AMVisFullAMS" value="false" class="form-control">
                     </label>
 
                 </div>
               </div>
-              <div class="col-md-3 modalText"><strong>Active Contract</strong></div>
+              <div class="col-md-3" style="padding-top: 10px;"><strong>Has Active Contract ?</strong></div>
               <div class="col-md-3">
                 <div class="form-group">
                     
                     <label class="radio" >Yes
-                      <input type="radio" name="AMVisActiveContract" value="true">
+                      <input type="radio" name="AMVisActiveContract" value="true" class="form-control">
                     </label>
                     <label class="radio checked">No
-                      <input type="radio" name="AMVisActiveContract" value="false">
+                      <input type="radio" name="AMVisActiveContract" value="false" class="form-control">
                     </label>
                 </div>
               </div>
-              <div class="col-md-3 modalText"><strong>InPipeline</strong></div>
+              <div class="col-md-3" style="padding-top: 10px;"><strong>Has Preferred Care ?</strong></div>
               <div class="col-md-3">
                 <div class="form-group">
                  
                     <label class="radio" >Yes
-                      <input type="radio" name="AMVisInPipeline" value="true">
+                      <input type="radio" name="AMVisInPipeline" value="true" class="form-control">
                     </label>
                     <label class="radio checked">No
-                      <input type="radio" name="AMVisInPipeline" value="false">
+                      <input type="radio" name="AMVisInPipeline" value="false" class="form-control">
                     </label>
                 </div>
               </div>
-              <div class="col-md-3 modalText"><strong>Survey Period</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisSurveyPeriod" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>Instance Type</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisInstanceType" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>Modules</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisModules" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>Customer Notes</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisCustomerNotes" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>Category</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisCategory" type="text" class="form-control border-input" ></div>
-              </div>
-              <div class="col-md-3 modalText"><strong>AMS SupportStarted</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisAMSSupportStarted" type="text" class="form-control border-input" ></div>
-              </div>
-
               
-              <div class="col-md-3 modalText"><strong>Customer StartDate</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input id="AMVisCustomerStartDate"  name="AMVisCustomerStartDate" type="text" class="form-control border-input" ></div>
-              </div>
+              
 
-              <div class="col-md-3 modalText"><strong>Customer AMS Terminated Date</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input  id="AMVisCustomerAMSTerminatedDate" name="AMVisCustomerAMSTerminatedDate" type="text" class="form-control border-input" ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>Termination Reason</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisTerminationReason" type="text" class="form-control border-input" ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>Customer ActiveOrInActive</strong></div>
+              <!-- <div class="col-md-3 modalText"><strong>Modules</strong></div> -->
+              <!-- <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="AMVisModules"><strong>Modules</strong></label>
+                        
+                        <select class="form-control border-input" id="AMVisModules" name="AMVisModules" multiple="multiple" >
+                        </select>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-3 modalText"><strong>Customer Notes</strong></div>
               <div class="col-md-3">
                 <div class="form-group">
+                    <textarea name="AMVisCustomerNotes" type="text" class="form-control border-input" ></textarea>
+                </div>
+              </div> -->
+              
+              <!-- <div class="col-md-3 modalText"><strong>AMS SupportStarted<span >*</span></strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="AMVisAMSSupportStarted"><strong>Start Date(as per SOW)</strong></label>
+                  <input name="AMVisAMSSupportStarted" id="AMVisAMSSupportStarted" type="text" class="form-control border-input" >
+                </div>
+              </div>
+
+              <!-- <div class="col-md-3 modalText"><strong>Customer StartDate<span >*</span></strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                   <label for="AMVisCustomerStartDate"><strong>Start Date(as per Customer)</strong></label>
+                  <input id="AMVisCustomerStartDate"  name="AMVisCustomerStartDate" type="text" class="form-control border-input" ></div>
+              </div>
+
+              <!-- <div class="col-md-3 modalText"><strong>Customer AMS Terminated Date</strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                   <label for="AMVisCustomerAMSTerminatedDate"><strong>Termination Date</strong></label>
+                  <input  id="AMVisCustomerAMSTerminatedDate" name="AMVisCustomerAMSTerminatedDate" type="text" class="form-control border-input" ></div>
+              </div>
+
+
+             <!--  <div class="col-md-3 modalText">
+                <strong>Termination Reason<span style="display: none;" for='AMVisTerminationReason'>*</span></strong></div> -->
+              <div class="col-md-6" for='AMVisTerminationReason' style="display: none;">
+                <div class="form-group">
+                    <label > <strong>Termination Reason<span  >*</span></strong></label>
+                    <textarea name="AMVisTerminationReason" type="text" class="form-control border-input" id='AMVisTerminationReason'></textarea>
+                </div>
+              </div>
+
+              <div class="col-md-2" style="padding-top: 10px;"><strong>Instance Type</strong></div>
+              <div class="col-md-4">
+             
+                 <div class="form-group">
                    
-                     <label class="radio" >Yes
-                      <input type="radio" name="AMVisCustomerActiveOrInActive" value="true">
+                     <label class="radio checked" >On-Demand
+                      <input type="radio" name="AMVisInstanceType" value="onDemand" class="form-control">
                     </label>
-                    <label class="radio checked">No
-                      <input type="radio" name="AMVisCustomerActiveOrInActive" value="false">
+                    <label class="radio">On-Premise
+                      <input type="radio" name="AMVisInstanceType" value="onPremise" class="form-control">
+                    </label>
+                    <label class="radio">Both
+                      <input type="radio" name="AMVisInstanceType" value="both" class="form-control">
                     </label>
                 </div>
               </div>
-
-              <div class="col-md-3 modalText"><strong>OnPOrOnD</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisOnPOrOnD" type="text" class="form-control border-input" ></div>
-              </div>
-
-              <div class="col-md-3 modalText"><strong>Customer Type</strong></div>
-              <div class="col-md-3">
-                <div class="form-group"><input name="AMVisCustomerType" type="text" class="form-control border-input" ></div>
-              </div>
-
-
-          
-              <div class="col-md-3 modalText"><strong>BCP ID</strong></div>
-              <div class="col-md-3">
-                <div class="form-group">
-                    <input name="bpcid" type="text" class="form-control border-input" >
-                </div>
-              </div>
-         
-            
-               <div class="col-md-3 modalText"><strong>Contract Length</strong></div>
-               <div class="col-md-3">
-                 <div class="form-group"><input  name="contractlength" type="text"  class="form-control border-input" /></div>
-               </div>
         
-            <div class="col-md-3 modalText"><strong>AMS Customer Support Tier Level</strong></div>
-            <div class="col-md-3">
+            <!-- <div class="col-md-3 modalText"><strong>AMS Customer Support Tier Level</strong></div> -->
+            <div class="col-md-6">
                 <div class="form-group">
+                    <label for="AMVisCustomerSupportTierLevel"><strong>Tier Level</strong></label>
                     <select class="form-control border-input" name="AMVisCustomerSupportTierLevel">
+                      <option value="na">Please Select Support Tier Level</option>
                       <option value="basic">Basic</option>
                       <option value="enhanced">Enhanced</option>
                       <option value="enterprise">Enterprise</option>
@@ -1080,51 +623,72 @@ input[type=submit] {
                     </select>
                 </div>
             </div> 
-            <div class="col-md-3 modalText">
+           <!--  <div class="col-md-3 modalText">
                 <strong>CEX</strong>
-            </div>
+            </div> -->
          
-            <div class="col-md-3">
+            <div class="col-md-6">
                <div class="form-group">
-                <input type="text" class="form-control border-input" name="AMVisCEX">
+                  <label for="AMVisCEX"><strong>CEX</strong></label>
+                  <input type="text" class="form-control border-input" name="AMVisCEX">
                </div>
             </div>
           
-            <div class="col-md-3 modalText"><strong>Preferred Care Contact (if applicable)</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisPreferredCareContact">
-            </div></div>
+            <!-- <div class="col-md-3 modalText"><strong>Preferred Care Contact (if applicable)</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                 <label for="AMVisPreferredCareContact"><strong>Preferred Care Contact (if applicable)</strong></label>
+                <input type="text" class="form-control border-input" name="AMVisPreferredCareContact">
+              </div>
+            </div>
 
-            <div class="col-md-3 modalText"><strong>Scope of Preferred Care</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisPreferredCareScope">
-            </div></div>
+            <!-- <div class="col-md-3 modalText"><strong>Scope of Preferred Care</strong></div> -->
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="AMVisPreferredCareScope"><strong>Scope of Preferred Care</strong></label>
+                  <textarea type="text" class="form-control border-input" name="AMVisPreferredCareScope"></textarea>
+               </div>
+            </div>
 
-            <div class="col-md-3 modalText"><strong>Solutions In-Scope</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisSolutionsInScope">
-            </div></div>
+            <!-- <div class="col-md-3 modalText"><strong>Solutions In-Scope</strong></div> -->
+            <div class="col-md-6">
+               <div class="form-group">
+                <label for="AMVisSolutionsInScope"><strong>Solutions In-Scope</strong></label>
+               <!--  <input type="text" class="form-control border-input" name="AMVisSolutionsInScope"> -->
+                <select class="form-control border-input" id="AMVisSolutionsInScope" name="AMVisSolutionsInScope" multiple="multiple" >
+                </select>
+               </div>
+            </div>
 
-            <div class="col-md-3 modalText"><strong>ERP</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisERP">
-            </div></div>
+            <!-- <div class="col-md-3 modalText"><strong>ERP</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="AMVisERP"><strong>ERP</strong></label>
+                <input type="text" class="form-control border-input" name="AMVisERP">
+              </div>
+            </div>
 
-            <div class="col-md-3 modalText"><strong>FPC</strong></div>
-            <div class="col-md-3">
+            <div class="col-md-2" style="padding-top: 10px;"><strong>FPC</strong></div>
+            <div class="col-md-4">
                 <!-- <div class="form-group"><input type="text" class="form-control border-input" name="AMVisFPC">
                 </div> -->
                 <div class="form-group">
                    
                      <label class="radio" >Yes
-                      <input type="radio" name="AMVisFPC" value="true">
+                      <input type="radio" name="AMVisFPC" value="true" class="form-control">
                     </label>
                     <label class="radio checked">No
-                      <input type="radio" name="AMVisFPC" value="false">
+                      <input type="radio" name="AMVisFPC" value="false" class="form-control">
                     </label>
                 </div>
             </div>
 
-            <div class="col-md-3 modalText"><strong>Data Center</strong></div>
-            <div class="col-md-3">
+            <!-- <div class="col-md-3 modalText"><strong>Data Center</strong></div> -->
+            <div class="col-md-6">
                <div class="form-group">
+                    <label for="AMVisDataCenter"><strong>Data Center</strong></label>
                     <select class="form-control border-input" name="AMVisDataCenter">
+                       <option value="na">Please select Data Center</option>
                        <option value="US">US</option>
                        <option value="EU">EU</option>
                        <option value="RU">RU</option>
@@ -1136,67 +700,183 @@ input[type=submit] {
                 </div>
             </div>
             
-            <div class="col-md-3 modalText"><strong>Realm Name(s)</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisRealmName">
-            </div></div>
+            <!-- <div class="col-md-3 modalText"><strong>Realm Name(s)</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="AMVisRealmName"><strong>Realm Name(s)</strong></label>
+                <input type="text" class="form-control border-input" name="AMVisRealmName">
+             </div>
+           </div>
             
-            <div class="col-md-3 modalText"><strong>Customer specific processes, documentation</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisCustomerspecificProcess">
-            </div></div>
+         <!--    <div class="col-md-3 modalText"><strong>Customer specific processes, documentation</strong></div> -->
+            <div class="col-md-12">
+              <div class="form-group">
+                 <label for="AMVisCustomerspecificProcess"><strong>Customer specific processes, documentation</strong></label>
+                 <div id="toolbar-container1">
+                <span class="ql-formats">
+                  <select class="ql-size">
+                    <option value="10px">Small</option>
+                    <option selected>Normal</option>
+                    <option value="18px">Large</option>
+                    <option value="32px">Huge</option>
+                  </select>
+                </span>
+                <span class="ql-formats"><button type="button" class="ql-bold"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button><button type="button" class="ql-italic"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="13" y1="4" y2="4"></line> <line class="ql-stroke" x1="5" x2="11" y1="14" y2="14"></line> <line class="ql-stroke" x1="8" x2="10" y1="14" y2="4"></line> </svg></button><button type="button" class="ql-underline"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect> </svg></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-color">
+                    <option selected></option>
+                    <option value="red"></option>
+                    <option value="orange"></option>
+                    <option value="yellow"></option>
+                    <option value="green"></option>
+                    <option value="blue"></option>
+                    <option value="purple"></option>
+                  </select>
+                  <select class="ql-background">
+                    <option selected></option>
+                    <option value="red"></option>
+                    <option value="orange"></option>
+                    <option value="yellow"></option>
+                    <option value="green"></option>
+                    <option value="blue"></option>
+                    <option value="purple"></option>
+                  </select>
+                </span>
+              </div>
+                <div  class="form-control border-input"  id="AMVisCustomerspecificProcess" name="AMVisCustomerspecificProcess"></div>
+              </div>
+            </div>
 
-            <div class="col-md-3 modalText"><strong>Customer DSC’s</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisCustomerDSC">
-            </div></div>
+            <!-- <div class="col-md-3 modalText"><strong>Customer DSC’s</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="AMVisCustomerDSC"><strong>Customer DSC’s</strong></label>
+                <textarea type="text" class="form-control border-input" name="AMVisCustomerDSC"></textarea>
+             </div>
+            </div>
+          
             
-            <!-- <div class="col-md-3 modalText"><strong>AMS Project Manager</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="annualContractValue">
-            </div></div>
-            
-            <div class="col-md-3 modalText"><strong>AMS PM (Backup)</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="annualContractValue">
-            </div></div> -->
-            
-            <div class="col-md-3 modalText"><strong>Weekly meeting date/time</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" id="AMVisWeeklyMeetingDayAndTime" name="AMVisWeeklyMeetingDayAndTime" ng-click="showTimer()">
+            <!-- <div class="col-md-3 modalText"><strong>Weekly meeting Date/Time</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group"><!-- <input type="text" class="form-control border-input" id="AMVisWeeklyMeetingDayAndTime" name="AMVisWeeklyMeetingDayAndTime" > -->
+              <label for="AMVisWeeklyMeetingDayAndTime"><strong>Weekly Meetings(Date/Time)</strong></label>
+              <select class="form-control border-input" name="AMVisWeeklyMeetingDayAndTime" id='AMVisWeeklyMeetingDayAndTime'>
+                       <option value="na">Please select Day</option>
+                       <option value="Monday">Monday</option>
+                       <option value="Tuesday">Tuesday</option>
+                       <option value="Wednesday">Wednesday</option>
+                       <option value="Thursday">Thursday</option>
+                       <option value="Friday">Friday</option>
+                    </select>
+              <!-- <div class='input-group date border-input' id='AMVisWeeklyMeetingDayAndTime'>
+                <input type='text' name="AMVisWeeklyMeetingDayAndTime" class="form-control border-input" />
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                </span>
+              </div> -->
+         <!-- <input type='text' class="form-control border-input" id='datetimepicker1' /> -->
             </div></div>
            
-           <div class="col-md-3 modalText"><strong>AMS Customer Shared Mailbox</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisAMSSharedMailBox">
-            </div></div>
+           <!-- <div class="col-md-3 modalText"><strong>AMS Customer Shared Mailbox</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="AMVisAMSSharedMailBox"><strong>Customer Shared Mailbox</strong></label>
+                <input type="text" class="form-control border-input" name="AMVisAMSSharedMailBox">
+               </div>
+            </div>
 
-            <div class="col-md-3 modalText"><strong>Key AMS experts with customer-specific knowledge</strong></div>
-            <div class="col-md-3">
+           <!--  <div class="col-md-3 modalText"><strong>Key AMS experts with customer-specific knowledge</strong></div> -->
+            <div class="col-md-6">
                 <div class="form-group">
+                      <label for="AMVisKeyAMSExperts"><strong>Key AMS experts with customer-specific knowledge</strong></label>
                     <!-- <input type="text" class="form-control border-input" name="AMVisKeyAMSExperts"> -->
-                    <select class="form-control border-input" id="AMVisKeyAMSExperts" name="AMVisKeyAMSExperts[]" multiple="multiple"  >
+                    <select class="form-control border-input" id="AMVisKeyAMSExperts" name="AMVisKeyAMSExperts" multiple="multiple"  >
                     </select>
                 </div>
             </div>
             
-            <div class="col-md-3 modalText"><strong>AMS monitoring</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisAMSMonitoring">
+            <!-- <div class="col-md-3 modalText"><strong>AMS monitoring</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                 <label for="AMVisAMSMonitoring"><strong>AMS monitoring</strong></label>
+                <input type="text" class="form-control border-input" name="AMVisAMSMonitoring">
             </div></div>
             
-             <div class="col-md-3 modalText"><strong> Deployment JAM Page (if applicable)</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisDeploymentJamPage">
-            </div></div>
+            <!--  <div class="col-md-3 modalText"><strong> Deployment JAM Page (if applicable)</strong></div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                  <label for="AMVisDeploymentJamPage"><strong>Deployment JAM Page (if applicable)</strong></label>
+                <input type="text" class="form-control border-input" name="AMVisDeploymentJamPage">
+              </div>
+            </div>
             
-            <div class="col-md-3 modalText"><strong> Additional Customer Contacts</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisAdditionalCustomerContact">
-            </div></div>
+            
+               <!-- <div class="col-md-3 modalText"><strong> Additional Customer Contacts</strong></div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="AMVisAdditionalCustomerContact"><strong>Additional Customer Contacts</strong></label>
+                <textarea type="text" class="form-control border-input" name="AMVisAdditionalCustomerContact"></textarea>
+                </div>
+              </div>
+          
            
-           <div class="col-md-3 modalText"><strong> Comments / Notes</strong></div>
-            <div class="col-md-3"><div class="form-group"><input type="text" class="form-control border-input" name="AMVisCommentsOrNotes">
-            </div></div>    
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="AMVisCommentsOrNotes"><strong>Comments / Notes</strong></label>
+              <div id="toolbar-container">
+                <span class="ql-formats">
+                  <select class="ql-size">
+                    <option value="10px">Small</option>
+                    <option selected>Normal</option>
+                    <option value="18px">Large</option>
+                    <option value="32px">Huge</option>
+                  </select>
+                </span>
+                <span class="ql-formats"><button type="button" class="ql-bold"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button><button type="button" class="ql-italic"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="13" y1="4" y2="4"></line> <line class="ql-stroke" x1="5" x2="11" y1="14" y2="14"></line> <line class="ql-stroke" x1="8" x2="10" y1="14" y2="4"></line> </svg></button><button type="button" class="ql-underline"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect> </svg></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-color">
+                    <option selected></option>
+                    <option value="red"></option>
+                    <option value="orange"></option>
+                    <option value="yellow"></option>
+                    <option value="green"></option>
+                    <option value="blue"></option>
+                    <option value="purple"></option>
+                  </select>
+                  <select class="ql-background">
+                    <option selected></option>
+                    <option value="red"></option>
+                    <option value="orange"></option>
+                    <option value="yellow"></option>
+                    <option value="green"></option>
+                    <option value="blue"></option>
+                    <option value="purple"></option>
+                  </select>
+                </span>
+              </div>
+              <div  class="form-control border-input" name="AMVisCommentsOrNotes" id="AMVisCommentsOrNotes" style="min-height:50px"></div>
+            </div> 
+          </div>
+            <!-- <div class="col-md-12">
+              <div class="form-group">
+                <label for="AMVisCommentsOrNotes"><strong>Comments / Notes</strong></label>
+                <textarea type="text" class="form-control border-input" name="AMVisCommentsOrNotes" id="AMVisCommentsOrNotes"></textarea>
+              </div>
+            </div>  -->   
             
           </div>
-        </div>
-    </div>
-  
+</div>
+      
+      </div>
+      <!-- <div class="modal-body" ng-include="'form.html'"></div> -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info btn-fill" 
-        ng-disabled="customerInfoForm.$dirty && customerInfoForm.$invalid" ng-click="submit($event)">Save</button>
+        <button type="button" class="btn btn-info btn-fill save" 
+         ng-click="submit($event)">Save</button>
+        <button type="button" class="btn btn-info btn-fill update" 
+         ng-click="submitUpdate($event)">Update</button>
       </div>
       </form>
     </div><!-- /.modal-content -->
@@ -1227,46 +907,53 @@ input[type=submit] {
 
   </div>
 </div>
-
+<div id="divLoading">
+</div>
 </body>
 
    <!--   Core JS Files   -->
-<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script  src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script  src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--  Checkbox, Radio & Switch Plugins -->
-<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+<script  src="assets/js/bootstrap-checkbox-radio.js"></script>
 
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script  type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 <!--  Charts Plugin -->
-<script src="assets/js/chartist.min.js"></script>
+<!-- <script src="assets/js/chartist.min.js"></script> -->
 
 <!--  Notifications Plugin    -->
-<script src="assets/js/bootstrap-notify.js"></script>
+<script  src="assets/js/bootstrap-notify.js"></script>
 
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script> -->
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
-<script src="assets/js/paper-dashboard.js"></script>
+<script  src="assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/js/demo.js"></script>
+<!-- <script src="assets/js/demo.js"></script> -->
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<script  src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
 
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+<!-- <script  src="assets/js/bootstrap-datetimepicker.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
 
-	<script src="assets/js/finance.js"></script>
+<!-- Main Quill library -->
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<script src="assets/js/finance.js"></script>
 	
 
 
 	<script type="text/javascript">
+    var validatorForm ;
     	$(document).ready(function(){
 
             $.notify({
@@ -1275,8 +962,31 @@ input[type=submit] {
 
             },{
                 type: 'success',
-                timer: 4000
+                timer: 200,
+                z_index: 9999999,
             });
+
+            validatorForm=$('#customerInfoForm').validate({ // initialize the plugin
+                  rules: {
+                      AMVisUniqueName: {
+                          required: true
+                      },
+                      /*AMVisName: {
+                          required: true
+                      },
+                      AMVisStartDate: {
+                          required: true
+                      },
+                      AMVisAMSSupportStarted: {
+                          required: true
+                      },
+                      AMVisCustomerStartDate: {
+                          required: true
+                      }*/
+                  }
+          });
+
+
     	});
 	</script>	
 </html>

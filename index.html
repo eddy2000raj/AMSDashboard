@@ -137,6 +137,7 @@ Credits : Stefan Ruska.
                               <ul class="dropdown-menu">
                                 <li><a href="https://jam4.sapjam.com/c/jamatsap.com/wiki/show/BGj22agSAwIRN9u6lbnmuf">Feature Exploration Program</a></li>
                                 <li><a href="http://uk-lonams1.ariba.com:93/Sourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetCSVData?query=SELECT%0D%0A%27%27%27%27+%7C%7C+t.AMVisSRNumber+AS+%22SR+Number%22%2C%0D%0At.AMVisDescription+AS+%22Description%22%2C%0D%0Aacc.AMVisShortName+AS+%22Customer%22%2C%0D%0Aacc.AMVisRegion+AS+%22Customer+Region%22%2C%0D%0At.AMVisContactName+AS+%22Reported+By%22%2C%0D%0At.AMVisStatus+AS+%22Status%22%2C%0D%0At.AMVisSubStatus+AS+%22SubStatus%22%2C%0D%0At.AMVisPriority+AS+%22Priority%22%2C%0D%0At.AMVisSeverity+AS+%22Severity%22%2C%0D%0Au.Name.PrimaryString+AS+%22Assigned+To%22%2C%0D%0Amanager.Name.PrimaryString+AS+%22Assigned+To+Manager%22%2C%0D%0At.AMVisQueue+AS+%22Queue%22%2C%0D%0At.AMVisAssignedTeam+%22Team%22%2C%0D%0AROUND%28t.AMVisTimeOnAriba+%2F+60%29+AS+%22On+Ariba+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnCustomerUpdate+%2F+60%29+AS+%22On+Ariba+Customer+Update+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnCustomer+%2F+60%29+AS+%22On+Customer+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeOnTSS+%2F+60%29+AS+%22On+TSS+%28h%29%22%2C%0D%0AROUND%28t.AMVisTimeToSLA+%2F+60%29+AS+%22Time+To+SLA+%28h%29%22%2C%0D%0ACASE+SIGN%28t.AMVisTimeToSLA%29+WHEN+-1+THEN+FALSE+ELSE+TRUE+END+AS+%22In+SLA%22%2C%0D%0At.AMVisDateCreated+AS+%22Date+Created%22%2C%0D%0At.AMVisDateClosed+AS+%22Date+Closed%22%0D%0AFROM+%0D%0AAMVisTicket+t%0D%0ALEFT+OUTER+JOIN+config.amvis.core.AMVisAccount+acc+USING+t.AMVisAccount%0D%0ALEFT+OUTER+JOIN+ariba.user.core.User+u+USING+t.AMVisAssignedTo%0D%0ALEFT+OUTER+JOIN+ariba.user.core.User+manager+USING+u.Supervisor%0D%0AWHERE%0D%0At.AMVisSRNumber+LIKE+%2700%25%27+AND+%28t.AMVisQueue+IN+%28%27APP_MGMT%27%2C%27APP_MAINT_L3I%27%2C%27APP_MAINT_L3P%27%2C%27APP_MAINT_L2I%27%2C%27APP_MAINT_L2P%27%2C%27APP_MAINT_DEPLOY%27%29++OR+u.Name.PrimaryString+IS+NOT+NULL%29">Tickets.csv</a></li>
+                                <li><a href="http://blrd50877161a.apj.global.corp.sap:93/sr/dashboard/finance.html">Finance</a></li>
                                 
                                 
                               </ul>
@@ -674,7 +675,7 @@ Credits : Stefan Ruska.
 	<script type="text/javascript">
     	$(document).ready(function(){
 
-        	demo.initChartist();
+        	///demo.initChartist();
 
         	$.notify({
             	icon: 'ti-gift',
@@ -684,7 +685,7 @@ Credits : Stefan Ruska.
                 type: 'success',
                 timer: 4000
             });
-			$(".table-filter").dataTable();
+			//$(".table-filter").dataTable();
     	});
 	</script>	
 </html>

@@ -6,6 +6,8 @@ function getUrlVars() {
     return vars;
 }
 
+var server_url="http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData";
+
 var mytexts = getUrlVars()["name"];
 var mytextactual = decodeURIComponent(mytexts);
 var mytext =mytextactual.replace(/'/g,"''");
@@ -43,7 +45,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -70,7 +72,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST",server_url);
 
 
 xhr.send(data);
@@ -98,7 +100,7 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 xhr.send(data);
 
@@ -111,26 +113,60 @@ function pmName() { return "select CASE usr when null then 'NO PM Assigned Yet' 
 var data = new FormData();
 data.append("query", pmName());
 data.append("useSQL", "");
-data.append("type", "text");
+data.append("type", "table");
 
 var xhr = new XMLHttpRequest();
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 xhr.send(data);
 xhr.addEventListener("readystatechange", function () {
   if (this.readyState === 4) {
 
 	var NAC =JSON.parse(this.responseText);
+	NAC.shift();
 	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-		document.getElementById("pmName").innerHTML =replaced ;
+	document.getElementById("pmName").innerHTML =replaced ;
   }
 });
 
 //-----------------------------------------
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
+xhr.open("POST", server_url);
 xhr.send(data);
+
+
+
+
+
+//----------------------------------------
+var qq="select acc.AMVisWeeklyMeetingDayAndTime as weeklyCall,AMVisRegion as region,AMVisCustomerCategory as category from config.amvis.core.AMVisAccount acc  where acc.AMVisUniqueName='"+uniqueName+"'";
+
+var data = new FormData();
+data.append("query", qq);
+data.append("useSQL", "");
+data.append("type", "table");
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", server_url);
+xhr.send(data);
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+
+	var NAC =JSON.parse(this.responseText);
+	NAC.shift();
+	//var replaced = NAC.toString().replace(/\[.*\]/g,'');
+	document.getElementById("weeklyCall").innerHTML =NAC[0][0] ;
+	document.getElementById("region").innerHTML =NAC[0][1] ;
+	document.getElementById("customerCategory").innerHTML =NAC[0][2] ;
+  }
+});
+
+//-----------------------------------------
+
+xhr.open("POST", server_url);
+xhr.send(data);
+
+//-------------------------------------
+
 
 var data = new FormData();
 function queryTransform2() { return " Select count(this) from AMVisTicket t  Where t.AMVisAccount.AMVisShortName = '"+mytext+"' and (CurrentDate() - t.AMVisDateClosed < 30) and AMVisStatus = 'CLOSED' and AMVisAssignedTeam ='GS APP MGMT' and t.AMVisIsAMSTicket!=false union Select count(this) from AMVisTicket t  Where t.AMVisAccount.AMVisShortName = '"+mytext+"' and (CurrentDate() - t.AMVisDateClosed < 30) and AMVisStatus = 'CLOSED' and AMVisAssignedTeam ='' and t.AMVisIsAMSTicket!=false";}
@@ -156,7 +192,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -185,7 +221,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -214,7 +250,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -243,7 +279,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -275,7 +311,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -306,7 +342,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -336,7 +372,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -366,7 +402,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -382,7 +418,7 @@ $scope.querys = queryModification();
                $http({
 				method : "POST",
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+				url : server_url,
 				transformRequest: function(obj) {
 					var str = [];
 					for(var p in obj){
@@ -428,7 +464,7 @@ $scope.querys = queryModification();
                $http({
 				method : "POST",
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+				url : server_url,
 				transformRequest: function(obj) {
 					var str = [];
 					for(var p in obj){
@@ -531,7 +567,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -623,7 +659,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -688,7 +724,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -724,7 +760,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -745,7 +781,7 @@ app.controller('SLAController', function($scope, $http) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        url: "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+        url: server_url,
         transformRequest: function(obj) {
             var str = [];
             for (var p in obj) {
@@ -808,11 +844,64 @@ if(startDate!="" && endDate!="" && !isNaN(tcv)){
  	$("#annualContractValue").val(0.0);
  }
 
-
-
-
 	
 }
+
+$('#contractTable').on( 'click', 'tbody tr .btn-danger', function () {
+			    //.row( this ).delete();
+			    var row = $(this).closest('tr');
+			    var id=$(this).attr('id');
+			    var nRow = row[0];
+				$('#contractTable').dataTable().fnDeleteRow(nRow);
+				var contractAmount=parseInt(row.find('td:eq(2)').text());
+			    var contarctDate=row.find('td:eq(0)').text();
+			    contarctDate=moment(contarctDate,'DD/MM/YYYY').format("DD/MM/YYYY");
+				//$('#contractTable').dataTable().fnDeleteRow(nRow);
+				var scope = angular.element($("#contractSave")).scope();
+			    scope.$apply(function(){
+
+			        //scope.totalContract = scope.totalContract-contractAmount;
+			        scope.annualContractValue=scope.annualContractValue-contractAmount;
+			        scope.contractArray = scope.contractArray.filter(function(value){
+			        				 var contractDateLoop=moment(value[0],'MM/DD/YYYY').format("DD/MM/YYYY")
+			        				 return contractDateLoop!=contarctDate;
+			        });
+
+			     $("#annualContractValue").val(scope.annualContractValue);
+			      scope.computeACVInside();
+			    });
+
+			     /*if(typeof(id)!="undefined"){
+                    scope.deleteContract(id);
+			     }*/
+			});
+
+$('#invoiceTable').on( 'click', 'tbody tr .btn-danger', function () {
+			    //.row( this ).delete();
+			    var row = $(this).closest('tr');
+			    var nRow = row[0];
+			    var invoiceAmount=parseInt(row.find('td:eq(1)').text());
+			    var invoiceDate=row.find('td:eq(0)').text();
+			    
+
+				$('#invoiceTable').dataTable().fnDeleteRow(nRow);
+				var scope = angular.element($("#contractSave")).scope();
+			    scope.$apply(function(){
+			        scope.invoiceTotal = scope.invoiceTotal-invoiceAmount;
+			        scope.inviceArray = scope.inviceArray.filter(function(value){
+			        	                var invoiceDateLoop=moment(value[0],'MM/DD/YYYY').format("DD/MM/YYYY")
+			        					return invoiceDateLoop!=invoiceDate;
+			        });
+			        scope.computeACVInside();
+			    });
+
+			     /*if(typeof(id)!="undefined"){
+                    scope.deleteInvoice(id);
+			     }*/
+
+			});
+
+
 
 
 app.controller("contractSave",function($scope,$http){
@@ -823,21 +912,24 @@ app.controller("contractSave",function($scope,$http){
     	"sowNumber":"",
     	"startDate":"",
     	"endDate":"",
-    	"totalContractValue":"",
-    	"annualContractValue":"",
+    	"totalContractValue":0,
+    	"annualContractValue":0,
     	"currency":"NA"
     } ;
 
     $scope.invoice={};
     $scope.inviceArray=[];
+    $scope.contractArray=[];
     $scope.invoiceTotal=0;
+    $scope.totalContract=0;
+    $scope.annualContractValue=0;
     //$scope.macthed=false;
 
     $scope.myForm = { macthed: false };
 
    var startDate =  $("#startDate").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true
@@ -845,12 +937,12 @@ app.controller("contractSave",function($scope,$http){
     //startDate.hide();
     $scope.contract.startDate =  $("#startDate").val();
     $scope.$apply();
-    computeACV();
+    //computeACV();
     });
 
 	var  endDate =$("#endDate").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true
@@ -858,14 +950,14 @@ app.controller("contractSave",function($scope,$http){
     //endDate.hide();
     $scope.contract.endDate = $("#endDate").val();
     $scope.$apply();
-    computeACV();
+    //computeACV();
 	});
 
 
 	
 	$("#inDate").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true
@@ -873,12 +965,191 @@ app.controller("contractSave",function($scope,$http){
     //endDate.hide();
     //$scope.contract.endDate = $("#endDate").val();
     //$scope.$apply();
+    $scope.invalidInvoice=false;
+    $scope.$apply();
+	});
+
+	$("#contractStartDate").datepicker({format: "dd/mm/yyyy",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true
+	}).on('changeDate', function(ev) {
+    //endDate.hide();
+    //$scope.contract.endDate = $("#endDate").val();
+    //$scope.$apply();
+    $scope.invalidContractDateRange=false;
+    $scope.$apply();
+	});
+
+	$("#contractEndDate").datepicker({format: "dd/mm/yyyy",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true
+	}).on('changeDate', function(ev) {
+    //endDate.hide();
+    //$scope.contract.endDate = $("#endDate").val();
+    //$scope.$apply();
+    $scope.invalidContractDateRange=false;
+    $scope.$apply();
 	});
 
 
 	$scope.computeACVInside=function(){
-		computeACV();
+		//computeACV();
+		if($scope.invoiceTotal==parseInt($("#totalContractValue").val())){
+
+			if($scope.invoiceTotal==parseInt($("#annualContractValue").val())){
+				$scope.myForm.macthed=true;
+ 				$scope.$apply();
+			}else{
+				$scope.myForm.macthed=false;
+				 $scope.$apply();
+			}
+			
+		}else{
+			    $scope.myForm.macthed=false;
+				 $scope.$apply();
+		}
+         
 	}
+
+
+	$scope.deleteInvoice=function(id){
+
+		var fdata = {};
+            //fdata["account"]=uniqueName;
+            fdata["isDeleteInvoice"]=true;
+            fdata["id"]=id ;
+           
+
+		$http({
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        url: server_url,
+        transformRequest: function(obj) {
+            var str = [];
+            for (var p in obj) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+            return str.join("&");
+        },
+        data: fdata
+    }).then(
+        function mySucces(response) {
+         	
+         	  $.notify({
+                icon: 'ti-success',
+                message: "Invoice deleted Successfully"
+
+            },{
+                type: 'success',
+                timer: 400
+            });
+
+        },
+        function myError(response) {
+            
+        })
+
+
+	}
+
+	$scope.deleteContract=function(id){
+
+		var fdata = {};
+            //fdata["account"]=uniqueName;
+            fdata["isDeleteContract"]=true;
+            fdata["id"]=id ;
+           
+
+		$http({
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        url: server_url,
+        transformRequest: function(obj) {
+            var str = [];
+            for (var p in obj) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+            return str.join("&");
+        },
+        data: fdata
+    }).then(
+        function mySucces(response) {
+         	
+         	  $.notify({
+                icon: 'ti-success',
+                message: "Contract deleted Successfully"
+
+            },{
+                type: 'success',
+                timer: 400
+            });
+
+        },
+        function myError(response) {
+            
+        })
+
+
+	}
+
+
+	$scope.addContracts=function(){
+
+       var contract=[];
+
+		contract[0]=$("#contractStartDate").val();
+		contract[1]=$("#contractEndDate").val();
+		contract[2]=isNaN(parseInt($("#contractAmount").val()))?0:parseInt($("#contractAmount").val());
+		contract[3]="<button class='btn btn-danger'><i class='ti-trash'></i></button>";
+		contract[4]="new";
+        
+        var myMoment=moment(contract[1],"DD/MM/YYYY");
+        var yourMoment=moment(contract[0],"DD/MM/YYYY");
+
+  
+        if(myMoment.diff(yourMoment,"minute") >= 0){
+
+	        $scope.contractArray.push(contract);
+
+			$scope.annualContractValue=parseInt($scope.annualContractValue)+parseInt($("#contractAmount").val());
+			$scope.contract["annualContractValue"]=$scope.annualContractValue;
+			$("#annualContractValue").val($scope.annualContractValue);
+
+			$scope.$apply();
+
+			$("#contractTable").dataTable().fnDestroy();
+	        var $table=$("#contractTable").dataTable({
+	        	aaData:$scope.contractArray,
+	        	"bFilter": false ,
+	        	"bPaginate": false,
+	            "columns": [
+					    { "width": "30%" },
+					    { "width": "30%" },
+					    { "width": "30%" },
+					    { "width": "10%" }
+  							]});
+	        //var myTable = $('#myTable').DataTable();
+ 
+			scope.computeACVInside();
+
+        }else{
+        	$scope.invalidContractDateRange=true;
+        }
+		
+
+			
+	}
+
 
 	$scope.addInvoice=function(){
 
@@ -887,26 +1158,43 @@ app.controller("contractSave",function($scope,$http){
 
 		invoice[0]=$("#inDate").val();
 		invoice[1]=$("#invoiceAmount").val();
+		invoice[2]="<button class='btn btn-danger' ><i class='ti-trash'></i></button>";
+		invoice[3]="new";
 
-		$scope.inviceArray.push(invoice);
+		if(invoice[0]!="" && invoice[1]!=""){
 
-		$scope.invoiceTotal=parseInt($scope.invoiceTotal)+parseInt($("#invoiceAmount").val());
+			$scope.inviceArray.push(invoice);
 
-		$("#invoiceTable").dataTable().fnDestroy();
-        $("#invoiceTable").dataTable({aaData:$scope.inviceArray,"bFilter": false ,"bPaginate": false});
+			$scope.invoiceTotal=parseInt($scope.invoiceTotal)+parseInt($("#invoiceAmount").val());
 
+			$("#invoiceTable").dataTable().fnDestroy();
+	        var $table=$("#invoiceTable").dataTable({
+	        	aaData:$scope.inviceArray,
+	        	"bFilter": false ,
+	        	"bPaginate": false,
+	             "columns": [
+						    { "width": "45%" },
+						    { "width": "45%" },
+						    { "width": "10%" }
+	  							]});
 
-        if($scope.invoiceTotal==parseInt($("#totalContractValue").val()))
-         $scope.myForm.macthed=true;
+	        
+
+	        scope.computeACVInside();
+
+		}else{
+			$scope.invalidInvoice=true;
+		}
+
+		
        
-
-        $scope.$digest();
 
 	}
 
 	$scope.saveContract=function(){
-       //debugger;
-		console.log("saveContract Called"+$scope.contract);
+   
+		//console.log("saveContract Called"+$scope.contract);
+		$("#divLoading").show();
 
 		var fdata = {};
             fdata["account"]=uniqueName;
@@ -918,6 +1206,7 @@ app.controller("contractSave",function($scope,$http){
             fdata["totalContractValue"]=$scope.contract["totalContractValue"]==""?"0":$scope.contract["totalContractValue"];
             fdata["annualContractValue"]=$scope.contract["annualContractValue"]==""?"0":$scope.contract["annualContractValue"];
             fdata["currency"]=$scope.contract["currency"]==""?"NA":$scope.contract["currency"];
+            fdata["annualContractsArray"]=$scope.contractArray;
             fdata["invoiceArray"]=$scope.inviceArray ;
 
         $http({
@@ -925,7 +1214,7 @@ app.controller("contractSave",function($scope,$http){
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        url: "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+        url: server_url,
         transformRequest: function(obj) {
             var str = [];
             for (var p in obj) {
@@ -936,23 +1225,56 @@ app.controller("contractSave",function($scope,$http){
         data: fdata
     }).then(
         function mySucces(response) {
-            $scope.data = response.data;
-            //alert("mySucces");
-            $("div#myModal").modal('hide');
-            $.notify({
-                icon: 'ti-success',
-                message: "Contract Saved Successfully"
 
-            },{
-                type: 'success',
-                timer: 400
-            });
+        	if(response.data[0].status="customer contract saved successfully"){
 
-            loadContractTable();
+        		$scope.data = response.data;   
+	            $("div#myModal").modal('hide');
+	            $.notify({
+	                icon: 'ti-success',
+	                message: "Contract Saved Successfully"
+
+	            },{
+	                type: 'success',
+	                timer: 1000,
+	                z_index:99999
+	            });
+	            $("#divLoading").hide();
+	            resetForm();
+	            loadContractTable();
+
+        	}else{
+
+        		$("#divLoading").hide();
+
+        		$.notify({
+	                icon: 'ti-error',
+	                message: response.data[0].status
+
+	            },{
+	                type: 'error',
+	                timer: 4000,
+	                z_index:99999
+	            });
+
+        	}
+            
         },
         function myError(response) {
-            $scope.data = response.statusText;
-            $("div#myModal").modal('hide');
+
+        	$("#divLoading").hide();
+
+        	$.notify({
+	                icon: 'ti-error',
+	                message: response.data[0].status
+
+	            },{
+	                type: 'error',
+	                timer: 4000,
+	                z_index:99999
+	            });
+            //$scope.data = response.statusText;
+            //$("div#myModal").modal('hide');
         })
 
    
@@ -961,13 +1283,11 @@ app.controller("contractSave",function($scope,$http){
 
 	$scope.updateContract=function(){
 
-		console.log("updateContract Called");
+	    $("#divLoading").show();
 
-		//console.log("saveContract Called"+$scope.contract);
-
-		var fdata = {};
-            //fdata["account"]=uniqueName;
+		    var fdata = {};
             fdata["isLookup"]=true;
+            fdata["uniqueName"]=document.getElementById("uniqueName").value;
             fdata["sowTitle"]=$("#sowTitle").val()==""? "NA" :$("#sowTitle").val() ;
             fdata["sowNumber"]=$("#sowNumber").val()==""?"NA":$("#sowNumber").val();
             fdata["startDate"]=$("#startDate").val()==""? "01/01/1970":$("#startDate").val();
@@ -975,15 +1295,15 @@ app.controller("contractSave",function($scope,$http){
             fdata["totalContractValue"]=$("#totalContractValue").val()==""?"0":$("#totalContractValue").val();
             fdata["annualContractValue"]=$("#annualContractValue").val()==""?"0":$("#annualContractValue").val();
             fdata["currency"]=$("#currency").val()==""?"NA":$("#currency").val();
-
-            fdata["uniqueName"]=document.getElementById("uniqueName").value;
+            fdata["annualContractsArray"]=$scope.contractArray;
+            fdata["invoiceArray"]=$scope.inviceArray ;
 
         $http({
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        url: "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+        url: server_url,
         transformRequest: function(obj) {
             var str = [];
             for (var p in obj) {
@@ -994,21 +1314,54 @@ app.controller("contractSave",function($scope,$http){
         data: fdata
     	}).then(
         function mySucces(response) {
-            //$scope.data = response.data;
-              $("div#myModal").modal('hide');
-              $.notify({
-                icon: 'ti-success',
-                message: "Contract Updated Successfully"
+          
+            if(response.data[0].status="Contract updated successfully"){
 
-            },{
-                type: 'success',
-                timer: 400
-            });
-            loadContractTable();
+        		$scope.data = response.data;   
+	            $("div#myModal").modal('hide');
+	            $.notify({
+	                icon: 'ti-success',
+	                message: "Contract updated successfully"
+
+	            },{
+	                type: 'success',
+	                timer: 1000,
+	                z_index:99999
+	            });
+	            $("#divLoading").hide();
+	            resetForm();
+	            loadContractTable();
+
+        	}else{
+
+        		 $("#divLoading").hide();
+
+        		$.notify({
+	                icon: 'ti-error',
+	                message: response.data[0].status
+
+	            },{
+	                type: 'error',
+	                timer: 4000,
+	                z_index:99999
+	            });
+
+        	}
         },
         function myError(response) {
-            //$scope.data = response.statusText;
-             $("div#myModal").modal('hide');
+
+        	$("#divLoading").hide();
+
+            
+             $.notify({
+	                icon: 'ti-error',
+	                message: response.data[0].status
+
+	            },{
+	                type: 'error',
+	                timer: 4000,
+	                z_index:99999
+	            });
         });
 
 
@@ -1017,19 +1370,7 @@ app.controller("contractSave",function($scope,$http){
 
 });
 
-
-
-/*$( document ).on( "myCustomEvent", {
-    foo: "bar"
-}, function( event, arg1, arg2 ) {
-    console.log( event.data.foo ); // "bar"
-    console.log( arg1 );           // "bim"
-    console.log( arg2 );           // "baz"
-});*/
-
-function addContact(){
-
-	//$( document ).trigger( "myCustomEvent", [ "bim", "baz" ] );
+function resetForm(){
 
 	$("#sowTitle").val("");
 	$("#sowNumber").val("");
@@ -1037,19 +1378,45 @@ function addContact(){
 	$("#endDate").val("");
 	$("#totalContractValue").val("");
 	$("#annualContractValue").val("");
-    $("#currency").val("");
+    $("#currency").val("NA");
     $("#uniqueName").val("");
 
+    $("#contractStartDate").val("");
+    $("#contractEndDate").val("");
+    $("#contractAmount").val("");
+    
     $("#inDate").val("");
     $("#invoiceAmount").val("");
 
     scope.inviceArray=[];
 	scope.invoiceTotal=0;
-	scope.myForm.macthed=false;
-	scope.$digest();
+	scope.contractArray=[];
+	scope.annualContractValue=0;
+	scope.invalidContractDateRange=false;
+	scope.invalidInvoice=false;
 
-    $("#invoiceTable").dataTable().fnDestroy();
+	scope.myForm.macthed=false;
+	scope.$apply();
+
+   
+
+}
+
+$('[data-dismiss=modal]').on('click', function (e) {
+   
+      resetForm();
+	  
+})
+
+
+function addContact(){
+
+	$("#invoiceTable").dataTable().fnDestroy();
     $("#invoiceTable").dataTable({aaData:[],"bFilter": false ,"bPaginate": false});
+
+    $("#contractTable").dataTable().fnDestroy();
+    $("#contractTable").dataTable({aaData:[],"bFilter": false ,"bPaginate": false});
+    
     $("#myModal").find(".save").show();
     $("#myModal").find(".update").hide();
     $("#myModal").modal();
@@ -1057,24 +1424,30 @@ function addContact(){
 }
 
 function editContract(data){
-
+	
 	var d=data.split(",");
-
 	$("#sowTitle").val(d[0]);
 	$("#startDate").val( moment(d[1]).format("DD/MM/YYYY"));
 	$("#endDate").val(moment(d[2]).format("DD/MM/YYYY"));
-	$("#totalContractValue").val(d[3]);
-	$("#annualContractValue").val(d[4]);
+	$("#totalContractValue").val(parseInt(d[3]));
+	$("#annualContractValue").val(parseInt(d[4]));
     $("#currency").val(d[5]);
     $("#uniqueName").val(d[6]);
     $("#sowNumber").val(d[7]);
 
+    scope.invoiceTotal=parseInt(d[3]);
+    scope.totalContract=parseInt(d[4]);
+    scope.annualContractValue=parseInt(d[4]);
+    scope.invalidContractDateRange=false;
+    scope.invalidInvoice=false;
+    scope.myForm.macthed=true;
+
 
     var data = new FormData();
 
-	var contacrtInfo = "select AMVisInvoiceTitle,AMVisInvoiceStartDate,AMVisInvoiceEndDate,AMVisTotalInvoiceValue,AMVisCurrency from config.amvis.core.AMVisContractInvoices";
+	var invoiceInfo = "select ci.AMVisInvoiceStartDate,ci.AMVisTotalInvoiceValue,'test',ci.AMVisInvoiceUniqueName from config.amvis.core.AMVisCustomerContracts ac left outer join config.amvis.core.AMVisContractInvoices as ci using ac.AMVisInvoiceList where ac.AMVisContractUniqueName='"+d[6]+"'";
 
-	data.append("query", contacrtInfo);
+	data.append("query", invoiceInfo);
 	data.append("useSQL", "");
 	data.append("type", "table");
 
@@ -1086,26 +1459,148 @@ function editContract(data){
 
 				var NAC =JSON.parse(this.responseText);
 				var NAC2 = NAC.shift();
+
+				NAC.map(function(x) { 
+					      //x[0]= moment(x[0]).format("DD/MM/YYYY");
+					      x[1]=parseInt(x[1]);
+						  x[2] = "<button class='btn btn-danger' id='"+x[3]+"'><i class='ti-trash'></i></button>"; 
+						  return x;
+				});
+
+				scope.inviceArray=NAC;
+
+				//scope.$apply();
 				
 				//$("#invoiceTable").dataTable({"aaData": [],"bFilter": false ,"bPaginate": false});
 				$("#invoiceTable").dataTable().fnDestroy();
-				$("#invoiceTable").dataTable({aaData:NAC,"bFilter": false ,"bPaginate": false});
+				$("#invoiceTable").dataTable({
+					aaData:NAC,
+					"bFilter": false ,
+					"bPaginate": false,
+					 columnDefs: [{
+                    targets: 0,
+                    "orderable": false,
+                    render: function(data, type, row, meta) {
+                        if (type === 'display') {
+
+                             data = moment(data).format("DD/MM/YYYY");
+                        }
+
+                        return data;
+                    }
+
+                }]
+				    /* "columns": [
+					    { "width": "45%" },
+					    { "width": "45%" },
+					    { "width": "10%" }
+  							]*/
+  				});
+
+  				loadAnnualContractTable(d[6],scope);
+				
+
+			  }
+			});
+
+
+			xhr.open("POST", server_url);
+
+
+			xhr.send(data);
+
+	//$("#myModal").show();
+}
+
+
+
+function loadAnnualContractTable(key,scope){
+
+	var data = new FormData();
+
+	var annualContractInfo = "select ci.AMVisAnnualContractStartDate,ci.AMVisAnnualContractEndDate ,ci.AMVisAnnualContractValue,'test',ci.AMVisAnnualContractUniqueName from config.amvis.core.AMVisCustomerContracts ac left outer join config.amvis.core.AMVisContractAnnualContract as ci using ac.AMVisAnnualContractList where ac.AMVisContractUniqueName='"+key+"'";
+
+	data.append("query", annualContractInfo);
+	data.append("useSQL", "");
+	data.append("type", "table");
+
+			var xhr = new XMLHttpRequest();
+
+			xhr.addEventListener("readystatechange", function () {
+			  if (this.readyState === 4) {
+				 
+
+				var NAC =JSON.parse(this.responseText);
+				var NAC2 = NAC.shift();
+
+
+
+				NAC.map(function(x) { 
+					      //x[0]= moment(x[0]).format("DD/MM/YYYY");
+					      //x[1]= moment(x[1]).format("DD/MM/YYYY");
+					      x[2]=parseInt(x[2]);
+						  x[3] = "<button class='btn btn-danger' id='"+x[4]+"' ><i class='ti-trash'></i></button>"; 
+						  return x;
+				});
+
+				scope.contractArray=NAC;
+
+				
+				
+				//$("#invoiceTable").dataTable({"aaData": [],"bFilter": false ,"bPaginate": false});
+				$("#contractTable").dataTable().fnDestroy();
+				$("#contractTable").dataTable({
+					aaData:NAC,
+					"bFilter": false ,
+					"bPaginate": false,
+					 columnDefs: [{
+                    targets: 0,
+                    "orderable": false,
+                    render: function(data, type, row, meta) {
+                        if (type === 'display') {
+
+                             data = moment(data).format("DD/MM/YYYY");
+                        }
+
+                        return data;
+                    }
+
+                },{
+                    targets: 1,
+                    "orderable": false,
+                    render: function(data, type, row, meta) {
+                        if (type === 'display') {
+                        	 
+                             data = moment(data).format("DD/MM/YYYY")
+                        }
+
+                        return data;
+                    }
+
+                }]
+				     /*"columns": [
+					    { "width": "30%" },
+					    { "width": "30%" },
+					    { "width": "30%" },
+					    { "width": "10%" }
+  							],*/
+
+  				});
+
+  				scope.$apply();
+
 				$("#myModal").find(".save").hide();
     			$("#myModal").find(".update").show();
-				//$("#myModal").find(".save").hide();
 				$("#myModal").modal();
 
 			  }
 			});
 
 
-			xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+			xhr.open("POST", server_url);
 
 
 			xhr.send(data);
-	
-
-	//$("#myModal").show();
 }
 
 function deleteContract(data){
@@ -1118,12 +1613,6 @@ function deleteContract(data){
 
 	   $('#confirm-delete .btn-ok').on('click', function(e) {
 	   
-	   console.log("delete Contract Called");   
-
-		/*var fdata = {};
-            //fdata["account"]=uniqueName;
-        fdata["isDelete"]=true;
-        fdata["uniqueName"]=d[6];*/
 
         var data = new FormData();
 
@@ -1136,6 +1625,7 @@ function deleteContract(data){
 		var xhr = new XMLHttpRequest();
 
 		xhr.addEventListener("readystatechange", function () {
+
 		  if (this.readyState === 4) {
 			  
 			//console.log(this.responseText);
@@ -1146,14 +1636,16 @@ function deleteContract(data){
 
             },{
                 type: 'success',
-                timer: 400
+                timer: 2000,
+                z_index:999999
             });
             loadContractTable();
 
 		  }
+
 		});
 
-		xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+		xhr.open("POST", server_url);
 
 		xhr.send(data);
 
@@ -1249,7 +1741,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
@@ -1260,13 +1752,5 @@ xhr.send(data);
 loadContractTable();
 
 
-
-setTimeout(function(){
-	//var data=[];
-	//$("#contractInformation").dataTable({aaData:data,"bFilter": false ,"bPaginate": false});
-	//$("#startDate").datepicker({});
-	//$("#endDate").datepicker({});
-	
-},100);
 
 

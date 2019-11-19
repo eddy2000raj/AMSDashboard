@@ -1,37 +1,90 @@
 var app = angular.module('plunker', []);
 
-/*app.directive("serializer", function(){
-  return {
-    restrict: "A",
-    scope: {
-      onSubmit: "&serializer"
-    },
-    link: function(scope, element){
-      // assuming for brevity that directive is defined on <form>
 
-      var form = element;
-	      if(form.submit!=undefined){
-	      	 form.submit(function(event){
-	         event.preventDefault();
-	         var serializedData = form.serialize();
+var AMVisCommentsQuill,AMVisCustomerSpecificQuill;
 
-	         scope.onSubmit({data: serializedData});
-	      });
-	      }
-      
+var server_url="http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData";
 
-    }
-  };
-});*/
 
-app.controller("accountTable",function($scope,$http){
+function resetForm(){
+
+	 //reset form
+	   $("#customerInfoForm input.form-control,textarea.form-control").each(function(i,v){ 
+
+
+		  	if($(v).attr("type")=="radio" ){
+                
+
+		  		if($(v).attr("value")=="false"){
+		  			$(v).closest(".radio").addClass("checked");
+		  		}
+
+		  		if($(v).attr("value")=="true"){
+		  			$(v).closest(".radio").removeClass("checked");
+		  		}
+
+		  		if($(v).attr("value")=="onDemand"){
+		  			$(v).closest(".radio").addClass("checked");
+		  		}
+
+		  		if($(v).attr("value")=="onPremise"){
+		  			$(v).closest(".radio").removeClass("checked");
+		  		}
+
+		  		if($(v).attr("value")=="both"){
+		  			$(v).closest(".radio").removeClass("checked");
+		  		}
+
+
+		  	}
+
+		  	if($(v).attr("type")=="text"){
+               $(v).val("");  
+		  	}
+
+  		});
+
+	   //reset form
+	   $("#customerInfoForm select.form-control").each(function(i,v){ 
+                
+                $(v).val("na");
+
+  		});
+
+	    $("#AMVisPM").val([]);
+	    $("#AMVisPM").trigger("change");
+
+	    $("#AMVisPME").val([]);
+        $("#AMVisPME").trigger("change");
+
+        $("#AMVisKeyAMSExperts").val([]);
+        $("#AMVisKeyAMSExperts").trigger("change");
+
+        $("#AMVisModules").val([]); 
+        $("#AMVisModules").trigger("change");
+
+        $("#customerInfoForm .ql-editor").html("");
+
+        validatorForm.resetForm();
+
+}
+
+//reset modal on close
+$('[data-dismiss=modal]').on('click', function (e) {
+   
+      resetForm();
+	  
+})
+
+
+app.controller("accountTable",function($scope,$http,$templateCache,$compile){
 
 	$scope.allUsers=[];
 
 	$http({
 				method : "POST",
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+				url : server_url,
 				transformRequest: function(obj) {
 					var str = [];
 					for(var p in obj){
@@ -46,78 +99,108 @@ app.controller("accountTable",function($scope,$http){
 					}
 				}).then(
 				function mySucces(response) {
-					//$scope.data = response.data;	
+					
 					$scope.allUsers=response.data;
-					//console.log("account saved");
-					// $("#myModal").modal("hide");
-					//  $.notify({
-     //            				icon: 'ti-gift',
-     //            				message: "Account Saved Successfully"
+					$("#AMVisPM").select2({data:$scope.allUsers}); 
+					$("#AMVisPME").select2({data:$scope.allUsers}); 
+					$("#AMVisKeyAMSExperts").select2({data:$scope.allUsers});
+					
 
-				 //            },{
-				 //                type: 'success',
-				 //                timer: 400
-				 //            })
-					//$("#successPage").modal();
 				},
                 function myError(response) {
-					//$scope.data = response.statusText;
-					//console.log("failed");
-					//$("#myModal").modal("hide");
-					//$("#successPage").modal();
 
-					/*$.notify({
-                				icon: 'ti-gift',
-                				message: "Error in Saving"
-
-				            },{
-				                type: 'error',
-				                timer: 400
-				            })*/
+                	$("#AMVisPM").select2({data:[]}); 
+					$("#AMVisPME").select2({data:[]}); 
+					$("#AMVisKeyAMSExperts").select2({data:[]});
+					
 				});
 
-	
+   $scope.allModules=["Ariba Travel and Expense Professional",
+						"Ariba Contract Invoice Creation",
+						"Ariba Procure-to-Pay Basic",
+						"Ariba Spot Buy Catalog",
+						"Ariba Travel and Expense Basic",
+						"Ariba Custom Form",
+						"Ariba Procure-to-Pay Professional",
+						"Ariba Requisition-to-Receipt",
+						"Ariba Mobile",
+						"Ariba Procurement Content",
+						"Ariba Spot Buy",
+						"Ariba Invoice - Enterprise mode",
+						"Ariba Collaborative Sourcing Pro",
+						"Ariba Supplier Risk - Compliance package",
+						"Ariba Supplier Lifecycle and Performance",
+						"Ariba Custom Reporting",
+						"Ariba Start Contracts",
+						"Ariba Start Sourcing",
+						"Ariba Sourcing Pro",
+						"Ariba QuickSource",
+						"Ariba Spend Visibility Pro",
+						"Ariba Contracts Pro",
+						"Ariba SPM",
+						"Ariba Spend Visibility Basic",
+						"Ariba SSP Reporting",
+						"Ariba Contracts Basic",
+						"Ariba Supplier Management Basic",
+						"Ariba Operational Service",
+						"Ariba Supplier Risk",
+						"Ariba Contractor Management",
+						"Ariba Spot Quote"];
+
+   $("#AMVisModules").select2({data:$scope.allModules}); 
+
+    $scope.allSolutions=["Ariba Travel and Expense Professional",
+						"Ariba Contract Invoice Creation",
+						"Ariba Procure-to-Pay Basic",
+						"Ariba Spot Buy Catalog",
+						"Ariba Travel and Expense Basic",
+						"Ariba Custom Form",
+						"Ariba Procure-to-Pay Professional",
+						"Ariba Requisition-to-Receipt",
+						"Ariba Mobile",
+						"Ariba Procurement Content",
+						"Ariba Spot Buy",
+						"Ariba Invoice - Enterprise mode",
+						"Ariba Collaborative Sourcing Pro",
+						"Ariba Supplier Risk - Compliance package",
+						"Ariba Supplier Lifecycle and Performance",
+						"Ariba Custom Reporting",
+						"Ariba Start Contracts",
+						"Ariba Start Sourcing",
+						"Ariba Sourcing Pro",
+						"Ariba QuickSource",
+						"Ariba Spend Visibility Pro",
+						"Ariba Contracts Pro",
+						"Ariba SPM",
+						"Ariba Spend Visibility Basic",
+						"Ariba SSP Reporting",
+						"Ariba Contracts Basic",
+						"Ariba Supplier Management Basic",
+						"Ariba Operational Service",
+						"Ariba Supplier Risk",
+						"Ariba Contractor Management",
+						"Ariba Spot Quote"];
+
+   $("#AMVisSolutionsInScope").select2({data:$scope.allSolutions}); 
+
 	$scope.showForm=function(){
 
-		$("#myModal").modal("show");
+	   	$("#customerInfoForm .update").hide();
+	    $("#customerInfoForm .save").show();
 
-		setTimout(()=>{
-
-				//var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
-				autocomplete(document.getElementById("AMVisPM"), $scope.allUsers);
-				//autocomplete(document.getElementById("AMVisPME"), $scope.allUsers);
-
-				$("#AMVisPM").css('width', '100%'); // make it responsive
-				$("#AMVisPM").select2({data:$scope.allUsers}); 
-
-				$("#AMVisPME").css('width', '100%'); // make it responsive
-				$("#AMVisPME").select2({data:$scope.allUsers}); 
-
-				  
-				$("#AMVisKeyAMSExperts").css('width', '100%'); // make it responsive
-				$("#AMVisKeyAMSExperts").select2({data:$scope.allUsers});
-
-		},100);
-		 
+		$("#myModal").modal("show")
 		
-	}
+	    }
 });
 
 
 app.controller("saveCustomerController",function($scope,$http){
 
-	$scope.showTimer=function(){
-
-		$(".datetimepicker").css("opacity",1);
-		$(".datetimepicker").css("visibility","visible");
-		$("#AMVisWeeklyMeetingDayAndTime").datetimepicker('show');
-		
-
-	}
+	
 
 	$("#AMVisStartDate").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true
@@ -129,8 +212,21 @@ app.controller("saveCustomerController",function($scope,$http){
 
 
 	$("#AMVisCustomerStartDate").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true
+	});/*.on('changeDate', function(ev) {
+    //endDate.hide();
+    $scope.contract.endDate = $("#endDate").val();
+    $scope.$apply();
+	});
+*/
+
+	$("#AMVisAMSSupportStarted").datepicker({format: "dd/mm/yyyy",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true
@@ -142,52 +238,139 @@ app.controller("saveCustomerController",function($scope,$http){
 */
 
     $("#AMVisCustomerAMSTerminatedDate").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
+    startDate: "01/01/2010",
+    endDate: "01/01/2025",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true
+	}).on('change', function(ev) {
+	
+		if($(this).val()!=''){
+          $('#AMVisTerminationReason').attr('required',true);
+          $("[for=AMVisTerminationReason]").show();
+		}
+        else{
+         $('#AMVisTerminationReason').attr('required',false);
+         $("[for=AMVisTerminationReason]").hide();
+        }
 	});
 
-	/*$("#").datepicker({format: "dd/mm/yyyy",
-    startDate: "01/01/1970",
-    endDate: "01/01/2020",
-    todayBtn: "linked",
-    autoclose: true,
-    todayHighlight: true
+
+	//$(".datetimepicker").css("opacity",1);
+    //$(".datetimepicker").css("visibility","visible");
+	//$("#AMVisWeeklyMeetingDayAndTime").datetimepicker({format: 'DD/MM/YYYY HH:mm:ss'});
+
+
+	/*AMVisCommentsQuill=new Quill('#AMVisCommentsOrNotes', {
+		  modules: {
+		    toolbar: [
+		      [{ header: [1, 2, false] }],
+		      ['bold', 'italic', 'underline']
+		    ]
+		  },
+		  placeholder: 'Add a text...',
+		  theme: 'snow'  // or 'bubble'
 	});*/
 
-	$scope.submit=function(e){
+	/*AMVisCustomerSpecificQuill=new Quill('#AMVisCustomerspecificProcess', {
+		  modules: {
+		    toolbar: [
+		      [{ header: [1, 2, false] }],
+		      ['bold', 'italic', 'underline']
+		    ]
+		  },
+		  placeholder: 'Add a text...',
+		  theme: 'snow'  // or 'bubble'
+	});*/
 
-	    
-		var values = {"isCustomer":true};
+
+	var BackgroundClass = Quill.import('attributors/class/background');
+	var ColorClass = Quill.import('attributors/class/color');
+	var SizeStyle = Quill.import('attributors/style/size');
+	Quill.register(BackgroundClass, true);
+	Quill.register(ColorClass, true);
+	Quill.register(SizeStyle, true);
+
+	AMVisCommentsQuill=new Quill('#AMVisCommentsOrNotes', {
+		  modules: {
+		    toolbar: '#toolbar-container'
+		  },
+		  placeholder: 'Add a text...',
+		  theme: 'snow'  // or 'bubble'
+	});
+
+
+	AMVisCustomerSpecificQuill=new Quill('#AMVisCustomerspecificProcess', {
+		 modules: {
+		    toolbar: '#toolbar-container1'
+		  },
+		  placeholder: 'Add a text...',
+		  theme: 'snow'  // or 'bubble'
+	});
+
+	$scope.submitUpdate=function(e){
+
+		
+		var valid=$("#customerInfoForm").valid();
+
+		if(!valid)
+			return false;
+
+		$("#divLoading").show();
+
+
+		var values = {"isCustomerUpdate":true};
 
 		$.each($('#customerInfoForm').serializeArray(), function(i, field) {
 		    values[field.name] = field.value;
 		});
 
-		$.each($('#customerInfoForm input[type=radio]'), function(i, field) {
-		    values[field.name] = field.value;
+
+		$.each($('#customerInfoForm .checked'), function(i, field) {
+		    values[$(field).find(".form-control").attr("name")] = $(field).find(".form-control").attr("value");
 		});
 
-		/*$('#customerInfoForm input[type=radio]').each(function() {     
-        if (!this.checked) {
-            $(this).attr("value","0");
-        }else{
-            $(this).attr("value","1");
-        }
-    	});*/
-
+	
 
     	values["AMVisPM"]=$("#AMVisPM").val();
     	values["AMVisPME"]=$("#AMVisPME").val();
+    	values["AMVisModules"]=$("#AMVisModules").val();
+    	values["AMVisSolutionsInScope"]=$("#AMVisSolutionsInScope").val();
+    	values["AMVisKeyAMSExperts"]=$("#AMVisKeyAMSExperts").val();
+
+    	var customerSpecificData=AMVisCustomerSpecificQuill.getContents();
+    	/*customerSpecificData.ops=customerSpecificData.ops.map(function(value,index){
+    		       var obj=value;
+   				   obj.insert=obj.insert.replace(/ /g, '&nbsp;');
+   				   return obj;
+		});*/
+		//var specificQuillhtml= document.querySelector('#AMVisCustomerspecificProcess');
+		//var customerSpecificData = specificQuillhtml.children[0].innerHTML;
+
+    	values["AMVisCustomerspecificProcess"]=JSON.stringify(customerSpecificData);//$("#AMVisCustomerspecificProcess").find(".ql-editor").html();
+
+    	//var commentsQuillhtml= document.querySelector('#AMVisCommentsOrNotes');
+		//var customerNotesData = commentsQuillhtml.children[0].innerHTML;
+    	var customerNotesData=AMVisCommentsQuill.getContents();
+    	/*customerNotesData.ops=customerNotesData.ops.map(function(value,index){
+   				   var obj=value;
+   				   obj.insert=obj.insert.replace(/ /g, '&nbsp;');
+   				   return obj;
+		});*/
+
+    	values["AMVisCommentsOrNotes"]=JSON.stringify(customerNotesData);
+
+
+    	/*values["AMVisCustomerspecificProcess"]=$("#AMVisCustomerspecificProcess").find(".ql-editor").html();
+
+    	values["AMVisCommentsOrNotes"]=$("#AMVisCommentsOrNotes").find(".ql-editor").html();*/
 
 		console.log(values);
 
 		$http({
 				method : "POST",
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
+				url : server_url,
 				transformRequest: function(obj) {
 					var str = [];
 					for(var p in obj){
@@ -198,34 +381,181 @@ app.controller("saveCustomerController",function($scope,$http){
 				data: values
 				}).then(
 				function mySucces(response) {
-					//$scope.data = response.data;	
-					//console.log("account saved");
-					$("#myModal").modal("hide");
-					$("#myModal").on('hidden.bs.modal');
-					 $.notify({
+				
+				    if(response.data[0].status=="account updated successfully"){
+
+				    		$("#divLoading").hide();
+							$("#myModal").modal("hide");
+							
+							 $.notify({
+		                				icon: 'ti-gift',
+		                				message: "Account updated successfully"
+
+						            },{
+						                type: 'success',
+						                timer: 2000,
+						                z_index: 9999999
+						            });
+							resetForm();
+						    loadCustomerTable();
+					}else{
+							  $("#divLoading").hide();
+
+							  $.notify({
+		                				icon: 'ti-gift',
+		                				message: response.data[0].status
+
+						            },{
+						                type: 'success',
+						                timer: 2000,
+						                z_index: 9999999
+						            })
+					}
+					
+				},
+                function myError(response) {
+
+					$("#divLoading").hide();
+
+					$.notify({
                 				icon: 'ti-gift',
-                				message: "Account Saved Successfully"
+                				message: response.data[0].status
 
 				            },{
-				                type: 'success',
-				                timer: 400
+				                type: 'error',
+				                timer: 2000,
+				                z_index: 9999999
 				            })
-					//$("#successPage").modal();
+				});
+
+	}
+
+	$scope.submit=function(e){
+
+		var valid=$("#customerInfoForm").valid();
+
+		if(!valid)
+			return false;
+
+		$("#divLoading").show();
+
+	    
+		var values = {"isCustomer":true};
+
+		$.each($('#customerInfoForm').serializeArray(), function(i, field) {
+		    values[field.name] = field.value;
+		});
+
+
+		$.each($('#customerInfoForm .checked'), function(i, field) {
+		    values[$(field).find(".form-control").attr("name")] = $(field).find(".form-control").attr("value");
+		});
+
+	
+
+    	values["AMVisPM"]=$("#AMVisPM").val();
+    	values["AMVisPME"]=$("#AMVisPME").val();
+    	values["AMVisModules"]=$("#AMVisModules").val();
+    	values["AMVisSolutionsInScope"]=$("#AMVisSolutionsInScope").val();
+    	values["AMVisKeyAMSExperts"]=$("#AMVisKeyAMSExperts").val();
+
+    	var customerSpecificData=AMVisCustomerSpecificQuill.getContents();
+
+    	values["AMVisCustomerspecificProcess"]=JSON.stringify(customerSpecificData);//$("#AMVisCustomerspecificProcess").find(".ql-editor").html();
+
+    	var customerNotesData=AMVisCommentsQuill.getContents();
+
+    	values["AMVisCommentsOrNotes"]=JSON.stringify(customerNotesData);
+
+    	//var customerSpecificData=AMVisCustomerSpecificQuill.getContents();
+    	/*customerSpecificData.ops=customerSpecificData.ops.map(function(value,index){
+    		       var obj=value;
+   				   obj.insert=obj.insert.replace(/ /g, '&nbsp;');
+   				   return obj;
+		});*/
+		//var specificQuillhtml= document.querySelector('#AMVisCustomerspecificProcess');
+		//var customerSpecificData = specificQuillhtml.children[0].innerHTML;
+
+    	//values["AMVisCustomerspecificProcess"]=customerSpecificData;//$("#AMVisCustomerspecificProcess").find(".ql-editor").html();
+
+    	//var commentsQuillhtml= document.querySelector('#AMVisCommentsOrNotes');
+		//var customerNotesData = commentsQuillhtml.children[0].innerHTML;
+    	//var customerNotesData=AMVisCommentsQuill.getContents();
+    	/*customerNotesData.ops=customerNotesData.ops.map(function(value,index){
+   				   var obj=value;
+   				   obj.insert=obj.insert.replace(/ /g, '&nbsp;');
+   				   return obj;
+		});*/
+
+    	//values["AMVisCommentsOrNotes"]=customerNotesData;
+
+    	/*values["AMVisCustomerspecificProcess"]=$("#AMVisCustomerspecificProcess").find(".ql-editor").html();
+
+    	values["AMVisCommentsOrNotes"]=$("#AMVisCommentsOrNotes").find(".ql-editor").html();*/
+
+		console.log(values);
+
+		$http({
+				method : "POST",
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				url : server_url,
+				transformRequest: function(obj) {
+					var str = [];
+					for(var p in obj){
+						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+					}
+					return str.join("&");
+				},
+				data: values
+				}).then(
+				function mySucces(response) {
+
+					if(response.data[0].status=="Account saved successfully"){
+
+							$("#divLoading").hide();
+							$("#myModal").modal("hide");
+							//$("#myModal").on('hidden.bs.modal');
+							 $.notify({
+		                				icon: 'ti-gift',
+		                				message: response.data[0].status
+
+						            },{
+						                type: 'success',
+						                timer: 2000,
+						                z_index: 9999999
+						            });
+							 resetForm();
+							 loadCustomerTable();
+					}else{
+						      $("#divLoading").hide();
+							  $.notify({
+		                				icon: 'ti-gift',
+		                				message: response.data[0].status
+
+						            },{
+						                type: 'success',
+						                timer: 2000,
+						                z_index: 9999999
+						            })
+					}
+					
+					
 				},
                 function myError(response) {
 					//$scope.data = response.statusText;
 					//console.log("failed");
-					$("#myModal").modal("hide");
-					$("#myModal").on('hidden.bs.modal');
+					//$("#myModal").modal("hide");
+					//$("#myModal").on('hidden.bs.modal');
 					//$("#successPage").modal();
-
+					$("#divLoading").hide();
 					$.notify({
                 				icon: 'ti-gift',
-                				message: "Error in Saving"
+                				message: response.data[0].status
 
 				            },{
 				                type: 'error',
-				                timer: 400
+				                timer: 2000,
+				                z_index: 9999999
 				            })
 				});
 
@@ -235,990 +565,327 @@ app.controller("saveCustomerController",function($scope,$http){
 
 })
 
-/*app.controller('MainCtrl',function($scope, $http) {
-               $http({
-				method : "POST",
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
-				transformRequest: function(obj) {
-					var str = [];
-					for(var p in obj){
-						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-					}
-					return str.join("&");
-				},
-				data: { query:" SELECT AMVisAccount.AMVisRegion, YEAR(AMVisDateCreated) , count() FROM AMVisTicket WHERE YEAR(AMVisDateCreated) > 2013  AND AMVisAccount.AMVisShortName != 'Ariba' AND AMVisSubStatus !='Duplicate' GROUP BY  AMVisAccount.AMVisRegion, YEAR(AMVisDateCreated)  ORDER BY 2  ",
-			           type: "stackedArea",
-					  }
-				}).then(
-				function mySucces(response) {
-					$scope.data = response.data;	
-				},
-                function myError(response) {
-					$scope.data = response.statusText;
-				})				
-				
-  $scope.options = {
-            chart: {
-						"type": "stackedAreaChart",
-						useInteractiveGuideline: true,
-						
-						"showLabels": false,
-						"showLegend": false,
-						x: (function(d) { return d.x }),
-						y: (function(d) { return d.y })
-					}
-        }; 
-});
-
-
-app.controller('MainCtrl2',function($scope, $http) {
-               $http({
-				method : "POST",
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
-				transformRequest: function(obj) {
-					var str = [];
-					for(var p in obj){
-						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-					}
-					return str.join("&");
-				},
-				data: { "query" : " SELECT SUBSTRING(AMVisPriority,0,4), count() FROM AMVisTicket WHERE Beginswith(AMVisPriority ,'P',true) AND AMVisStatus ='OPEN' AND AMVisAccount.AMVisShortName != 'Ariba' and AMVisIsAMSTicket!=false AND AMVisSubStatus !='Duplicate' GROUP BY SUBSTRING(AMVisPriority,0,4)", 
-						"type" : "pie", 
-					  }
-				}).then(
-				function mySucces(response) {
-					$scope.data = response.data;	
-				},
-                function myError(response) {
-					$scope.data = response.statusText;
-				})				
-				
-  $scope.options = {
-            chart: {
-               "type": "pieChart",
-			   "color":['#7ea4b3','#800060','#ff6961','#fdfd96'],
-			   donut : false,
-			   height : 350,
-			   "showLabels": false,
-			   "showLegend": false,
-			   useInteractiveGuideline: false,
-			   x: (function(d) { return d.key }),
-			   y: (function(d) { return d.value })
-				        
-  
-            }
-        }; 
-});
-
-
-var form = new FormData();
-form.append("query", "Select t.AMVisSRNumber,t.AMVisAccount.AMVisShortName,t.AMVisQueue,t.AMVisSubStatus,t.AMVisPriority,Round(CurrentDate() - t.AMVisDateCreated) as PendingDays From AMVisTicket t Where t.AMVisStatus='OPEN' and t.AMVisPriority='P1 - VERY HIGH' and t.AMVisStatus !='Confirmed' and t.AMVisQueue in ('APP_MGMT','APP_MAINT_L3I','APP_MAINT_L2P','APP_MAINT_L3P') and t.AMVisAccount.AMVisShortName not in ('Amtrak','Ariba','American Express') and AMVisDateClosed IS NULL AND t.AMVisSubStatus !='Duplicate' union all Select t.AMVisSRNumber,t.AMVisAccount.AMVisShortName,t.AMVisQueue,t.AMVisSubStatus,t.AMVisPriority,Round(CurrentDate() - t.AMVisDateCreated) as PendingDays From AMVisTicket t Where t.AMVisStatus='OPEN' and t.AMVisPriority='P2 - HIGH' and t.AMVisStatus !='Confirmed' and t.AMVisQueue in ('APP_MGMT','APP_MAINT_L3I','APP_MAINT_L2P','APP_MAINT_L3P') and t.AMVisAccount.AMVisShortName not in ('Amtrak','Ariba','American Express') and AMVisDateClosed IS NULL and CurrentDate() - t.AMVisDateUpdated>2 AND t.AMVisSubStatus !='Duplicate' union all Select t.AMVisSRNumber,t.AMVisAccount.AMVisShortName,t.AMVisQueue,t.AMVisSubStatus,t.AMVisPriority,Round(CurrentDate() - t.AMVisDateCreated) as PendingDays From AMVisTicket t Where t.AMVisStatus='OPEN' and t.AMVisPriority='P3 - MEDIUM' and t.AMVisStatus !='Confirmed' and t.AMVisQueue in ('APP_MGMT','APP_MAINT_L3I','APP_MAINT_L2P','APP_MAINT_L3P') and t.AMVisAccount.AMVisShortName not in ('Amtrak','Ariba','American Express') and AMVisDateClosed IS NULL and CurrentDate() - t.AMVisDateUpdated>5 union all Select t.AMVisSRNumber,t.AMVisAccount.AMVisShortName,t.AMVisQueue,t.AMVisSubStatus,t.AMVisPriority,Round(CurrentDate() - t.AMVisDateCreated) as PendingDays From AMVisTicket t Where t.AMVisStatus='OPEN' and t.AMVisPriority='P4 - LOW' and t.AMVisStatus !='Confirmed' and t.AMVisQueue in ('APP_MGMT','APP_MAINT_L3I','APP_MAINT_L2P','APP_MAINT_L3P') and t.AMVisAccount.AMVisShortName not in ('Amtrak','Ariba','American Express') and AMVisDateClosed IS NULL and CurrentDate() - t.AMVisDateUpdated>7 AND t.AMVisSubStatus !='Duplicate' Group By t.AMVisAccount.AMVisShortName,t.AMVisQueue,t.AMVisPriority,t.AMVisSubStatus,Round(CurrentDate() - t.AMVisDateCreated),t.AMVisSRNumber ");
-form.append("type", "table");
-form.append("useSQL", "");
-
-var xhr = new XMLHttpRequest();
-var xhr = new XMLHttpRequest();
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NA =JSON.parse(this.responseText);
-	
-	var NAC2 = NA.shift();
-	
-    $('#UTBC').dataTable({
-    "aaData": NA,
-	order: [[ 1, "asc" ]],
-	
-	columnDefs: [
-            {
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="https://support.wdf.sap.corp/sap/support/message/' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            },
-			{
-                targets:1,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            },
-			{
-                targets:5,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                      data =  (Math.round(data));
-                    }
-                   return data; 
-                }
-            },
-        ]
-		 
-});
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(form);
-
-
-var form = new FormData();
-form.append("query", "Select t.AMVisAccount.AMVisShortName,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisPriority WHEN 'P1 - VERY HIGH' THEN 1 ELSE 0 END Else 0 END) as P1,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisPriority WHEN 'P2 - HIGH' THEN 1 ELSE 0 END Else 0 END) as P2,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisPriority WHEN 'P3 - MEDIUM' THEN 1 ELSE 0 END Else 0 END) as P3,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisPriority WHEN 'P4 - LOW' THEN 1 ELSE 0 END Else 0 END) as P4,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisQueue WHEN 'APP_MGMT' THEN 1 ELSE 0 END Else 0 END) as APP_MGMT,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisQueue WHEN 'APP_MAINT_L3I' THEN 1 ELSE 0 END Else 0 END) as APP_MAINT_L3I,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisQueue WHEN 'APP_MAINT_L2P' THEN 1 ELSE 0 END Else 0 END) as APP_MAINT_L2P,SUM(CASE t.AMVisStatus When 'OPEN' THEN CASE t.AMVisQueue WHEN 'APP_MAINT_L3P' THEN 1 ELSE 0 END Else 0 END) as APP_MAINT_L3P,SUM(CASE t.AMVisStatus When 'OPEN' THEN 1 ELSE 0 END) as OpenTickets From AMVisTicket t Where t.AMVisStatus='OPEN' and t.AMVisQueue is not null and AMVisDateClosed IS NULL and AMVisAssignedTeam ='GS APP MGMT' and t.AMVisAccount.AMVisShortName not in ('Amtrak','Ariba','American Express') AND t.AMVisSubStatus !='Duplicate' Group by t.AMVisAccount.AMVisShortName Order by t.AMVisAccount.AMVisShortName ASC ");
-form.append("type", "table");
-form.append("useSQL", "");
-
-var xhr = new XMLHttpRequest();
-
-var xhr = new XMLHttpRequest();
 
 
 
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NA =JSON.parse(this.responseText);
-	
-	var NAC2 = NA.shift();
-	
-    $('#UTB').dataTable({
-    "aaData": NA,
-	order: [[ 1, "asc" ]],
-	
-	columnDefs: [
-           
-			{
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
 
-                    return data;
-                }
-            },
+function showEditForm(id){
+
+	$("#divLoading").show();
+
+
+	   resetForm();
+
+	   $("#customerInfoForm .save").hide();
+	   $("#customerInfoForm .update").show();
+
+		var data = new FormData();
+
+		//var query="SELECT ISNULL(AMV1.aac_AMVisCustomerSupportTierL,'na') as AMVisCustomerSupportTierLevel,aac_AMVISModulesN as AMVisModules,AMV1.aac_AMVISINSTANCETYPEN as AMVisInstanceType,AMV1.aac_AMVisUniqueName as AMVisUniqueName, AMV1.aac_AMVisName as AMVisName, AMV1.aac_AMVisShortName as AMVisShortName, ISNULL(AMV1.aac_AMVisRegion,'na') as AMVisRegion, AMV1.aac_AMVisCRMID as AMVisCRMID,ISNULL(AMV1.aac_AMVisCustomerCategory,'na') as AMVisCustomerCategory, AMV1.aac_AMVisSOProjectId as AMVisSOProjectId, AMV1.aac_AMVisTCV as AMVisTCV,CONVERT(VARCHAR(10),AMV1.aac_AMVisStartDate, 103)  as AMVisStartDate, ISNULL('na',AMV1.aac_AMVisNPSSurvey) as AMVisNPSSurvey, AMV1.aac_AMVisVOCSurvey as AMVisVOCSurvey, AMV1.aac_AMVisWeeklyCall as AMVisWeeklyCall, AMV1.aac_AMVisReportGenerated as AMVisReportGenerated, AMV1.aac_AMVisSRUpdateNeedBy as AMVisSRUpdateNeedBy, AMV1.aac_AMVisNetNPS as AMVisNetNPS,ISNULL(AMV1.aac_AMVisNetVOC,0) as AMVisNetVOC,ISNULL(AMV1.aac_AMVisActiveAMS,0) as AMVisActiveAMS,ISNULL(AMV1.aac_AMVisFullAMS,0) as AMVisFullAMS, ISNULL(AMV1.aac_AMVisActiveContract,0) as AMVisActiveContract,ISNULL(AMV1.aac_AMVisInPipeline,0) as AMVisInPipeline, ISNULL(AMV1.aac_AMVisSurveyPeriodN,'na') as AMVisSurveyPeriod, AMV1.aac_AMVisCustomerNotes as AMVisCustomerNotes, ISNULL(AMV1.aac_AMVisCategory,'na') as AMVisCategory, AMV1.aac_AMVisAMSSupportStarted as AMVisAMSSupportStarted,CONVERT(VARCHAR(10),AMV1.aac_AMVisCustomerStartDate, 103) as AMVisCustomerStartDate,CONVERT(VARCHAR(10),AMV1.aac_AMVisCustomerAMSTD, 103) as AMVisCustomerAMSTerminatedDate, AMV1.aac_AMVisTerminationReason as AMVisTerminationReason, AMV1.aac_AMVisCustomerActiveOrInA as AMVisCustomerActiveOrInActive, AMV1.aac_AMVisOnPOrOnD as AMVisOnPOrOnD, AMV1.aac_AMVisCustomerType as AMVisCustomerType, AMV1.aac_AMVisCEX as AMVisCEX, AMV1.aac_AMVisPreferredCareContact as AMVisPreferredCareContact, AMV1.aac_AMVisPreferredCareScope as AMVisPreferredCareScope, AMV1.aac_AMVisSolutionsInScope as AMVisSolutionsInScope,AMV1.aac_AMVisERP as AMVisERP,ISNULL(AMV1.aac_AMVisFPC,0)  as AMVisFPC,ISNULL( AMV1.aac_AMVisDataCenter,'na') as AMVisDataCenter, AMV1.aac_AMVisRealmName as AMVisRealmName, AMV1.aac_AMVisCustomerspecificP as AMVisCustomerspecificProcess, AMV1.aac_AMVisCustomerDSC as AMVisCustomerDSC,ISNULL(AMV1.aac_AMVisWeeklyMeetingDayAndT,'na')  as AMVisWeeklyMeetingDayAndTime, AMV1.aac_AMVisAMSSharedMailBox as AMVisAMSSharedMailBox, AMV1.aac_AMVisAMSMonitoring as AMVisAMSMonitoring, AMV1.aac_AMVisDeploymentJamPage as AMVisDeploymentJamPage, AMV1.aac_AMVisAdditionalCustomerC as AMVisAdditionalCustomerContact, AMV1.aac_AMVisCommentsOrNotes as AMVisCommentsOrNotes, AMV1.aac_AMVisExceptions as AMVisExceptions FROM AMVisAccountTab AMV1 WHERE (AMV1.aac_Active = 1) AND (AMV1.aac_PurgeState = 0) AND (AMV1.aac_AMVisUniqueName ='"+id+"')";//acc.AMVisUniqueName="+id
+		var query="SELECT ISNULL(AMV1.aac_AMVisCustomerSupportTierL,'na') as AMVisCustomerSupportTierLevel,aac_AMVISModulesN as AMVisModules,AMV1.aac_AMVISINSTANCETYPEN as AMVisInstanceType,AMV1.aac_AMVisUniqueName as AMVisUniqueName, AMV1.aac_AMVisName as AMVisName, AMV1.aac_AMVisShortName as AMVisShortName, ISNULL(AMV1.aac_AMVisRegion,'na') as AMVisRegion, AMV1.aac_AMVisCRMID as AMVisCRMID,ISNULL(AMV1.aac_AMVisCustomerCategory,'na') as AMVisCustomerCategory, AMV1.aac_AMVisSOProjectId as AMVisSOProjectId, AMV1.aac_AMVisTCV as AMVisTCV,CONVERT(VARCHAR(10),AMV1.aac_AMVisStartDate, 103)  as AMVisStartDate, ISNULL('na',AMV1.aac_AMVisNPSSurvey) as AMVisNPSSurvey, AMV1.aac_AMVisVOCSurvey as AMVisVOCSurvey, AMV1.aac_AMVisWeeklyCall as AMVisWeeklyCall, AMV1.aac_AMVisReportGenerated as AMVisReportGenerated, AMV1.aac_AMVisSRUpdateNeedBy as AMVisSRUpdateNeedBy, AMV1.aac_AMVisNetNPS as AMVisNetNPS,ISNULL(AMV1.aac_AMVisNetVOC,0) as AMVisNetVOC,ISNULL(AMV1.aac_AMVisActiveAMS,0) as AMVisActiveAMS,ISNULL(AMV1.aac_AMVisFullAMS,0) as AMVisFullAMS, ISNULL(AMV1.aac_AMVisActiveContract,0) as AMVisActiveContract,ISNULL(AMV1.aac_AMVisInPipeline,0) as AMVisInPipeline, ISNULL(AMV1.aac_AMVisSurveyPeriodN,'na') as AMVisSurveyPeriod, AMV1.aac_AMVisCustomerNotes as AMVisCustomerNotes, ISNULL(AMV1.aac_AMVisCategory,'na') as AMVisCategory, AMV1.aac_AMVisAMSSupportStarted as AMVisAMSSupportStarted,CONVERT(VARCHAR(10),AMV1.aac_AMVisCustomerStartDate, 103) as AMVisCustomerStartDate,CONVERT(VARCHAR(10),AMV1.aac_AMVisCustomerAMSTD, 103) as AMVisCustomerAMSTerminatedDate, AMV1.aac_AMVisTerminationReason as AMVisTerminationReason, AMV1.aac_AMVisCustomerActiveOrInA as AMVisCustomerActiveOrInActive, AMV1.aac_AMVisOnPOrOnD as AMVisOnPOrOnD, AMV1.aac_AMVisCustomerType as AMVisCustomerType, AMV1.aac_AMVisCEX as AMVisCEX, AMV1.aac_AMVisPreferredCareContact as AMVisPreferredCareContact, AMV1.aac_AMVisPreferredCareScope as AMVisPreferredCareScope,AMV1.ls_Strings as AMVisSolutionsInScope,AMV1.aac_AMVisERP as AMVisERP,ISNULL(AMV1.aac_AMVisFPC,0)  as AMVisFPC,ISNULL( AMV1.aac_AMVisDataCenter,'na') as AMVisDataCenter, AMV1.aac_AMVisRealmName as AMVisRealmName, AMV1.aac_AMVisCustomerDSC as AMVisCustomerDSC,ISNULL(AMV1.aac_AMVisWeeklyMeetingDayAndT,'na')  as AMVisWeeklyMeetingDayAndTime, AMV1.aac_AMVisAMSSharedMailBox as AMVisAMSSharedMailBox, AMV1.aac_AMVisAMSMonitoring as AMVisAMSMonitoring, AMV1.aac_AMVisDeploymentJamPage as AMVisDeploymentJamPage, AMV1.aac_AMVisAdditionalCustomerC as AMVisAdditionalCustomerContact,AMV1.ls0_Strings as AMVisCustomerspecificProcess,AMV1.ls1_Strings as AMVisCommentsOrNotes, AMV1.aac_AMVisExceptions as AMVisExceptions FROM AMVisAccountTab AMV1 WHERE (AMV1.aac_Active = 1) AND (AMV1.aac_PurgeState = 0) AND (AMV1.aac_AMVisUniqueName ='"+id+"')";
+		data.append("query", query);
+		data.append("useSQL", "true");
+		data.append("type", "json");
+
+		var xhr = new XMLHttpRequest();
+
+		xhr.addEventListener("readystatechange", function () {
 			
-        ]
-		 
-});
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(form);
+		  	if (this.readyState === 4) {
+		  		 
+					loadDropDownsforCustomerForm(this.responseText,id);
+		    				}
+		});
+		
+		
+		xhr.open("POST", server_url);
+		xhr.send(data);
 
 
-var form = new FormData();
-form.append("query", "SELECT acc.aac_AMVisShortName as Account, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 1 THEN 1 ELSE 0 END) AS January, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 2 THEN 1 ELSE 0 END) AS February, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 3 THEN 1 ELSE 0 END) AS March, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 4 THEN 1 ELSE 0 END) AS April, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 5 THEN 1 ELSE 0 END) AS May, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 6 THEN 1 ELSE 0 END) AS June, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 7 THEN 1 ELSE 0 END) AS July, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 8 THEN 1 ELSE 0 END) AS August, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 9 THEN 1 ELSE 0 END) AS September, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 10 THEN 1 ELSE 0 END) AS October, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 11 THEN 1 ELSE 0 END) AS November, SUM(CASE datepart(month, AMV1.ati_AMVisDateClosed) WHEN 12 THEN 1 ELSE 0 END) AS December, SUM(CASE datepart(quarter,AMV1.ati_AMVisDateClosed) WHEN 1 THEN 1 ELSE 0 END) AS Quarter1, SUM(CASE datepart(quarter,AMV1.ati_AMVisDateClosed) WHEN 2 THEN 1 ELSE 0 END) AS Quarter2, SUM(CASE datepart(quarter,AMV1.ati_AMVisDateClosed) WHEN 3 THEN 1 ELSE 0 END) AS Quarter3, SUM(CASE datepart(quarter,AMV1.ati_AMVisDateClosed) WHEN 4 THEN 1 ELSE 0 END) AS Quarter4, SUM(CASE datepart(year, AMV1.ati_AMVisDateClosed) WHEN 2018 THEN 1 ELSE 0 END) AS TOTAL FROM AMVisTicketTab AMV1 INNER JOIN AMVisAccountTab acc ON(AMV1.ati_AMVisAccount=acc.rootId) WHERE AMV1.ati_AMVisDateClosed BETWEEN '2019/01/01' AND '2019/12/31' AND AMV1.ati_AMVisAssignedTeam = 'GS APP MGMT' AND acc.aac_AMVisCRMID IS NOT NULL AND AMV1.ati_AMVisSubStatus !='Duplicate' GROUP BY acc.aac_AMVisShortName ORDER BY 1");
-form.append("type", "table");
-form.append("useSQL", "true");
-
-var xhr = new XMLHttpRequest();
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NA =JSON.parse(this.responseText);
-	
-	var NAC2 = NA.shift();
-	
-    $('#CTS').dataTable({
-    "aaData": NA,
-	order: [[ 17, "dsc" ]],
-	columnDefs: [
-           
-			{
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            },
-			
-        ]
-		 
-});
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-xhr.send(form);
-
-
-var form = new FormData();
-form.append("query", "Select t.AMVisPriority,SUM(CASE t.AMVisQueue When 'APP_MGMT' THEN CASE t.AMVisPriority WHEN 'P1 - VERY HIGH' THEN 1 ELSE 0 END Else 0 END) as APPMGMT,SUM(CASE t.AMVisQueue When 'APP_MAINT_L2P' THEN CASE t.AMVisPriority WHEN 'P1 - VERY HIGH' THEN 1 ELSE 0 END Else 0 END) as L2p,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3P' THEN CASE t.AMVisPriority WHEN 'P1 - VERY HIGH' THEN 1 ELSE 0 END Else 0 END) as L3P,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3I' THEN CASE t.AMVisPriority WHEN 'P1 - VERY HIGH' THEN 1 ELSE 0 END Else 0 END) as L3I from AMVisTicket t Where t.AMVisPriority ='P1 - VERY HIGH' and AMVisStatus='OPEN' Group By t.AMVisPriority union all Select t.AMVisPriority,SUM(CASE t.AMVisQueue When 'APP_MGMT' THEN CASE t.AMVisPriority WHEN 'P2 - HIGH' THEN 1 ELSE 0 END Else 0 END) as APPMGMT,SUM(CASE t.AMVisQueue When 'APP_MAINT_L2P' THEN CASE t.AMVisPriority WHEN 'P2 - HIGH' THEN 1 ELSE 0 END Else 0 END) as L2p,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3P' THEN CASE t.AMVisPriority WHEN 'P2 - HIGH' THEN 1 ELSE 0 END Else 0 END) as L3P,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3I' THEN CASE t.AMVisPriority WHEN 'P2 - HIGH' THEN 1 ELSE 0 END Else 0 END) as L3I from AMVisTicket t Where t.AMVisPriority ='P2 - HIGH' and AMVisStatus='OPEN' Group By t.AMVisPriority union all Select t.AMVisPriority,SUM(CASE t.AMVisQueue When 'APP_MGMT' THEN CASE t.AMVisPriority WHEN 'P3 - MEDIUM' THEN 1 ELSE 0 END Else 0 END) as APPMGMT,SUM(CASE t.AMVisQueue When 'APP_MAINT_L2P' THEN CASE t.AMVisPriority WHEN 'P3 - MEDIUM' THEN 1 ELSE 0 END Else 0 END) as L2p,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3P' THEN CASE t.AMVisPriority WHEN 'P3 - MEDIUM' THEN 1 ELSE 0 END Else 0 END) as L3P,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3I' THEN CASE t.AMVisPriority WHEN 'P3 - MEDIUM' THEN 1 ELSE 0 END Else 0 END) as L3I from AMVisTicket t Where t.AMVisPriority ='P3 - MEDIUM' and AMVisStatus='OPEN' Group By t.AMVisPriority union all Select t.AMVisPriority,SUM(CASE t.AMVisQueue When 'APP_MGMT' THEN CASE t.AMVisPriority WHEN 'P4 - LOW' THEN 1 ELSE 0 END Else 0 END) as APPMGMT,SUM(CASE t.AMVisQueue When 'APP_MAINT_L2P' THEN CASE t.AMVisPriority WHEN 'P4 - LOW' THEN 1 ELSE 0 END Else 0 END) as L2p,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3P' THEN CASE t.AMVisPriority WHEN 'P4 - LOW' THEN 1 ELSE 0 END Else 0 END) as L3P,SUM(CASE t.AMVisQueue When 'APP_MAINT_L3I' THEN CASE t.AMVisPriority WHEN 'P4 - LOW' THEN 1 ELSE 0 END Else 0 END) as L3I from AMVisTicket t Where t.AMVisPriority ='P4 - LOW' and AMVisStatus='OPEN' and t.AMVisQueue is not null and AMVisDateClosed IS NULL AND t.AMVisSubStatus !='Duplicate' Group By t.AMVisPriority ");
-form.append("type", "table");
-form.append("useSQL", "");
-
-var xhr = new XMLHttpRequest();
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NA =JSON.parse(this.responseText);
-	
-	var NAC2 = NA.shift();
-	
-    $('#Poss').dataTable({
-    "aaData": NA,
-	 "autoWidth": false
-	
-		 
-});
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(form);
-
-
-var data = new FormData();
-data.append("query", "SELECT Distinct t.AMVisSRNumber AS \"SR Number\", acc.AMVisShortName AS \"Account\",SUBSTRING(t.AMVisDescription, 0, 40) AS \"Description\",SUBSTRING(t.AMVisPriority, 0, 3) AS \"Priority\",t.AMVisSubStatus AS \"SubStatus\",t.AMVisDateUpdated AS \"Last Activity\",t.AMVisDateCreated AS \"Create Date\",Count(AMVisTicketHistoryRecords) FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount JOIN config.amvis.core.AMVisTicketHist AS TicketHist INCLUDE INACTIVE ON t.AMVisSRNumber = TicketHist.AMVisSRNumberTicketHistory LEFT OUTER JOIN config.amvis.core.AMVisTicketHistoryRecords as AMVisTicketHistoryRecords using TicketHist.AMVisTicketHistoryRecords WHERE t.AMVisStatus = 'OPEN' and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisAccount.AMVisShortName not in ('Amtrak', 'Ariba', 'American Express') AND t.AMVisSubStatus !='Duplicate' and t.AMVisIsAMSTicket!=false group by t.AMVisSRNumber,acc.AMVisShortName,SUBSTRING(t.AMVisDescription, 0, 40),SUBSTRING(t.AMVisPriority, 0, 3) ,t.AMVisSubStatus,t.AMVisDateUpdated,t.AMVisDateCreated");
-data.append("useSQL", "");
-data.append("type", "table");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NA =JSON.parse(this.responseText);
-	var NAC2 = NA.shift();
-	
-    $('#example').dataTable({
-    "aaData": NA,
-	columnDefs: [
-            {
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="https://support.wdf.sap.corp/sap/support/message/' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            },
-			{
-                targets:1,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            },
-        ]
-    
-});
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);*/
-
-var data = new FormData();
-data.append("query", "Select Distinct AMVisShortName,AMVisName,AMVisRegion,AMVisUniqueName from config.amvis.core.AMVisAccount Where AMVisCRMID is not null and AMVisName not like '%On Behalf%'");
-data.append("useSQL", "");
-data.append("type", "table");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAS =JSON.parse(this.responseText);
-	var NAC2 = NAS.shift();
-
-	
-	
-    $('#example2').dataTable({
-    "aaData": NAS,
-    "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-											var clients=['IBM','Ford','Nokia','Intel','SCB','CVS','LVS','PPG','Lenovo','Amgen','HZL','Nestle','Auchan','Tapestry','Ferrero'];
-											if ( clients.includes(aData[0]) )
-											$(nRow).addClass( "hightlightRow" );
-											return nRow;
-										},
-	columnDefs: [
-            {
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                   
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '&uniqueName=' + encodeURIComponent(row[3]) +'">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            }
-        ]
-	
-    
-});
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-
-
-function autocomplete(inp, arr) {
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
-      if (!val) { return false;}
-      currentFocus = -1;
-      /*create a DIV element that will contain the items (values):*/
-      a = document.createElement("DIV");
-      a.setAttribute("id", this.id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
-      /*append the DIV element as a child of the autocomplete container:*/
-      this.parentNode.appendChild(a);
-      /*for each item in the array...*/
-      for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i]["text"].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
-          b = document.createElement("DIV");
-          /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i]["text"].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i]["text"].substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i]["text"]+ "' >";
-          /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function(e) {
-              /*insert the value for the autocomplete text field:*/
-              inp.value = this.getElementsByTagName("input")[0].value;
-              /*close the list of autocompleted values,
-              (or any other open lists of autocompleted values:*/
-              closeAllLists();
-          });
-          a.appendChild(b);
-        }
-      }
-  });
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
-      if (x) x = x.getElementsByTagName("div");
-      if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
-        currentFocus++;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
-        currentFocus--;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-        e.preventDefault();
-        if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
-          if (x) x[currentFocus].click();
-        }
-      }
-  });
-  function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("autocomplete-active");
-  }
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
-    }
-  }
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-      x[i].parentNode.removeChild(x[i]);
-    }
-  }
 }
-/*execute a function when someone clicks in the document:*/
-document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-});
-} 
-
-
-/*var data = new FormData();
-data.append("query", "SELECT t.AMVisSRNumber AS \"SR Number\",acc.AMVisShortName AS \"Account\",AssignedTo.Name.PrimaryString as AssignedTo,t.AMVisSubStatus AS \"SubStatus\",SUBSTRING(t.AMVisPriority,0,3) AS \"Priority\",ROUND((CurrentDate()-t.AMVisDateUpdated),0) as PendingDays FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount JOIN ariba.user.core.User as AssignedTo using t.AMVisAssignedTo WHERE t.AMVisStatus = 'OPEN' and t.AMVisAccount.AMVisShortName not in ('Amtrak','Ariba','American Express') and (CurrentDate()-t.AMVisDateUpdated) >20 and AMVisDateClosed IS NULL and AMVisAssignedTeam ='GS APP MGMT' AND t.AMVisSubStatus not in ('Resolved - Close','Resolved - Confirm') AND t.AMVisSubStatus !='Duplicate' ORDER BY t.AMVisDateUpdated ASC");
-data.append("useSQL", "");
-data.append("type", "table");
-
-var xhr = new XMLHttpRequest();
 
 
 
 
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
+function loadDropDownsforCustomerForm(formData,id){
+   
     
-	var NAC =JSON.parse(this.responseText);
-	var NAC2 = NAC.shift();
-	
-    $('#example4').dataTable({
-    "aaData": NAC,
-	 dom: 'Blfrtip',
-	
-	
-     columnDefs: [
-            {
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="https://support.wdf.sap.corp/sap/support/message/' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
+		var data = new FormData();
+		var query="SELECT 'PM' as type,us_3.cus_UniqueName as id, us_3.mls_PrimaryString as UniqueName FROM AMVisAccountTab AMV2 LEFT OUTER JOIN BaseIdTab Bas1 ON (AMV2.aac_AMVisPMs=Bas1.lvId AND AMV2.rootId=Bas1.rootId) LEFT OUTER JOIN us_UserTab us_3 ON (Bas1.val=us_3.rootId) WHERE (AMV2.aac_Active = 1) AND (AMV2.aac_PurgeState = 0) AND (AMV2.aac_AMVisUniqueName = '"+id+"') UNION SELECT 'PME' as type,us_3.cus_UniqueName as id, us_3.mls_PrimaryString as UniqueName FROM AMVisAccountTab AMV2 LEFT OUTER JOIN BaseIdTab Bas1 ON (AMV2.aac_AMVisPME=Bas1.lvId AND AMV2.rootId=Bas1.rootId) LEFT OUTER JOIN us_UserTab us_3 ON (Bas1.val=us_3.rootId) WHERE (AMV2.aac_Active = 1) AND (AMV2.aac_PurgeState = 0) AND (AMV2.aac_AMVisUniqueName ='"+id+"') UNION SELECT 'Experts' as type,us_3.cus_UniqueName as id,us_3.mls_PrimaryString as UniqueName FROM AMVisAccountTab AMV2 LEFT OUTER JOIN BaseIdTab Bas1 ON (AMV2.aac_AMVisKeyAMSExperts=Bas1.lvId AND AMV2.rootId=Bas1.rootId) LEFT OUTER JOIN us_UserTab us_3 ON (Bas1.val=us_3.rootId) WHERE (AMV2.aac_Active = 1) AND (AMV2.aac_PurgeState = 0) AND (AMV2.aac_AMVisUniqueName ='"+id+"')";//acc.AMVisUniqueName="+id
+		data.append("query", query);
+		data.append("useSQL", "true");
+		data.append("type", "json");
 
-                    return data;
-                },
-				
-            },
-			{
-                targets:1,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
+		var xhr = new XMLHttpRequest();
 
-                    return data;
-                }
-            },
-			{
-			targets:2,
-				render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/user-dashboard.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-			},
-			{
-                targets:5,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                      data =  (Math.round(data));
-                    }
-                   return data; 
-                }
-            },
-        ] ,
+		xhr.addEventListener("readystatechange", function () {
 			
- buttons: [
-    {
-      extend: 'csv',
-      text: 'Export CSV',
-      className: 'exportExcel',
-      filename: 'Export csv',
-      exportOptions: {
-		  
-		  modifier: {
-            page: 'all'
-          }
-        
-      }
-    }, 
-    
-    {
-        extend: 'excel',
-        text: 'Export Excel',
-        className: 'exportExcel',
-        filename: 'Export_Excel',
-        exportOptions: {
-          modifier: {
-            page: 'all'
-          }
-        }
-      },
-	  
-	   {
-          extend: 'pdf',
-          text: 'Export pdf',
-          className: 'exportExcel',
-          filename: 'Export_pdf',
-          orientation: 'portrait', //portrait
-			pageSize: 'A4',
-          exportOptions: {
-        	  columns: ':visible',
-				search: 'applied',
-				order: 'applied',
-            modifier: {
-              page: 'all'
-            }
-          },
-          
-          customize: function (doc) {
-				//Remove the title created by datatTables
-				doc.content.splice(0,1);
-				//Create a date string that we use in the footer. Format is dd-mm-yyyy
-				var now = new Date();
-				var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
-				var logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJcAAAAoCAMAAADE3ZjrAAAAk1BMVEX/////tQAAg8YAe8MAgcX/sAAAfsT/swAAecIAd8HK2ezF2ez/rgAAcr/Z5/PO3e53rdj+9e2pyeX1+fyixOIpjMq+1er/9ujJ3u5Vms/g7Pbn7/fs9PmRut3/4bX/tCH/6cn/vEX/7tdoo9P/wln/ynb/1JX/1593ptX/yG3//PaEsdn/wE9Ck8z/z4j/uC8Aa7zt5ZzaAAAEOUlEQVRYhe1XW3vqKhBNgCA0kmhiaMyluk3r3tXe/v+vOzOAJLGxPS+enm9/rodmoKOsLIY1GAQ33HDDDTf8HTgszeMe8MNMRrjfzB/wuZ9H898/TWaAp1kYmWADwf9HsV0UhrM9Rg9ROHv6aToeL7MwDOemxN5BsN1P83HYglyh02k7D2cvX+SmWZuVflRr7QZ5YlDl4/RY67OZQONU4z/4BX7Nwtl76HR6BMG2lzLLQlBOZaHduJNC2ehOUQPeVYP8Sgm1OvsOmEqCWMnX72hhTb3tQKdHHN1D8H4hM5GMSSE4k60ZN4wRYTneUcKQFuM06T/QcsKKc14SeQm2/o4XFv096jTf4hDP5sN0ZsfZOmmSP4Ipo0omCGGd48UKrbOWseGChBEiq/GXNHUd/Btee+Cxtzr9wvESDkE0ncqYSPG5InatNbAgtDnxwmdMCfcVlUrCCbfa5jlM60VuA8Mr11ltE/NEZ2f1tpyH4eYQDHTaR840PqFgvBsMa8rWC0azIa+GOqKIBect7KyNqVh1UuaB5NLuo6ZCyCOyOjJJqeTpcC1P5wD7uTEBmKs1jXO0At7/mJ70WFGawQKvQ14l6OXzJSP5K5Gl5UgKTlUeUEaRFymgHBmR8FYEzhLjjKnBUru+zEGnyDShy+baSXh9ybrUyQfSCEIrxytO4xUZSKoFX0Dps4XjxV8zOCQgqOHFuzIuCL6Vlm2VNwUTcb/SwBYOGzBX3FE0jvm0ucYdE0gN5a8k1vyC0zaw51FI+B8ltX8LRsugEnYjF9ydEMfL1H0C9CC9Ceo0WzOe+XVGNup12p5MYwJ5CQoQqdEEeJskGTcbCLyIgHopWl/1OWxjUlWggza86OoTr0DhIMgKoRTo2fNCZUyfPoxGLyfTOIM78nAO/+AChINjAZ/E7mNV1cPkzFoaI4bCNC+Jg7XgpC27gV69QmOdvGmMpTqqo1sReKWCwFsqBVtx7Ot+AGAvENZKJnnVivAmluboHHnPC0+eVcoewJcvzTX9ILQDSWBroKagejR4UR6DIlO8aiBUIgpjJee8CIuxAkkRrDhyTIter9+Rv95YnXYnnQ4nVxthBX0IGiRUMsuNCZhZ0ONugheWnwtw3c+8JLc+oSUcYqqIry90rJmJ3k+6PQ/MNfp8c9WF4Bwa97oOMqUWdnKh5Br6tiTjXCI/rME2H9ipO+k6uOmPGvp2h2aKhbGWYKpZp5R9j36zULc3M7VEOzMMvWmMUbZtu8LOnKSp8/UmTVP7Z4i8n4CoDir840Y5pidBkmX2IMWZbjDBdnx/czgMOiJ2y2/M9drwlvo2LHLc27Fp/MfYTt+4Hk57CrfYi+Z6Tfhm8zy+ob6fdHq8YK7XBeryjMHu7EbvddxNmuuVcdhE0cz+AoJg1KSf4cftFoMnCC7cXK/Ha7lcWhvwgQfMLMfBDX8F/gGjIktd8pF/OgAAAABJRU5ErkJggg==';
-				doc.pageMargins = [20,60,20,30];
-				// Set the font size fot the entire document
-				doc.defaultStyle.fontSize = 7;
-				// Set the fontsize for the table header
-				doc.styles.tableHeader.fontSize = 7;
-				// Create a header object with 3 columns
-				// Left side: Logo
-				// Middle: brandname
-				// Right side: A document title
-				
-				// balaji
-				doc['header']=(function() {
-					return {
-						columns: [
-							{
-								image: logo,
-								width: 24
-							}
-						],
-						margin: 20
-					}
-			});
-				// Create a footer object with 2 columns
-				// Left side: report creation date
-				// Right side: current page and total pages
-				doc['footer']=(function(page, pages) {
-					return {
-						columns: [
-							{
-								alignment: 'left',
-								text: ['Created on: ', { text: jsDate.toString() }]
-							},
-							{
-								alignment: 'right',
-								text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
-							}
-						],
-						margin: 20
-					}
-				});
-				// Change dataTable layout (Table styling)
-				// To use predefined layouts uncomment the line below and comment the custom lines below
-				// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
-				var objLayout = {};
-				objLayout['hLineWidth'] = function(i) { return .5; };
-				objLayout['vLineWidth'] = function(i) { return .5; };
-				objLayout['hLineColor'] = function(i) { return '#aaa'; };
-				objLayout['vLineColor'] = function(i) { return '#aaa'; };
-				objLayout['paddingLeft'] = function(i) { return 4; };
-				objLayout['paddingRight'] = function(i) { return 4; };
-				doc.content[0].layout = objLayout;
+		  	if (this.readyState === 4) {
+					setUpEditForm(formData,JSON.parse(this.responseText));
+		    				}
+		});
+		 
+		xhr.open("POST", server_url);
+		xhr.send(data);
+
+}
+
+function setUpEditForm(formData,dropdownData){
+
+
+
+  var formValues =JSON.parse(formData);
+
+  //setting up all radio buttons
+  $("#customerInfoForm label.radio").each(function(i,v){
+       $(v).removeClass("checked");
+  });
+  
+  //setting up all input box
+  $("#customerInfoForm input.form-control").each(function(i,v){ 
+
+  	if($(v).attr("type")=="text")
+  	   $(v).val(formValues[0][$(v).attr("name")]); 
+
+  	if($(v).attr("type")=="radio" ){
+  		//$(v).parent().; 
+  		
+  		if($(v).attr("value")=="true" && formValues[0][$(v).attr("name")]=="1"){
+  			$(v).closest(".radio").addClass("checked");
+  		}
+  		if($(v).attr("value")=="false" && formValues[0][$(v).attr("name")]=="0"){
+  			$(v).closest(".radio").addClass("checked");
+  		}
+
+  		if($(v).attr("value")=="onDemand" &&  formValues[0][$(v).attr("name")]=="onDemand"){
+		  			$(v).closest(".radio").addClass("checked");
+		 }
+
+		if($(v).attr("value")=="onPremise" &&  formValues[0][$(v).attr("name")]=="onPremise"){
+		  			$(v).closest(".radio").addClass("checked");
 		}
-        }
-	]
-	
-   });
+
+		if($(v).attr("value")=="both"  &&  formValues[0][$(v).attr("name")]=="both"){
+		  			$(v).closest(".radio").removeClass("checked");
+		 }
+  	}
+
+  });
+
+  //setting up all input box
+  $("#customerInfoForm textarea.form-control").each(function(i,v){ 
+
+  	if($(v).attr("type")=="text")
+  	   $(v).val(formValues[0][$(v).attr("name")]); 
+
+  });
+
+
+
+  $("#customerInfoForm select.form-control").each(function(i,v){ 
+       
+       if(typeof(formValues[0][$(v).attr("name")])!="undefined")
+  	   $(v).val(formValues[0][$(v).attr("name")]); 
+
+  });
+
+  for(var i=0;i<dropdownData.length;i++){
+
+    if(dropdownData[i].type=="PM")
+  	$("#AMVisPM option[value='"+dropdownData[i].id+"']").prop("selected", true);
+
+    if(dropdownData[i].type=="PME")
+  	$("#AMVisPME option[value='"+dropdownData[i].id+"']").prop("selected", true);
+
+  	if(dropdownData[i].type=="Experts")
+  	$("#AMVisKeyAMSExperts option[value='"+dropdownData[i].id+"']").prop("selected", true);
+
   }
-});
+
+  //var AmvisDatetime=formValues[0]["AMVisWeeklyMeetingDayAndTime"];
+
+/*  
+  var dateTime = new Date(AmvisDatetime);
+  dateTime = moment(AmvisDatetime).format("DD/MM/YYYY HH:mm A");
  
- 
+  $("input[name='AMVisWeeklyMeetingDayAndTime']").val(dateTime);
+*/
 
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+
+  var modules=formValues[0]["AMVisModules"];
+
+  if(typeof(modules)!="undefined")
+   modules=modules.split(",");
+
+  for(var i=0;i<modules.length;i++){
+  	$("#AMVisModules option[value='"+modules[i]+"']").prop("selected", true);
+  }
+
+  var AMVisSolutionsInScope=formValues[0]["AMVisSolutionsInScope"];
+
+  if(typeof(AMVisSolutionsInScope)!="undefined")
+   AMVisSolutionsInScope=AMVisSolutionsInScope.split(",");
+
+  for(var i=0;i<AMVisSolutionsInScope.length;i++){
+  	$("#AMVisModules option[value='"+AMVisSolutionsInScope[i]+"']").prop("selected", true);
+  }
 
 
-xhr.send(data);
+  $("#AMVisPM").trigger("change");
+  $("#AMVisPME").trigger("change");
+  $("#AMVisModules").trigger("change");
+  $("#AMVisSolutionsInScope").trigger("change");
+  $("#AMVisKeyAMSExperts").trigger("change");
+
+  var AMVisCustomerspecificProcess=formValues[0]["AMVisCustomerspecificProcess"];
+  var AMVisCommentsOrNotes=formValues[0]["AMVisCommentsOrNotes"];
+
+  try{
+
+  	if(/<\/?[a-z][\s\S]*>/i.test(AMVisCustomerspecificProcess)){
+
+  		AMVisCustomerSpecificQuill.clipboard.dangerouslyPasteHTML(0,AMVisCustomerspecificProcess);
+
+  	}else{
+
+
+  	  if(typeof(AMVisCustomerspecificProcess)!="undefined" && (AMVisCustomerspecificProcess.indexOf('insert')!=-1)){
+  	  	//AMVisCustomerspecificProcess=AMVisCustomerspecificProcess.replace(/?/gi,'');
+	  	AMVisCustomerspecificProcess=JSON.parse(AMVisCustomerspecificProcess);
+		AMVisCustomerSpecificQuill.setContents(AMVisCustomerspecificProcess);
+			
+	  }else{
+
+	  	var delta={"ops":[]};
+	    delta.ops=[{"insert":AMVisCustomerspecificProcess}];
+	    AMVisCustomerSpecificQuill.setContents(delta);
+	  }
+
+
+  	}
+
+
+  	  }catch(err){
+  			console.log(err);
+  	  }		
+
+
+  	  try{
+
+  	 if(/<\/?[a-z][\s\S]*>/i.test(AMVisCommentsOrNotes)){
+
+  		AMVisCommentsQuill.clipboard.dangerouslyPasteHTML(0,AMVisCommentsOrNotes);
+
+  	}else{
+
+
+  	   if(typeof(AMVisCommentsOrNotes)!="undefined" && (AMVisCommentsOrNotes.indexOf('insert')!=-1)){
+  	   //	AMVisCommentsOrNotes=AMVisCommentsOrNotes.replace(/?/gi,'');
+	  	AMVisCommentsOrNotes=JSON.parse(AMVisCommentsOrNotes);
+	  	AMVisCommentsQuill.setContents(AMVisCommentsOrNotes);
+	  }else{
+
+	    var delta={"ops":[]};  
+	    delta.ops=[{"insert":AMVisCommentsOrNotes}];
+	    AMVisCommentsQuill.setContents(delta);
+	  }
+
+
+  	}
+
+  	  }catch(err){
+  	  	console.log(err);
+  	  }
+
+
+
+  $("#divLoading").hide();
+
+  $("#myModal").modal("show");
+  
+/*
+  if(typeof(AMVisCommentsOrNotes)!="undefined")
+  $("#AMVisCommentsOrNotes").html(AMVisCommentsOrNotes);*/
+
+  
+
+  
+
+}
+
+
+//loding account table
+
+
+function loadCustomerTable(){
+
+$("#example2").dataTable().fnDestroy();
 
 var data = new FormData();
-data.append("query", "Select count(*) FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount WHERE t.AMVisStatus = 'OPEN' AND  beginswith(AMVisPriority, 'P1', true) and t.AMVisIsAMSTicket!=false AND t.AMVisSubStatus !='Duplicate' and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisAccount.AMVisShortName not in ('Amtrak', 'Ariba', 'American Express')");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P1Tile").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-data.append("query", "SELECT count() FROM AMVisTicket WHERE AMVisDateClosed IS NULL AND CurrentDate() - AMVisDateCreated < 1 AND AMVisPriority='P1 - VERY HIGH' and AMVisAssignedTeam ='GS APP MGMT' AND AMVisStatus ='OPEN' AND AMVisAccount.AMVisShortName != 'Ariba' and AMVisIsAMSTicket!=false");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P1Tile24").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-data.append("query", "Select count(*) FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount WHERE t.AMVisStatus = 'OPEN' AND  beginswith(AMVisPriority, 'P2', true) and t.AMVisIsAMSTicket!=false AND t.AMVisSubStatus !='Duplicate' and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisAccount.AMVisShortName not in ('Amtrak', 'Ariba', 'American Express')");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P2Tile").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-data.append("query", "SELECT count() FROM AMVisTicket WHERE AMVisDateClosed IS NULL AND CurrentDate() - AMVisDateCreated < 1 AND AMVisPriority='P2 - HIGH' and AMVisAssignedTeam ='GS APP MGMT' AND AMVisStatus ='OPEN' AND AMVisAccount.AMVisShortName != 'Ariba' and AMVisIsAMSTicket!=false");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P2Tile24").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-data.append("query", "Select count(*) FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount WHERE t.AMVisStatus = 'OPEN' AND  beginswith(AMVisPriority, 'P3', true) and t.AMVisIsAMSTicket!=false AND t.AMVisSubStatus !='Duplicate' and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisAccount.AMVisShortName not in ('Amtrak', 'Ariba', 'American Express')");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P3Tile").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-data.append("query", "SELECT count() FROM AMVisTicket WHERE AMVisDateClosed IS NULL AND CurrentDate() - AMVisDateCreated < 1 AND AMVisPriority='P3 - MEDIUM' and AMVisAssignedTeam ='GS APP MGMT' AND AMVisStatus ='OPEN' and AMVisIsAMSTicket!=false AND AMVisAccount.AMVisShortName != 'Ariba' ");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P3Tile24").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-
-
-
-
-var data = new FormData();
-data.append("query", "Select count(*) FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount WHERE t.AMVisStatus = 'OPEN' AND  beginswith(AMVisPriority, 'P4', true) and t.AMVisIsAMSTicket!=false AND t.AMVisSubStatus !='Duplicate' and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisSubStatus not in('Resolved - Confirm', 'Resolved - Close') and t.AMVisAccount.AMVisShortName not in ('Amtrak', 'Ariba', 'American Express')");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P4Tile").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-data.append("query", "SELECT count() FROM AMVisTicket WHERE AMVisDateClosed IS NULL AND CurrentDate() - AMVisDateCreated < 1 AND AMVisPriority='P4 - LOW' and AMVisAssignedTeam ='GS APP MGMT' AND AMVisStatus ='OPEN' and AMVisIsAMSTicket!=false AND AMVisAccount.AMVisShortName != 'Ariba'");
-data.append("useSQL", "");
-data.append("type", "text");
-
-var xhr = new XMLHttpRequest();
-
-
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    
-	var NAC =JSON.parse(this.responseText);
-	var replaced = NAC.toString().replace(/\[.*\]/g,'');
-	document.getElementById("P4Tile24").innerHTML =
-            replaced ;
- 
-  }
-});
- 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
-
-
-xhr.send(data);
-
-var data = new FormData();
-function customerUpdate(){ return " Select t.AMVisSRNumber as \"SR Number\",acc.AMVisShortName AS \"Account\",AssignedTo.Name.PrimaryString as \"AssignedTo\",CASE t.AMVisAssignedTo.Supervisor.Name.PrimaryString WHEN 'Krishna Kuchimanchi' THEN 'AMERICAS' WHEN 'Tony Wu' THEN 'AMERICAS' WHEN 'Lukas Gunar' THEN 'EMEA' WHEN 'Michal Scerbak' THEN 'EMEA' WHEN 'Erik Ivancak' THEN 'EMEA' WHEN 'Krishna Veerappa' THEN 'APJ' WHEN 'Samir Sato' THEN 'APJ' ELSE 'GLOBAL' END as \"TeamLocation\",SUBSTRING(t.AMVisDescription, 0, 40) AS \"Description\",SUBSTRING(t.AMVisPriority, 0, 3) AS \"Priority\",Round((CurrentDate()-t.AMVisDateUpdated)) as \"PendingDays\" FROM config.amvis.core.AMVisTicket t JOIN config.amvis.core.AMVisAccount acc USING t.AMVisAccount JOIN ariba.user.core.User as AssignedTo using t.AMVisAssignedTo WHERE CurrentDate()-t.AMVisDateUpdated > 4 AND  t.AMVisStatus = 'OPEN' AND AMVisSubStatus = 'Customer Update' and t.AMVisIsAMSTicket!=false and AMVisDateClosed IS NULL  AND t.AMVisSubStatus !='Duplicate' ORDER BY t.AMVisDateUpdated ASC";}
-var customerUpdate = customerUpdate();
-
-data.append("query",customerUpdate);
+data.append("query", "Select Distinct AMVisShortName,AMVisName,AMVisRegion,AMVisUniqueName from config.amvis.core.AMVisAccount Where AMVisCRMID is not null");
 data.append("useSQL", "");
 data.append("type", "table");
 
 var xhr = new XMLHttpRequest();
 
-
-
 xhr.addEventListener("readystatechange", function () {
+
   if (this.readyState === 4) {
+    
+				var NAS =JSON.parse(this.responseText);
+				var NAC2 = NAS.shift();
 
-	var NAC =JSON.parse(this.responseText);
-	var NAC2 = NAC.shift();
+			    $('#example2').dataTable({
+			    "aaData": NAS,
+			    "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+														var clients=['IBM','Ford','Nokia','Intel','SCB','CVS','LVS','PPG','Lenovo','Amgen','HZL','Nestle','Auchan','Tapestry','Ferrero'];
+														if ( clients.includes(aData[0]) )
+														$(nRow).addClass( "hightlightRow" );
+														return nRow;
+													},
+				columnDefs: [
+			            {
+			                targets:0,
+			                render: function ( data, type, row, meta ) {
+			                    if(type === 'display'){
+			                   
+			                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '&uniqueName=' + encodeURIComponent(row[3]) +'">' + data + '</a>';
+			                    }
 
-    $('#CustomerUpdateTable').dataTable({
-    "aaData": NAC,
-	"columnDefs": [
-		     {
-                targets:0,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="https://support.wdf.sap.corp/sap/support/message/' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
+			                    return data;
+			                }
+			            },
+			            {
+			                targets:3,
+			                render: function ( data, type, row, meta ) {
+			                    if(type === 'display'){
+			                       var data="'"+data+"'";
+			                        data = '<a onclick="showEditForm('+ data +')"  class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+			                    }
 
-                    return data;
-                }
-            },
-			{
-                targets:1,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/customer.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-            },{
-			targets:2,
-				render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                        data = '<a href="http://blrd50877161a.apj.global.corp.sap:8080/sr/dashboard/user-dashboard.html?name=' + encodeURIComponent(data) + '">' + data + '</a>';
-                    }
-
-                    return data;
-                }
-			},
-			{
-                targets:6,
-                render: function ( data, type, row, meta ) {
-                    if(type === 'display'){
-                      data =  (Math.round(data));
-                    }
-                   return data; 
-                }
-            },
-	]		
-
-
+			                    return data;
+			                }
+			            }
+			        ]
+				
+						});
+    				}
 });
-  }
-});
+ 
 
-
-xhr.open("POST", "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData");
+xhr.open("POST", server_url);
 
 
 xhr.send(data);
 
-app.controller('backlog',function($scope,$http) {
+}
 
-               $http({
-				method : "POST",
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				url : "http://blrd50877161a.apj.global.corp.sap:93/AMMSourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetJSONData",
-				transformRequest: function(obj) {
-					var str = [];
-					for(var p in obj){
-						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-					}
-					return str.join("&");
-				},
-				"data":{ "query" : "SELECT 'Backlog', tm.AMVisWeekString, SUM(CASE t.AMVisDateClosed WHEN NULL THEN 1 ELSE CASE SIGN(t.AMVisDateClosed - tm.AMVisDate) WHEN -1 THEN 0 ELSE 1 END END) FROM config.amvis.core.AMVisTicket t, config.amvis.core.AMVisTime tm WHERE(CurrentDate() - tm.AMVisDate < 70 AND tm.AMVisDate < CurrentDate()) AND (t.AMVisDateClosed IS NULL OR CurrentDate() - t.AMVisDateClosed < 70) AND (CurrentDate() - tm.AMVisDate < 70) AND t.AMVisDateCreated < tm.AMVisDate AND tm.AMVisDayOfWeek=1 AND t.AMVisAssignedTeam='GS APP MGMT' AND beginswith(AMVisPriority, 'P', true) and t.AMVisIsAMSTicket!=false AND t.AMVisAccount.AMVisShortName not in ('Ariba')  AND t.AMVisSubStatus !='Duplicate' GROUP BY tm.AMVisWeekString ORDER BY tm.AMVisWeekString",
-						"type" : "line",
-
-					  }
-				}).then(
-				function mySucces(response) {
-					$scope.data = response.data;
-				},
-                function myError(response) {
-					$scope.data = response.statusText;
-				})
-
- $scope.options = {
-           chart: {
-						"type": "lineChart",
-						"showLabels": false,
-						"showLegend": true,
-						showControls: false,
-						useInteractiveGuideline: true,
-						x: (function(d) { return d.idx }),
-						y: (function(d) { return d.y }),
-						margin: {
-							right: 50
-						},
-
-
-			   }
-        };
-});*/
+loadCustomerTable();
 
 
 
-(function() {
-    var origOpen = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function() {
-        console.log('request started!');
-        this.addEventListener('load', function() {
-            console.log('request completed!');
-            console.log(this.readyState); //will always be 4 (ajax is completed successfully)
-            console.log(this.responseText); //whatever the response was
-        });
-        origOpen.apply(this, arguments);
-    };
-})();
+
+
+
+
+

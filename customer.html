@@ -42,7 +42,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
 	
 	
-	
 
     <!--  Fonts and icons     -->
    <!-- <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -107,6 +106,38 @@
                 }
 
     }
+
+#divLoading
+{
+    display : none;
+}
+
+#divLoading
+{
+    //display : block;
+    position : fixed;
+    z-index: 9999999;
+    background-image : url('http://loadinggif.com/images/image-selection/3.gif');
+    background-color:#666;
+    opacity : 0.4;
+    background-repeat : no-repeat;
+    background-position : center;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    top : 0;
+}
+#loadinggif
+{
+    left : 50%;
+    top : 50%;
+    position : absolute;
+    z-index : 101;
+    width : 32px;
+    height : 32px;
+    margin-left : -16px;
+    margin-top : -16px;
+}
 </style>
 
 </head>
@@ -183,71 +214,93 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h4 class="title"><span class="text-primary">Project Manager: </span></h4>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             <h4 class="title"><span class="text-danger" id="pmName"></span></h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="content">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-primary">Weekly Calls: </span></h5>
                                         </div>
-                                        <div class="col-md-8">
-                                            <h5 class="title"><span class="text-danger">Thursdays, 10 AM EST</span></h5>
+                                        <div class="col-md-3">
+                                            <h5 class="title">
+                                                <span class="text-danger" id="weeklyCall"></span>
+                                            </h5>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                            <h5 class="title"><span class="text-primary">Region: </span></h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5 class="title">
+                                                <span class="text-danger" id="region"></span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h5 class="title"><span class="text-primary">Customer Category: </span></h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5 class="title">
+                                                <span class="text-danger" id="customerCategory"></span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-primary">Report Generated: </span></h5>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-danger">Wednesdays, 6 PM EST</span></h5>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-primary">SR Updates Needed by: </span></h5>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-danger">Wednesdays, 5 PM EST</span></h5>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-primary">VOC YTD Score: </span></h5>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-danger">9.2</span></h5>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-primary">NPS YTD Score: </span></h5>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-danger">8</span></h5>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-primary">SAP CRM Vendor Id: </span></h5>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             <h5 class="title"><span class="text-danger">8558258</span></h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
                                     <div class="row">
@@ -559,8 +612,8 @@
                                 <table id="contractInformation" class="table table-striped">
                                     <thead class="text-center">
                                         <th>SOW Title</th>
-                                    	<th>Contract Start Date(MM/dd/yyyy)</th>
-                                    	<th>Contract End Date(MM/dd/yyyy)</th>
+                                    	<th>Contract Start Date</th>
+                                    	<th>Contract End Date</th>
                                     	<th>Total Contract Value</th>
                                     	<th>Annual Contract Value</th>
 										<th>Currency</th> 	
@@ -626,7 +679,7 @@
    
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" ng-controller="contractSave">
+    <div class="modal-content" ng-controller="contractSave" id="contractSave">
      <form name="contractForm" id="contractForm">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -636,11 +689,17 @@
         
         <div class="row">
           <div class="col-md-12">
-		      <div class="col-md-3 modalText"><strong>SOW Title</strong></div>
-			  <div class="col-md-3"><div class="form-group"><input id="sowTitle" ng-model="contract.sowTitle" type="text" class="form-control border-input" ></div></div>
+		      <div class="col-md-3 modalText"><strong>SOW Title<span>*</span></strong></div>
+			  <div class="col-md-3">
+                <div class="form-group">
+                    <input id="sowTitle" ng-model="contract.sowTitle" type="text" class="form-control border-input" required>
+                   <span ng-show="contractForm.sowTitle.$touched && contractForm.sowTitle.$invalid">The name is required.</span>
+              </div></div>
           
-		      <div class="col-md-3 modalText"><strong>SO Number</strong></div>
-		      <div class="col-md-3"><div class="form-group"><input id="sowNumber" ng-model="contract.sowNumber" type="text" class="form-control border-input" ></div></div>
+		      <div class="col-md-3 modalText"><strong>SO Number<span>*</span></strong></div>
+		      <div class="col-md-3"><div class="form-group"><input id="sowNumber" ng-model="contract.sowNumber" type="number" class="form-control border-input" required>
+                 <span ng-show="contractForm.sowNumber.$touched && contractForm.sowNumber.$invalid">The name is required.</span>
+              </div></div>
 
               <input id="uniqueName"  type="text" style="display: none;" >
 		  </div>
@@ -649,12 +708,12 @@
           <div class="col-md-12">
 		       <div class="col-md-3 modalText"><strong>Start Date</strong></div>
 			   <div class="col-md-3">
-                 <div class="form-group"><input id="startDate" ng-model="contract.startDate" type="text"  class="form-control border-input"/></div>
+                 <div class="form-group"><input id="startDate" ng-model="contract.startDate" type="text"  class="form-control border-input" required ></div>
                </div>
 		  
 		       <div class="col-md-3 modalText"><strong>End Date</strong></div>
 			   <div class="col-md-3">
-                 <div class="form-group"><input id="endDate" ng-model="contract.endDate" type="text"  class="form-control border-input" /></div>
+                 <div class="form-group"><input id="endDate" ng-model="contract.endDate" type="text"  class="form-control border-input" required ></div>
                </div>
 		</div>
         </div>
@@ -663,42 +722,108 @@
             <div class="col-md-3 modalText"><strong>Total Contract Value</strong></div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <input id="totalContractValue" type="text" class="form-control border-input" ng-model="contract.totalContractValue" ng-change="computeACVInside()"></div>
+                    <input id="totalContractValue" type="number" class="form-control border-input" ng-model="contract.totalContractValue" ng-change="computeACVInside()"></div>
             </div>
             <div class="col-md-3 modalText">
                 <div class="form-group">
-                      <label for="sel1">Currency:</label> 
+                      <label >Currency:</label> 
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                       <div class="form-group">
-                            <select class="form-control border-input" id="currency" name="currency" ng-model="contract.currency">
+                            <select class="form-control border-input" id="currency" name="currency" ng-model="contract.currency" required>
                                 <option value="NA">Please Select</option>
                                 <option value="USD">USD</option>
                                 <option value="INR">INR</option>
+                                <option value="EUR">EUR</option>
+                                <option value="YEN">YEN</option>
+                                <option value="RMB">RMB</option>
+                                <option value="SGD">SGD</option>
                             </select>
                         </div>
                 </div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" >
           <div class="col-md-12">
             <div class="col-md-3 modalText"><strong>Annual Contract Value</strong></div>
             <div class="col-md-3">
                 <div class="form-group">
-                     <input id="annualContractValue" type="text" class="form-control border-input" ng-model="contract.annualContractValue"  readonly>
+                     <input id="annualContractValue" type="number" class="form-control border-input" ng-model="contract.annualContractValue"  readonly>
                </div>
             </div>
             <div class="col-md-6">(Computed from TCV and disabled fields)</div>
           </div>
         </div>
     </div>
+
+    <!--contract information-->
+    <hr/>
+        <div class="modal-header">
+            <button type="button" class="btn btn-primary pull-right" ng-click="addContracts()">Add</button>
+            <h4 class="modal-title" id="gridSystemModalLabel">Annual Contract Amounts</h4>
+
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="col-md-2 modalText"><strong>Contract Start Date</strong></div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="text" class="form-control border-input" id="contractStartDate" ></div>
+                        </div>
+                       <div class="col-md-2 modalText"><strong>Contract End Date</strong></div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="text" class="form-control border-input" id="contractEndDate" ></div>
+                        </div>
+                  
+                      <div class="col-md-2 modalText"><strong>Contract Amount</strong></div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="number" class="form-control border-input" id="contractAmount">
+                        </div>
+                       </div>
+                       <div class="col-md-12">
+                           <div class="alert alert-warning show" role="alert" ng-if="invalidContractDateRange">
+                                    <strong>Please enter correct date range !!</strong>
+                                   
+                           </div>
+                       </div>
+                       
+                  </div>
+                  <div class="col-md-12">
+                      
+                                <div >
+                                        <div class="content">
+                                            <table id="contractTable" class="table table-striped">
+                                                <thead class="text-center">
+                                                
+                                                    <th>Contract Start Date</th>
+                                                    <th>Contract End Date</th>
+                                                    <th>Contract Amount</th> 
+                                                    <th></th>
+                                                </thead>
+                                                <tbody>                                 
+                                                </tbody>
+                                            </table>
+                                            
+                                        </div>
+                                       
+                                </div>
+                           
+
+                  </div>
+                  
+                </div>
+        </div>
+    <!--contract info ends-->
        
         <hr/>
         <div class="modal-header">
-            <button type="button" class="btn btn-primary pull-right" ng-click="addInvoice()">Add Invoice</button>
+            <button type="button" class="btn btn-primary pull-right" ng-click="addInvoice()">Add</button>
             <h4 class="modal-title" id="gridSystemModalLabel">Invoice Information</h4>
 
         </div>
@@ -714,9 +839,15 @@
                       <div class="col-md-3 modalText"><strong>Invoice Amount</strong></div>
                       <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control border-input" id="invoiceAmount"></div>
+                            <input type="number" class="form-control border-input" id="invoiceAmount"></div>
                         </div>
                   </div>
+                  <div class="col-md-12">
+                           <div class="alert alert-warning show" role="alert" ng-if="invalidInvoice">
+                                    <strong>Please enter invoice details !!</strong>
+                                    
+                           </div>
+                       </div>
                   <div class="col-md-12">
                       
                                 <div >
@@ -725,8 +856,8 @@
                                                 <thead class="text-center">
 												
                                                     <th>Invoice Date</th>
-												
                                                     <th>Invoice Amount</th> 
+                                                    <th></th>
                                                            
                                                 </thead>
                                                 <tbody>                                 
@@ -745,16 +876,23 @@
                            
 
                   </div>
-                  <div class="col-md-12">
-                      <div  ng-show="myForm.macthed">TCV macthed</div> 
-                      <div  ng-show="!myForm.macthed">TCV not macthed</div> 
-                  </div>
+                 
+                   <div class="col-md-12">
+                           <div class="alert alert-success show" role="alert" ng-show="myForm.macthed">
+                                    <strong> TCV macthed successfully</strong>        
+                           </div>
+                           <div class="alert alert-warning show" role="alert" ng-show="!myForm.macthed">
+                                    <strong>TCV not macthed. Please enter all fields correctly !!</strong>        
+                           </div>
+                    </div>
+                    
                 </div>
         </div>
       <div class="modal-footer">
+        
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-info btn-fill save" ng-disabled="! myForm.macthed" ng-click="saveContract()">Save</button>
-        <button type="button" class="btn btn-info btn-fill update" ng-click="updateContract()" >Update</button>
+        <button type="button" class="btn btn-info btn-fill update" ng-disabled="! myForm.macthed" ng-click="updateContract()" >Update</button>
       </div>
     </div><!-- /.modal-content -->
     </form>
@@ -778,6 +916,8 @@
         </div>
     </div>
 </div>
+<div id="divLoading">
+</div>
 
 </body>
 
@@ -791,19 +931,19 @@
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 <!--  Charts Plugin -->
-<script src="assets/js/chartist.min.js"></script>
+<!-- <script src="assets/js/chartist.min.js"></script> -->
 
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
 
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script> -->
 
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/js/demo.js"></script>
+<!-- <script src="assets/js/demo.js"></script> -->
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
