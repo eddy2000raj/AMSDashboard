@@ -1,24 +1,38 @@
-import {FETCH_USERS_PENDING, FETCH_USERS_SUCCESS, FETCH_USERS_ERROR} from '../actions/action';
+import Immutable from 'seamless-immutable';
 
-const initialState = {
-  users: [],
+const initialState = Immutable({
+  data: [],
   pending: false,
-  error: null
-};
+  error: null,
+  loaded:false
+});
+
+
+
 
 export default function appReducer(state = initialState, action) {
 
   switch (action.type) {
-    case FETCH_USERS_PENDING:
+    case "RESET_STATE":
+     return initialState
+
+ /*   case "FETCH_REQUESTED":
+    return {
+        ...state,loading:false,data:successResponse.data,responseType:action.responseType,componentId:action.componentId
+        }*/
+    
+    case "FETCH_DATA_PENDING":
       return {
         ...state,loading:true
       }
-    case FETCH_USERS_SUCCESS:
-      return {
-        ...state,loading:false,users:action.payload
-      }
+    case "FETCH_DATA_SUCCESS":
+        
+        console.log(action.type);
+        return {
+        ...state,loading:false,data:action.payload,responseType:action.responseType,componentId:action.componentId
+        }
 
-    case FETCH_USERS_ERROR:
+    case "FETCH_DATA_ERROR":
       return {
         ...state,loading:false,error: action.error
       }
@@ -28,6 +42,4 @@ export default function appReducer(state = initialState, action) {
 
 }
 
-export const getUsers = state => state.users;
-export const getUsersPending = state => state.pending;
-export const getUsersError = state => state.error;
+

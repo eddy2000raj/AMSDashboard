@@ -1,75 +1,94 @@
 import React, { Component } from 'react';
-//import logo from './logo.png';
 import Header from './header';
 import Graph from './graph';
 import ExtendedDataTable from './table';
+import ReactDataTable from './reactdatatable';
+import ReactGraph from './reactgraph';
+import properties from './queriesConfig';
+import TileContainer from './tileContainer';
+import axios from 'axios';
 
-//import { loadUsers} from "./actions/index" ;
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import fetchUsersAction from './actions/fetchUser';
-
-
+const API_URL=`${[process.env.REACT_APP_API_URL]}` ;
 
 class App extends Component {
 
-  dataSet = [
-    [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
-    [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
-    [ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" ],
-    [ "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" ],
-    [ "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700" ],
-    [ "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000" ],
-    [ "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500" ],
-    [ "Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900" ],
-    [ "Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500" ],
-    [ "Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600" ],
-    [ "Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560" ],
-    [ "Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000" ],
-    [ "Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600" ],
-    [ "Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500" ],
-    [ "Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750" ],
-    [ "Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500" ],
-    [ "Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000" ],
-    [ "Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500" ],
-    [ "Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000" ],
-    [ "Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500" ],
-    [ "Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000" ],
-    [ "Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000" ],
-    [ "Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450" ],
-    [ "Doris Wilder", "Sales Assistant", "Sydney", "3023", "2010/09/20", "$85,600" ],
-    [ "Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000" ],
-    [ "Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575" ],
-    [ "Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650" ],
-    [ "Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850" ],
-    [ "Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000" ],
-    [ "Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000" ],
-    [ "Michelle House", "Integration Specialist", "Sydney", "2769", "2011/06/02", "$95,400" ],
-    [ "Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500" ],
-    [ "Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000" ],
-    [ "Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500" ],
-    [ "Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050" ],
-    [ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
-    ];
 
+  constructor(props) {
 
+     super(props);
+
+     this.table1Config={
+       
+     }
+     this.table2Config={
+
+      "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                      var clients=['IBM','Ford','Nokia','Intel','SCB','CVS','LVS','PPG','Lenovo','Amgen','HZL','Nestle','Auchan','Tapestry','Ferrero'];
+                      if ( clients.includes(aData[0]) )
+                      //$(nRow).addClass( "hightlightRow" );
+                      return nRow;
+                    },
+       columnDefs: [
+            {
+                targets:0,
+                render: function ( data, type, row, meta ) {
+                    if(type === 'display'){
+                    
+            data='<a href="http://localhost:3000/customer.html?name=' + encodeURIComponent(data) + '&uniqueName=' + encodeURIComponent(row[3]) +'">' + data + '</a>'
+                    }
+
+                    return data;
+                }
+            },
+            { 
+              targets:3,
+              "visible": false,
+            },
+            { 
+              targets:4,
+              "visible": false,
+            }
+        ]
+     }  
+
+     this.listItems=[
+                              {"key":"Feature Expolation Program","value":"https://jam4.sapjam.com/c/jamatsap.com/wiki/show/BGj22agSAwIRN9u6lbnmuf"},
+                              {"key":"Ticket.csv","value":"http://uk-lonams1.ariba.com:93/Sourcing/Main/ad/fetchData/config.amvis.amsdashboard.GetCSVData?query=SELECT%0A%27%27%27%27%20%7C%7C%20t.AMVisSRNumber%20AS%20%22SR%20Number%22%2C%0At.AMVisDescription%20AS%20%22Description%22%2C%0Aacc.AMVisShortName%20AS%20%22Customer%22%2C%0Aacc.AMVisRegion%20AS%20%22Customer%20Region%22%2C%0At.AMVisContactName%20AS%20%22Reported%20By%22%2C%0At.AMVisStatus%20AS%20%22Status%22%2C%0At.AMVisSubStatus%20AS%20%22SubStatus%22%2C%0At.AMVisPriority%20AS%20%22Priority%22%2C%0At.AMVisSeverity%20AS%20%22Severity%22%2C%0Au.Name.PrimaryString%20AS%20%22Assigned%20To%22%2C%0Amanager.Name.PrimaryString%20AS%20%22Assigned%20To%20Manager%22%2C%0At.AMVisQueue%20AS%20%22Queue%22%2C%0At.AMVisAssignedTeam%20%22Team%22%2C%0AROUND(t.AMVisTimeOnAriba%20%2F%2060)%20AS%20%22On%20Ariba%20(h)%22%2C%0AROUND(t.AMVisTimeOnCustomerUpdate%20%2F%2060)%20AS%20%22On%20Ariba%20Customer%20Update%20(h)%22%2C%0AROUND(t.AMVisTimeOnCustomer%20%2F%2060)%20AS%20%22On%20Customer%20(h)%22%2C%0AROUND(t.AMVisTimeOnTSS%20%2F%2060)%20AS%20%22On%20TSS%20(h)%22%2C%0AROUND(t.AMVisTimeToSLA%20%2F%2060)%20AS%20%22Time%20To%20SLA%20(h)%22%2C%0ACASE%20SIGN(t.AMVisTimeToSLA)%20WHEN%20-1%20THEN%20FALSE%20ELSE%20TRUE%20END%20AS%20%22In%20SLA%22%2C%0At.AMVisDateCreated%20AS%20%22Date%20Created%22%2C%0At.AMVisDateClosed%20AS%20%22Date%20Closed%22%2C%0At.AMVisInstanceType%20AS%20%22Instance%20Type%22%0AFROM%20%0AAMVisTicket%20t%0ALEFT%20OUTER%20JOIN%20config.amvis.core.AMVisAccount%20acc%20USING%20t.AMVisAccount%0ALEFT%20OUTER%20JOIN%20ariba.user.core.User%20u%20USING%20t.AMVisAssignedTo%0ALEFT%20OUTER%20JOIN%20ariba.user.core.User%20manager%20USING%20u.Supervisor%0AWHERE%0At.AMVisSRNumber%20LIKE%20%2700%25%27%20AND%20(t.AMVisQueue%20IN%20(%27APP_MGMT%27%2C%27APP_MAINT_L3I%27%2C%27APP_MAINT_L3P%27%2C%27APP_MAINT_L2I%27%2C%27APP_MAINT_L2P%27%2C%27APP_MAINT_DEPLOY%27)%20%20OR%20u.Name.PrimaryString%20IS%20NOT%20NULL)"},
+                              {"key":"Finance","value":"/finance"},
+                              {"key":"Priority Tracker","value":"/priorityTracker"},
+                              {"key":"Customer Exception","value":"/exceptions"},
+                              {"key":"Manager Dashbord","value":"/managerDashboard"}];
   
-  componentWillMount(){
-   this.props.fetchUsers();
   }
-  render() {
     
+  render() {
+
     return (
       <div class="wrapper">
             <div class="main-panel">
-               <Header></Header>
+               <Header resource={this.listItems}></Header>
                <div class="content">
                     <div class="container-fluid" >
                         <div class="row">
-                            <div class="col-md-6"><Graph></Graph></div>
-                            <div class="col-md-6"><ExtendedDataTable data={this.dataSet}></ExtendedDataTable></div>
-                        </div>
+                            <div class="col-md-12">
+                              <TileContainer></TileContainer>
+                            </div>
+                            <div class="col-md-12">
+                              <ReactGraph id="1" title='AMS SR Count' category='Customer Region Wise Live' type='stackedArea' chartName='stackedAreaChart' useSQL='' query={properties.stack_chart}></ReactGraph>
+                            </div>
+                            <div class="col-md-12">
+                               <ReactGraph id="2" title='SR Backlog Data' category='Monthly Wise'  type='json' chartName='multiBarChart' useSQL='' query={properties.backlogData}></ReactGraph>
+                            </div>
+                            <div class="col-md-12">
+                               <ReactDataTable id="3" tableName="backlogData"  config={this.table1Config} tableTitle='Tickets Stats 2019'  type='json' query={properties.backlogData} useSQL=''></ReactDataTable>
+                            </div>
+                            <div class="col-md-12">
+                                <ReactDataTable id="4" config={this.table2Config} tableTitle='AMS Customer List'  type='table' query={properties.example2_table} useSQL=''></ReactDataTable>
+                            </div>
+                            <div class="col-md-12">
+                                <ReactDataTable id="5" config={this.table2Config} tableTitle='AMS Customer List'  type='table' query={properties.example2_table} useSQL=''></ReactDataTable>
+                            </div>
+                         </div>
                     </div>
                </div>
             </div>
@@ -80,19 +99,4 @@ class App extends Component {
 
 
 
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchUsers: fetchUsersAction
-}, dispatch)
-
-const mapPropsToState = state => {
-  return {
-    users:state.users,
-    loading:state.loading
-  }
-}
-
-export default connect(
-  mapPropsToState,
-  mapDispatchToProps
-)(App) ;
+export default App ;

@@ -1,77 +1,111 @@
 import React, { Component } from 'react';
 //import logo from './logo.png';
 //import { Link } from 'react-router-dom';
-import { ButtonToolbar,DropdownButton,MenuItem } from 'react-bootstrap';
+import { ButtonToolbar,DropdownButton,Nav,NavItem,Navbar,NavDropdown,DropdownItem,Dropdown } from 'react-bootstrap';
 import CustomeToggle from './customeToggle' ;
-
-
-function renderDropdownButton(title, i) {
-  return (
-    <DropdownButton
-      bsStyle={title.toLowerCase()}
-      title={title}
-      key={i}
-      id={`dropdown-basic-${i}`}
-    >
-      <MenuItem eventKey="1">Action</MenuItem>
-      <MenuItem eventKey="2">Another action</MenuItem>
-      <MenuItem eventKey="3" active>
-        Active Item
-      </MenuItem>
-      <MenuItem divider />
-      <MenuItem eventKey="4">Separated link</MenuItem>
-    </DropdownButton>
-  );
-}
 
 
 
 class Header extends Component {
 
-  BUTTONS = ['Default', 'Primary', 'Success', 'Info', 'Warning', 'Danger'];
+   constructor(props,context){
+      super(props, context);
+      this.handleClick = this.handleClick.bind(this);
+      this.handleBlur=this.handleBlur.bind(this);
+      this.handleNavbarToggal = this.handleNavbarToggal.bind(this);
+      this.resourceConfig=[{"title":"Report","link":"/report"}];
+
+      this.state={
+                  "DropClose":"dropdown-menu dropdown-menu-right",
+                  "NavbarToggal":"collapse navbar-collapse",
+                  "dropdown":"dropdown"
+                };
+   }
+
+   componentWillMount(){
+     document.addEventListener("mousedown",this.handleBlur,false);
+   }
+
+   handleNavbarToggal(e){
+      e.preventDefault();
+
+      if(this.state.NavbarToggal.indexOf("show")!=-1)
+        this.setState({"NavbarToggal":"collapse navbar-collapse"});
+      else
+       this.setState({"NavbarToggal":"collapse navbar-collapse show"});
+
+   }
+
+
+   handleClick(e) {
+    //e.preventDefault();
+    if(this.state.dropdown.indexOf("show")==-1){
+      //this.setState({"DropClose":"dropdown-menu dropdown-menu-right show"});
+      this.setState({"dropdown":"dropdown show"});
+    }
+      
+    else{
+     //this.setState({"DropClose":"dropdown-menu dropdown-menu-right"});
+     this.setState({"dropdown":"dropdown"});
+    }
+  }
+
+  handleBlur(e){
+    //e.preventDefault();
+
+    if(this.node.contains(e.target)){
+       return ;
+        
+    }else{
+     //this.setState({"DropClose":"dropdown-menu dropdown-menu-right"});
+     this.setState({"dropdown":"dropdown"});
+    }
+   
+  }
+
+
 
   
   render() {
 
     return (
-      <nav className="navbar navbar-default">
-            <div className="container-fluid">
-                <div className="navbar-header">
-                    <button type="button" className="navbar-toggle">
-                        <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar bar1"></span>
-                        <span className="icon-bar bar2"></span>
-                        <span className="icon-bar bar3"></span>
-                    </button>
-                    <a className="navbar-brand" data-target="#">SAP Ariba AMS Dashboard</a>
-                </div>
-                <div className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav navbar-right">
-                        
-                        <li>
-                            <a href="#/team">
-                                <i className="ti-user"></i>
-                                <p>Team</p>
-                            </a>
-                        </li>
-                   
-                        <CustomeToggle>Resources</CustomeToggle>
-                       
-                       
-                        <li>
-                            <a href="#/">
-                                <i className="ti-settings"></i>
-                                <p>Settings</p>
-                            </a>
-                        </li>
-                    </ul>
 
-                </div>
-            </div>
-            
- </nav>
+  <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+  <a class="navbar-brand" href="#">SAP Ariba AMS Dashboard</a>
+  <button class="navbar-toggler" type="button" onClick={this.handleNavbarToggal} data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class={this.state.NavbarToggal} id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      {/*<li class="nav-item">
+        <a class="nav-link" href="#">Switch Dashboard</a>
+      </li>*/}
+      <li class="nav-item">
+        <a class="nav-link" href="#">Team</a>
+      </li>
+      <li class={`nav-item ${this.state.dropdown}`}  ref={node=>this.node=node}>
+        <a class="nav-link dropdown-toggle"  onClick={this.handleClick}   href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Resources
+        </a>
+        <div className={this.state.DropClose} aria-labelledby="navbarDropdown">
+          {
+            this.props.resource.map((a)=><a class="dropdown-item" href={a.value}>{a.key}</a>)
+          }
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Settings</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+        
+
            );
   }
 }
 
 export default Header ;
+
